@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Initialisation du panier
 let cart = [];
