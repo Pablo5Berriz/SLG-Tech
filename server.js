@@ -25,6 +25,11 @@ const commandesFilePath = path.join(__dirname, 'commandes.json');
 
 const cartesFilePath = path.join(__dirname, 'data/cartes.json');
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+
 // Récupérer les catégories
 app.get('/api/categories', (req, res) => {
     fs.readFile('./data/categories.json', 'utf8', (err, data) => {
