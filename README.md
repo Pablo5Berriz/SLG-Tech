@@ -1,5 +1,5 @@
 # SLG-Tech
-Le Projet
+Le projet
 SLG Tech est une boutique en ligne spécialisée dans la vente d’appareils électroniques de qualité, basée dans la province du Québec, au Canada. Le projet vise à concevoir un site web e-commerce moderne, interactif et performant pour offrir aux clients une expérience d’achat fluide et sécurisée, tout en mettant en avant l’expertise de SLG Tech dans le domaine des produits électroniques. Le site proposera une large gamme de produits électroniques, allant des appareils ménagers aux équipements professionnels, avec des fonctionnalités avancées pour gérer les commandes, les paiements, et les services après-vente.
 
 Le Projet
