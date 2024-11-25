@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SLG Tech - Découvrez notre large gamme de produits électroniques de qualité. Livraison rapide et garantie qualité.">
+    <title>SLG Tech - Boutique d'Appareils Électroniques</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Section de bienvenue -->
+        <section class="hero">
+            <h1>Bienvenue chez SLG Tech</h1>
+            <p>Explorez notre large gamme de produits électroniques et profitez d'offres exceptionnelles.</p>
+            <a href="produits.html" class="cta">Découvrir nos produits</a>
+        </section>
+
+        <!-- Section des catégories -->
+        <section class="categories">
+            <h2>Catégories Populaires</h2>
+            <div class="category-grid" id="category-grid">
+                <!-- Les catégories seront injectées ici -->
+            </div>
+        </section>
+
+        <!-- Section des produits en vedette -->
+        <section class="featured-products">
+            <h2>Produits en Vedette</h2>
+            <div class="product-grid" id="product-grid">
+                <!-- Les produits seront injectés ici -->
+            </div>
+        </section>
+
+        <!-- Section d'informations supplémentaires -->
+        <section class="info-section">
+            <h2>Pourquoi choisir SLG Tech ?</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Livraison rapide</h3>
+                    <p>Recevez vos produits en un temps record grâce à nos services logistiques fiables.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Garantie qualité</h3>
+                    <p>Tous nos produits sont soigneusement sélectionnés pour garantir votre satisfaction.</p>
+                </div>
+                <div class="info-item">
+                    <h3>Service client dédié</h3>
+                    <p>Notre équipe est disponible 7j/7 pour répondre à toutes vos questions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="partners">
+            <h2>Nos Partenaires</h2>
+            <div class="partner-grid">
+                <!-- Les logos des partenaires seront injectés ici -->
+            </div>
+        </section>
+        
+        <section class="customer-reviews">
+            <h2>Ce que disent nos clients</h2>
+            <div class="review-grid">
+                <!-- Les avis des clients seront injectés ici -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function displayCategories() {
+            const categories = await fetchData("categories");
+            if (!categories) {
+                console.error("Les catégories n'ont pas pu être chargées.");
+                return;
+            }
+        
+            const categoryGrid = document.getElementById("category-grid");
+            if (!categoryGrid) {
+                console.error("Le conteneur des catégories est introuvable.");
+                return;
+            }
+        
+            categoryGrid.innerHTML = ""; // Réinitialise les catégories
+        
+            categories.forEach((category) => {
+                const div = document.createElement("div");
+                div.classList.add("category-item");
+                div.innerHTML = `
+                    <img src="images/categories/${category.nom}.jpg" alt="${category.nom}">
+                    <h3>${category.nom}</h3>
+                `;
+        
+                // Ajouter un événement de clic pour rediriger vers la page catégorie
+                div.addEventListener("click", () => {
+                    // Redirige vers categorie.html avec le nom de la catégorie comme paramètre
+                    window.location.href = `categorie.html?categorie=${encodeURIComponent(category.nom)}`;
+                });
+        
+                categoryGrid.appendChild(div);
+            });
+        }
+        
+        // Afficher les produits en vedette
+        async function displayFeaturedProducts() {
+            const produits = await fetchData("produits");
+            if (!produits || produits.length === 0) {
+                console.error("Aucun produit disponible.");
+                return;
+            }
+        
+            const produitGrid = document.getElementById("product-grid");
+            if (!produitGrid) {
+                console.error("Le conteneur des produits en vedette est introuvable.");
+                return;
+            }
+        
+            produits.slice(0, 4).forEach((produit) => {
+                const div = document.createElement("div");
+                div.classList.add("product-item");
+                div.innerHTML = `
+                    <img src="images/produits/${produit.nom}.jpg" alt="${produit.nom}">
+                    <h3>${produit.nom}</h3>
+                    <p>Prix : ${produit.prix} CAD</p>
+                    <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
+                `;
+                produitGrid.appendChild(div);
+            });
+        }
+
+        async function displayPartners() {
+            const response = await fetch('/api/partenaires');
+            const partners = await response.json();
+        
+            const partnerGrid = document.querySelector('.partner-grid');
+            partnerGrid.innerHTML = ""; // Réinitialise la grille
+        
+            partners.forEach(partner => {
+                const img = document.createElement('img');
+                img.src = partner.logo;
+                img.alt = partner.nom;
+                partnerGrid.appendChild(img);
+            });
+        }
+        
+        // Charger les avis des clients
+        async function displayCustomerReviews() {
+            const response = await fetch('/api/avis');
+            const reviews = await response.json();
+        
+            const reviewGrid = document.querySelector('.review-grid');
+            reviewGrid.innerHTML = ""; // Réinitialise les avis
+        
+            reviews.forEach(review => {
+                const div = document.createElement('div');
+                div.classList.add('review-item');
+                div.innerHTML = `
+                    <h3>${review.nom}</h3>
+                    <p>"${review.commentaire}"</p>
+                    <div class="rating">${'⭐'.repeat(review.note)}</div>
+                `;
+                reviewGrid.appendChild(div);
+            });
+        }
+
+        // Ajouter l'appel dans l'initialisation
+        async function init() {
+            await displayCategories();
+            await displayFeaturedProducts();
+            await displayCustomerReviews();
+            await displayPartners();
+        }
+        
+        // Initialiser la page
+        async function init() {
+            await displayCategories();
+            await displayFeaturedProducts();
+            await displayCustomerReviews(); // Charge les avis des clients
+            await displayPartners(); // Charge les partenaires
+        }
+
+        async function fetchData(type) {
+            try {
+                const response = await fetch(`/api/${type}`);
+                if (!response.ok) throw new Error(`Erreur lors du chargement de ${type}`);
+                return await response.json();
+            } catch (error) {
+                console.error(`Erreur avec ${type}:`, error);
+                return null;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', init);        
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

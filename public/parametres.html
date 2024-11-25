@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramètres</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-settings-container" class="user-settings-container">
+                <i class="fa fa-cog settings-icon" id="settings-icon"></i>
+                <ul class="dropdown-menu hidden" id="dropdown-menu">
+                    <li><a href="profile.html"><i class="fa fa-user"></i> Profil</a></li>
+                    <li><a href="parametres.html"><i class="fa fa-cogs"></i> Paramètres</a></li>
+                    <li><a href="#" id="logout"><i class="fa fa-sign-out-alt"></i> Déconnexion</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="settings-section">
+            <h1>Paramètres</h1>
+
+            <!-- Section Notifications -->
+            <div class="settings-group">
+                <h2>Paramètres des Notifications</h2>
+                <form id="notification-settings-form">
+                    <label>
+                        <input type="checkbox" id="email-notifications" checked>
+                        Recevoir les notifications par email
+                    </label>
+                    <label>
+                        <input type="checkbox" id="sms-notifications">
+                        Recevoir les notifications par SMS
+                    </label>
+                    <label>
+                        <input type="checkbox" id="push-notifications">
+                        Recevoir les notifications push
+                    </label>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+
+            <!-- Section Confidentialité -->
+            <div class="settings-group">
+                <h2>Confidentialité</h2>
+                <form id="privacy-settings-form">
+                    <label>
+                        <input type="radio" name="profile-visibility" value="public" checked>
+                        Profil public
+                    </label>
+                    <label>
+                        <input type="radio" name="profile-visibility" value="private">
+                        Profil privé
+                    </label>
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </form>
+            </div>
+
+            <!-- Section Changer le mot de passe -->
+            <div class="settings-group">
+                <h2>Changer le mot de passe</h2>
+                <form id="change-password-form">
+                    <label for="current-password">Mot de passe actuel :</label>
+                    <input type="password" id="current-password" placeholder="Entrez votre mot de passe actuel" required>
+                    
+                    <label for="new-password">Nouveau mot de passe :</label>
+                    <input type="password" id="new-password" placeholder="Entrez un nouveau mot de passe" required>
+                    
+                    <label for="confirm-password">Confirmer le mot de passe :</label>
+                    <input type="password" id="confirm-password" placeholder="Confirmez votre nouveau mot de passe" required>
+                    
+                    <button type="submit" class="btn btn-primary">Mettre à jour</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const notificationForm = document.getElementById("notification-settings-form");
+            const privacyForm = document.getElementById("privacy-settings-form");
+            const passwordForm = document.getElementById("change-password-form");
+
+            // Gérer les modifications des notifications
+            notificationForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const emailNotifications = document.getElementById("email-notifications").checked;
+                const smsNotifications = document.getElementById("sms-notifications").checked;
+                const pushNotifications = document.getElementById("push-notifications").checked;
+
+                console.log("Notifications :", { emailNotifications, smsNotifications, pushNotifications });
+                alert("Paramètres des notifications enregistrés avec succès.");
+            });
+
+            // Gérer les modifications de confidentialité
+            privacyForm.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const visibility = document.querySelector('input[name="profile-visibility"]:checked').value;
+                console.log("Visibilité du profil :", visibility);
+                alert("Paramètres de confidentialité enregistrés avec succès.");
+            });
+
+            // Gérer le changement de mot de passe
+            passwordForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                const currentPassword = document.getElementById("current-password").value.trim();
+                const newPassword = document.getElementById("new-password").value.trim();
+                const confirmPassword = document.getElementById("confirm-password").value.trim();
+
+                if (newPassword !== confirmPassword) {
+                    alert("Les mots de passe ne correspondent pas.");
+                    return;
+                }
+
+                // Envoyer la requête pour changer le mot de passe
+                try {
+                    const response = await fetch("/api/change-password", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ currentPassword, newPassword }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Erreur lors du changement de mot de passe.");
+                    }
+
+                    alert("Mot de passe changé avec succès !");
+                } catch (error) {
+                    console.error(error);
+                    alert("Impossible de changer le mot de passe.");
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const settingsIcon = document.getElementById("settings-icon");
+            const dropdownMenu = document.getElementById("dropdown-menu");
+        
+            // Afficher/Masquer le menu lorsqu'on clique sur l'icône des paramètres
+            settingsIcon.addEventListener("click", () => {
+                dropdownMenu.classList.toggle("show");
+            });
+        
+            // Cacher le menu si on clique en dehors
+            document.addEventListener("click", (event) => {
+                if (!settingsIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove("show");
+                }
+            });
+        
+            // Déconnexion
+            const logoutButton = document.getElementById("logout");
+            logoutButton.addEventListener("click", () => {
+                if (confirm("Voulez-vous vraiment vous déconnecter ?")) {
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                }
+            });
+        });
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

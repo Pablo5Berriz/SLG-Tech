@@ -1,0 +1,22 @@
+[
+    {
+        "nom": "Alice Dupont",
+        "commentaire": "Produit incroyable, livraison rapide !",
+        "note": 5
+    },
+    {
+        "nom": "Jean Martin",
+        "commentaire": "Très satisfait de la qualité du service client.",
+        "note": 4
+    },
+    {
+        "nom": "Sophie Legrand",
+        "commentaire": "Livraison un peu lente, mais produit conforme.",
+        "note": 3
+    },
+    {
+        "nom": "Marc Durand",
+        "commentaire": "Excellente expérience, je recommande !",
+        "note": 5
+    }
+]

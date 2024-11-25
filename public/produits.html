@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits - SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Titre de la page -->
+        <section class="products-header">
+            <h1>Nos Produits</h1>
+            <p>Découvrez notre large gamme de produits électroniques adaptés à tous vos besoins.</p>
+        </section>
+
+        <!-- Grille des produits -->
+        <section class="products-grid">
+            <div id="product-list" class="product-list">
+                <!-- Les produits seront chargés dynamiquement ici -->
+            </div>
+        </section>
+
+        <!-- Pagination -->
+        <section class="pagination">
+            <div id="pagination-controls">
+                <!-- Les boutons de pagination seront générés ici -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function displayAllProducts() {
+            const produits = await fetchData('produits');
+        
+            if (!produits || produits.length === 0) {
+                console.error("Aucun produit disponible.");
+                document.getElementById('product-list').innerHTML = '<p>Aucun produit disponible pour le moment.</p>';
+                return;
+            }
+        
+            const productList = document.getElementById('product-list');
+            produits.forEach(produit => {
+                const div = document.createElement('div');
+                div.classList.add('product-item');
+                div.innerHTML = `
+                    <img src="../Images/${produit.nom}.jpg" alt="${produit.nom}">
+                    <h3>${produit.nom}</h3>
+                    <p><strong>Catégorie :</strong> ${produit.categorie}</p>
+                    <p><strong>Description :</strong> ${produit.description}</p>
+                    <p><strong>Prix : ${produit.prix} CAD </strong></p>
+                    <p><strong>Stock : ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</strong></p>
+                    <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
+                `;
+                productList.appendChild(div);
+            });
+        }
+        
+        // Initialiser la page Produits
+        document.addEventListener('DOMContentLoaded', async () => {
+            await displayAllProducts();
+        });
+        
+        
+        let currentPage = 1;
+        const itemsPerPage = 8;
+
+        // Charger et afficher les produits en fonction de la page
+        async function displayPaginatedProducts(page = 1) {
+            try {
+                const produits = await fetchData('produits'); // Assurez-vous que cette fonction existe
+                if (!produits || produits.length === 0) {
+                    console.error("Aucun produit disponible.");
+                    document.getElementById('product-list').innerHTML = '<p>Aucun produit disponible pour le moment.</p>';
+                    return;
+                }
+
+                const startIndex = (page - 1) * itemsPerPage;
+                const endIndex = startIndex + itemsPerPage;
+                const paginatedProducts = produits.slice(startIndex, endIndex);
+
+                const productList = document.getElementById('product-list');
+                productList.innerHTML = ''; // Réinitialiser l'affichage
+
+                paginatedProducts.forEach(produit => {
+                    const div = document.createElement('div');
+                    div.classList.add('product-item');
+                    div.innerHTML = `
+                        <img src="../Images/Produits/${produit.nom}.jpg" alt="${produit.nom}">
+                        <h3>${produit.nom}</h3>
+                        <p><strong>Catégorie :</strong> ${produit.categorie}</p>
+                        <p><strong>Prix :</strong> ${produit.prix} CAD</p>
+                        <p><strong>Stock :</strong> ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</p>
+                        <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
+                    `;
+                    productList.appendChild(div);
+                });
+
+                displayPaginationControls(produits.length, page);
+            } catch (error) {
+                console.error('Erreur lors du chargement des produits :', error);
+                document.getElementById('product-list').innerHTML = '<p>Une erreur est survenue. Veuillez réessayer plus tard.</p>';
+            }
+        }
+
+        // Générer les boutons de pagination
+        function displayPaginationControls(totalItems, currentPage) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const paginationControls = document.getElementById('pagination-controls');
+            paginationControls.innerHTML = ''; // Réinitialiser les contrôles
+
+            // Bouton Précédent
+            if (currentPage > 1) {
+                const prevButton = document.createElement('button');
+                prevButton.textContent = 'Précédent';
+                prevButton.addEventListener('click', () => {
+                    displayPaginatedProducts(currentPage - 1);
+                });
+                paginationControls.appendChild(prevButton);
+            }
+
+            // Boutons pour chaque page
+            for (let i = 1; i <= totalPages; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.textContent = i;
+                if (i === currentPage) {
+                    pageButton.classList.add('active');
+                }
+                pageButton.addEventListener('click', () => {
+                    displayPaginatedProducts(i);
+                });
+                paginationControls.appendChild(pageButton);
+            }
+
+            // Bouton Suivant
+            if (currentPage < totalPages) {
+                const nextButton = document.createElement('button');
+                nextButton.textContent = 'Suivant';
+                nextButton.addEventListener('click', () => {
+                    displayPaginatedProducts(currentPage + 1);
+                });
+                paginationControls.appendChild(nextButton);
+            }
+        }
+
+        // Initialisation
+        document.addEventListener("DOMContentLoaded", () => {
+            displayPaginatedProducts(currentPage);
+        });
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

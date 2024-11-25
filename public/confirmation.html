@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmation de commande | SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Section Panier -->
+        <section class="section cart-summary">
+            <h1>Articles dans votre commande</h1>
+            <div id="cart-items">
+                <!-- Les articles du panier seront insérés dynamiquement ici -->
+            </div>
+        </section>
+
+        <!-- Section Livraison -->
+        <section class="section delivery-info">
+            <h1>Adresse de livraison</h1>
+            <div class="info-block">
+                <p id="delivery-address">Chargement...</p>
+                <div id="address-form-container" class="form-container hidden">
+                    <form id="address-form">
+                        <label for="address">Adresse :</label>
+                        <input type="text" id="address" name="address" required placeholder="Entrez votre adresse complète">
+                        <label for="city">Ville :</label>
+                        <input type="text" id="city" name="city" required placeholder="Entrez votre ville">
+                        <label for="postal-code">Code postal :</label>
+                        <input type="text" id="postal-code" name="postal-code" required placeholder="Entrez votre code postal">
+                        <label>
+                            <input type="checkbox" id="is-default"> Définir comme adresse par défaut
+                        </label>
+                        <button type="submit" class="btn save-button">Enregistrer</button>
+                    </form>
+                </div>
+                <div class="actions">
+                    <button id="add-address" class="btn action-button" aria-label="Ajouter une adresse">Ajouter une adresse</button>
+                    <button id="edit-address" class="btn action-button" aria-label="Modifier l'adresse">Modifier</button>
+                    <button id="delete-address" class="btn action-button" aria-label="Supprimer l'adresse">Supprimer</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Paiement -->
+        <section class="section payment-info">
+            <h1>Mode de paiement</h1>
+            <div class="info-block">
+                <p id="payment-method">Aucun mode de paiement sélectionné.</p>
+                <div id="payment-selection">
+                    <label><input type="radio" name="payment-option" value="paypal"> PayPal</label>
+                    <label><input type="radio" name="payment-option" value="interac"> Interac e-Transfer</label>
+                    <label><input type="radio" name="payment-option" value="credit-card"> Carte de Crédit</label>
+                </div>
+            </div>
+            <div id="payment-forms">
+                <form id="paypal-form" class="hidden">
+                    <h3>Informations PayPal</h3>
+                    <label for="paypal-email">Email PayPal :</label>
+                    <input type="email" id="paypal-email" name="paypal-email" placeholder="Entrez votre email PayPal" required>
+                    <button type="submit" class="btn">Enregistrer</button>
+                </form>
+            
+                <form id="interac-form" class="hidden">
+                    <h3>Informations Interac e-Transfer</h3>
+                    <label for="interac-email">Email :</label>
+                    <input type="email" id="interac-email" name="interac-email" placeholder="Entrez votre email" required>
+                    <label for="interac-phone">Téléphone :</label>
+                    <input type="tel" id="interac-phone" name="interac-phone" placeholder="Entrez votre numéro de téléphone" required>
+                    <button type="submit" class="btn">Enregistrer</button>
+                </form>
+            
+                <form id="credit-card-form" class="hidden">
+                    <h3>Informations Carte de Crédit</h3>
+                    <label for="card-number">Numéro de carte :</label>
+                    <input type="text" id="card-number" name="card-number" placeholder="Entrez le numéro de la carte" required>
+                    <label for="card-holder">Titulaire :</label>
+                    <input type="text" id="card-holder" name="card-holder" placeholder="Nom sur la carte" required>
+                    <label for="expiry-date">Date d'expiration :</label>
+                    <input type="month" id="expiry-date" name="expiry-date" required>
+                    <button type="submit" class="btn">Enregistrer</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Résumé du total -->
+        <section class="section total-summary">
+            <h1>Résumé du total</h1>
+            <div class="summary-item">
+                <p><strong>Sous-total :</strong><span id="subtotal">0.00 CAD</span></p>
+            </div>
+            <div class="summary-item">
+                <p><strong>Frais de livraison :</strong><span id="delivery-fee">0.00 CAD</span></p>
+            </div>
+            <div class="summary-item">
+                <p><strong>Taxes :</strong><span id="taxes">0.00 CAD</span></p>
+            </div>
+            <hr>
+            <div class="summary-total">
+                <p><strong>Montant total :</strong> <span id="total">0.00 CAD</span></p>
+            </div>
+        </section>
+
+        <!-- Boutons Confirmation -->
+        <div class="confirmation">
+            <button id="cancel-order" class="cancel-button" aria-label="Annuler la commande">Annuler la commande</button>
+            <button id="confirm-order" class="confirm-button" aria-label="Passer la commande">Passer la commande</button>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const deliveryAddressElement = document.getElementById('delivery-address');
+        const addressFormContainer = document.getElementById('address-form-container');
+        const addressForm = document.getElementById('address-form');
+        const addAddressButton = document.getElementById('add-address');
+        const editAddressButton = document.getElementById('edit-address');
+        const deleteAddressButton = document.getElementById('delete-address');
+        const paymentMethodElement = document.getElementById('payment-method');
+        const paymentSelection = document.getElementById('payment-selection');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const subtotalElement = document.getElementById('subtotal');
+        const deliveryFeeElement = document.getElementById('delivery-fee');
+        const taxesElement = document.getElementById('taxes');
+        const totalElement = document.getElementById('total');
+        const confirmOrderButton = document.getElementById('confirm-order');
+        const cancelOrderButton = document.getElementById('cancel-order');
+        
+            // Constants
+            const TPS_RATE = 0.05; // Taxe TPS
+            const TVQ_RATE = 0.09975; // Taxe TVQ
+            const DELIVERY_FEE = 5.00; // Frais de livraison par défaut
+        
+            // Fonction pour afficher les articles du panier
+            function displayCartItems() {
+                cartItemsContainer.innerHTML = '';
+                let subtotal = 0;
+        
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p>Votre panier est vide.</p>';
+                    updateSummary(0);
+                    return;
+                }
+        
+                cart.forEach(item => {
+                    const itemTotal = item.prix * item.quantite;
+                    subtotal += itemTotal;
+        
+                    const cartItem = document.createElement('div');
+                    cartItem.classList.add('cart-item');
+                    cartItem.innerHTML = `
+                        <div>
+                            <img src="/images/${item.nom}.jpg" alt="${item.nom}" class="item-image">
+                            <p><strong>${item.nom}</strong></p>
+                            <p><strong>Quantité :</strong> ${item.quantite}</p>
+                            <p><strong>Prix :</strong> ${item.prix.toFixed(2)} CAD</p>
+                            <p><strong>Sous-total :</strong> ${(itemTotal).toFixed(2)} CAD</p>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+        
+                updateSummary(subtotal);
+            }
+        
+            // Mettre à jour le résumé des totaux
+            function updateSummary(subtotal) {
+                const tps = subtotal * TPS_RATE;
+                const tvq = subtotal * TVQ_RATE;
+                const totalWithTaxes = subtotal + tps + tvq + DELIVERY_FEE;
+        
+                subtotalElement.textContent = `${subtotal.toFixed(2)} CAD`;
+                taxesElement.textContent = `${(tps + tvq).toFixed(2)} CAD`;
+                deliveryFeeElement.textContent = `${DELIVERY_FEE.toFixed(2)} CAD`;
+                totalElement.textContent = `${totalWithTaxes.toFixed(2)} CAD`;
+        
+                localStorage.setItem('cartTotalWithTaxesAndDelivery', totalWithTaxes.toFixed(2));
+            }
+        
+            // Charger les adresses enregistrées
+            function loadAddress() {
+                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
+                const defaultAddress = addresses.find(address => address.isDefault);
+        
+                if (defaultAddress) {
+                    deliveryAddressElement.textContent = `${defaultAddress.address}, ${defaultAddress.city}, ${defaultAddress.postalCode}`;
+                } else {
+                    deliveryAddressElement.textContent = "Aucune adresse spécifiée.";
+                }
+            }
+        
+            // Afficher le formulaire d'ajout/modification
+            function showForm(address = null) {
+                addressFormContainer.classList.remove('hidden');
+                if (address) {
+                    document.getElementById('address').value = address.address || '';
+                    document.getElementById('city').value = address.city || '';
+                    document.getElementById('postal-code').value = address.postalCode || '';
+                    document.getElementById('is-default').checked = address.isDefault || false;
+                } else {
+                    addressForm.reset();
+                }
+            }
+        
+            // Masquer le formulaire
+            function hideForm() {
+                addressFormContainer.classList.add('hidden');
+                addressForm.reset();
+            }
+        
+            // Ajouter une adresse
+            addAddressButton.addEventListener('click', () => showForm());
+        
+            // Modifier une adresse
+            editAddressButton.addEventListener('click', () => {
+                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
+                const defaultAddress = addresses.find(address => address.isDefault);
+        
+                if (!defaultAddress) {
+                    alert("Aucune adresse à modifier.");
+                    return;
+                }
+        
+                showForm(defaultAddress);
+            });
+        
+            // Supprimer une adresse
+            deleteAddressButton.addEventListener('click', () => {
+                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
+                const defaultAddressIndex = addresses.findIndex(address => address.isDefault);
+        
+                if (defaultAddressIndex === -1) {
+                    alert("Aucune adresse à supprimer.");
+                    return;
+                }
+        
+                addresses.splice(defaultAddressIndex, 1);
+        
+                if (addresses.length > 0) {
+                    addresses[0].isDefault = true;
+                }
+        
+                localStorage.setItem('addresses', JSON.stringify(addresses));
+                alert("Adresse supprimée avec succès.");
+                loadAddress();
+            });
+        
+            // Enregistrer une adresse
+            addressForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+        
+                const newAddress = {
+                    address: document.getElementById('address').value.trim(),
+                    city: document.getElementById('city').value.trim(),
+                    postalCode: document.getElementById('postal-code').value.trim(),
+                    isDefault: document.getElementById('is-default').checked
+                };
+        
+                let addresses = JSON.parse(localStorage.getItem('addresses')) || [];
+        
+                if (newAddress.isDefault) {
+                    addresses = addresses.map(address => ({ ...address, isDefault: false }));
+                }
+        
+                addresses.push(newAddress);
+        
+                localStorage.setItem('addresses', JSON.stringify(addresses));
+                alert("Adresse enregistrée avec succès.");
+                hideForm();
+                loadAddress();
+            });
+
+            // Gérer le changement de mode de paiement
+            paymentSelection.addEventListener('change', (e) => {
+                const selectedPaymentMethod = e.target.value;
+
+                // Cacher tous les formulaires de paiement
+                document.getElementById('paypal-form').classList.add('hidden');
+                document.getElementById('interac-form').classList.add('hidden');
+                document.getElementById('credit-card-form').classList.add('hidden');
+
+                // Afficher le formulaire correspondant
+                if (selectedPaymentMethod === 'paypal') {
+                    document.getElementById('paypal-form').classList.remove('hidden');
+                } else if (selectedPaymentMethod === 'interac') {
+                    document.getElementById('interac-form').classList.remove('hidden');
+                } else if (selectedPaymentMethod === 'credit-card') {
+                    document.getElementById('credit-card-form').classList.remove('hidden');
+                }
+
+                // Sauvegarder la méthode sélectionnée
+                localStorage.setItem('paymentMethod', selectedPaymentMethod);
+            });
+
+            // Sauvegarder les informations PayPal
+            document.getElementById('paypal-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const paypalEmail = document.getElementById('paypal-email').value.trim();
+                localStorage.setItem('paypalInfo', JSON.stringify({ email: paypalEmail }));
+                alert('Informations PayPal enregistrées avec succès !');
+                document.getElementById('paypal-form').classList.add('hidden');
+            });
+
+            // Sauvegarder les informations Interac e-Transfer
+            document.getElementById('interac-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const interacEmail = document.getElementById('interac-email').value.trim();
+                const interacPhone = document.getElementById('interac-phone').value.trim();
+                localStorage.setItem('interacInfo', JSON.stringify({ email: interacEmail, phone: interacPhone }));
+                alert('Informations Interac enregistrées avec succès !');
+                document.getElementById('interac-form').classList.add('hidden');
+            });
+
+            // Sauvegarder les informations Carte de Crédit
+            document.getElementById('credit-card-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const cardNumber = document.getElementById('card-number').value.trim();
+                const cardHolder = document.getElementById('card-holder').value.trim();
+                const expiryDate = document.getElementById('expiry-date').value.trim();
+                localStorage.setItem('creditCardInfo', JSON.stringify({ cardNumber, cardHolder, expiryDate }));
+                alert('Informations Carte de Crédit enregistrées avec succès !');
+                document.getElementById('credit-card-form').classList.add('hidden');
+            });
+
+            // Vérifier et charger le mode de paiement
+            function loadPaymentMethod() {
+                const savedPaymentMethod = localStorage.getItem('paymentMethod');
+                if (savedPaymentMethod) {
+                    document.querySelector(`input[value="${savedPaymentMethod}"]`).checked = true;
+                    paymentMethodElement.textContent = `Mode de paiement : ${
+                        savedPaymentMethod === 'credit-card' ? 'Carte de Crédit' : savedPaymentMethod === 'paypal' ? 'PayPal' : 'Interac e-Transfer'
+                    }`;
+                } else {
+                    paymentMethodElement.textContent = "Aucun mode de paiement sélectionné.";
+                }
+            }
+        
+            // Annuler la commande
+            cancelOrderButton.addEventListener('click', () => {
+                if (confirm('Êtes-vous sûr de vouloir annuler votre commande ?')) {
+                    localStorage.removeItem('cart');
+                    alert('Votre commande a été annulée.');
+                    window.location.href = 'index.html';
+                }
+            });
+        
+            // Confirmation de la commande
+            confirmOrderButton.addEventListener('click', () => {
+                if (cart.length === 0) {
+                    alert('Votre panier est vide.');
+                    return;
+                }
+        
+                const shippingDetails = JSON.parse(localStorage.getItem('shippingDetails')) || {};
+                if (!shippingDetails.address || !shippingDetails.paymentMethod) {
+                    alert('Veuillez renseigner votre adresse et votre mode de paiement.');
+                    return;
+                }
+        
+                const orderNumber = `SLG${Date.now()}`;
+                localStorage.setItem('orderNumber', orderNumber);
+        
+                alert('Commande confirmée avec succès !');
+                window.location.href = 'remerciement.html';
+            });
+        
+            // Initialisation
+            displayCartItems();
+            loadAddress();
+            hideForm();
+            loadPaymentMethod();
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

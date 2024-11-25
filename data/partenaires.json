@@ -1,0 +1,10 @@
+[
+    { "nom": "Canada Post", "logo": "images/Partenaires/canada-post.png" },
+    { "nom": "Stripe", "logo": "images/Partenaires/stripe.png" },
+    { "nom": "PayPal", "logo": "images/Partenaires/paypal.png" },
+    { "nom": "Infotech Solutions", "logo": "images/Partenaires/infotech-solutions.png" },
+    { "nom": "Samsung Canada", "logo": "images/Partenaires/samsung.png" },
+    { "nom": "Apple Canada", "logo": "images/Partenaires/apple.png" },
+    { "nom": "LiveChat", "logo": "images/Partenaires/livechat.png" },
+    { "nom": "Mobile Klinik", "logo": "images/Partenaires/mobile-klinik.png" }
+]

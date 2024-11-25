@@ -1,0 +1,10 @@
+[
+    {
+      "id": 1,
+      "user_id": 101,
+      "nom_sur_la_carte": "Jean Dupont",
+      "numero_tronque": "**** **** **** 1234",
+      "date_expiration": "12/2025",
+      "token": "tok_example_123"
+    }
+  ]

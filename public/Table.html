@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLG Tech</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="rapport">
+            <h1>Rapport de Vente - Boutique d'Appareils Électroniques</h1>
+
+            <h2>Résumé de la boutique</h2>
+            <p>Notre boutique d'appareils électroniques propose une large gamme de produits, allant des smartphones aux ordinateurs portables, en passant par les accessoires électroniques. Nous avons enregistré un total de <strong>20 clients</strong>, avec un inventaire de <strong>50 produits</strong> répartis dans <strong>10 catégories de produits</strong>.</p>
+            <p>Les ventes sont enregistrées sur une période donnée, avec un total de <strong>25 ventes</strong> réalisées jusqu'à présent. Ce rapport présente une analyse détaillée des ventes, des produits populaires, ainsi qu'un historique des ventes et des informations sur les clients.</p>
+
+            <!-- Tableau 1 : Clients -->
+            <h3>Liste des clients</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Client</th>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Téléphone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jean Dupont</td>
+                        <td>jean.dupont@email.com</td>
+                        <td>+33 6 12 34 56 78</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Claire Martin</td>
+                        <td>claire.martin@email.com</td>
+                        <td>+33 6 87 65 43 21</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Paul Leclerc</td>
+                        <td>paul.leclerc@email.com</td>
+                        <td>+33 6 98 76 54 32</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Sophie Bernard</td>
+                        <td>sophie.bernard@email.com</td>
+                        <td>+33 6 23 45 67 89</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Marc Lefevre</td>
+                        <td>marc.lefevre@email.com</td>
+                        <td>+33 6 34 56 78 90</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Isabelle Dupuis</td>
+                        <td>isabelle.dupuis@email.com</td>
+                        <td>+33 6 45 67 89 01</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>David Moreau</td>
+                        <td>david.moreau@email.com</td>
+                        <td>+33 6 56 78 90 12</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Chloé Roux</td>
+                        <td>chloe.roux@email.com</td>
+                        <td>+33 6 67 89 01 23</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Louis Caron</td>
+                        <td>louis.caron@email.com</td>
+                        <td>+33 6 78 90 12 34</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Emma Durand</td>
+                        <td>emma.durand@email.com</td>
+                        <td>+33 6 89 01 23 45</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Lucas Lefevre</td>
+                        <td>lucas.lefevre@email.com</td>
+                        <td>+33 6 90 12 34 56</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Marie Dufresne</td>
+                        <td>marie.dufresne@email.com</td>
+                        <td>+33 6 01 23 45 67</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Julien Gauthier</td>
+                        <td>julien.gauthier@email.com</td>
+                        <td>+33 6 12 34 56 78</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Amandine Lefevre</td>
+                        <td>amandine.lefevre@email.com</td>
+                        <td>+33 6 23 45 67 89</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>François Petit</td>
+                        <td>francois.petit@email.com</td>
+                        <td>+33 6 34 56 78 90</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>Laure Lemoine</td>
+                        <td>laure.lemoine@email.com</td>
+                        <td>+33 6 45 67 89 01</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Maxime Charbonneau</td>
+                        <td>maxime.charbonneau@email.com</td>
+                        <td>+33 6 56 78 90 12</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Audrey Faure</td>
+                        <td>audrey.faure@email.com</td>
+                        <td>+33 6 67 89 01 23</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Benjamin Dufresne</td>
+                        <td>benjamin.dufresne@email.com</td>
+                        <td>+33 6 78 90 12 34</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Caroline Marchand</td>
+                        <td>caroline.marchand@email.com</td>
+                        <td>+33 6 89 01 23 45</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tableau 2 : Catégories de produits -->
+            <h3>Catégories de produits</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Catégorie</th>
+                        <th>Nom de la catégorie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Smartphones</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ordinateurs portables</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Accessoires informatiques</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Casques audio</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Montres connectées</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Tablettes</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Appareils photo numériques</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Clés USB et stockage externe</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Accessoires audio (haut-parleurs, microphones)</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Équipements de gaming</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tableau 3 : Produits -->
+            <h3>Liste des produits</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Produit</th>
+                        <th>Nom du produit</th>
+                        <th>Catégorie</th>
+                        <th>Prix (CAD)</th>
+                        <th>Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Smartphone XYZ</td>
+                        <td>Smartphones</td>
+                        <td>799</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Ordinateur Portable ABC</td>
+                        <td>Ordinateurs portables</td>
+                        <td>1299</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Casque Audio DEF</td>
+                        <td>Casques audio</td>
+                        <td>199</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Montre Connectée 123</td>
+                        <td>Montres connectées</td>
+                        <td>249</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Tablette Pro X</td>
+                        <td>Tablettes</td>
+                        <td>599</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Enceinte Bluetooth Zeta</td>
+                        <td>Enceintes</td>
+                        <td>89</td>
+                        <td>80</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Ordinateur de Bureau Ultra</td>
+                        <td>Ordinateurs de bureau</td>
+                        <td>999</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Clé USB 256Go</td>
+                        <td>Accessoires</td>
+                        <td>39</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Caméra de Surveillance 4K</td>
+                        <td>Caméras de surveillance</td>
+                        <td>499</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Smartphone Plus</td>
+                        <td>Smartphones</td>
+                        <td>999</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>Ordinateur Portable Vision</td>
+                        <td>Ordinateurs portables</td>
+                        <td>1499</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Casque Audio Bluetooth Vibe</td>
+                        <td>Casques audio</td>
+                        <td>129</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Montre Connectée Elite</td>
+                        <td>Montres connectées</td>
+                        <td>349</td>
+                        <td>22</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Console de Jeux X</td>
+                        <td>Consoles de jeux</td>
+                        <td>499</td>
+                        <td>14</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Clé HDMI 4K</td>
+                        <td>Accessoires</td>
+                        <td>29</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>Disque Dur Externe 1To</td>
+                        <td>Stockage</td>
+                        <td>69</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Carte Mère Gamer</td>
+                        <td>Composants PC</td>
+                        <td>199</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Appareil Photo Compact</td>
+                        <td>Appareils photo</td>
+                        <td>499</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Smartphone Max</td>
+                        <td>Smartphones</td>
+                        <td>1099</td>
+                        <td>13</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Écouteurs Sans Fil Pro</td>
+                        <td>Casques audio</td>
+                        <td>149</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>Processeur AMD Ryzen 5</td>
+                        <td>Composants PC</td>
+                        <td>249</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>Carte Graphique GTX 1660</td>
+                        <td>Composants PC</td>
+                        <td>349</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>Écran LED 24 pouces</td>
+                        <td>Moniteurs</td>
+                        <td>179</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>Tablette 10 pouces</td>
+                        <td>Tablettes</td>
+                        <td>299</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>Station de Charge Sans Fil</td>
+                        <td>Accessoires</td>
+                        <td>59</td>
+                        <td>45</td>
+                    </tr>
+                    <tr>
+                        <td>26</td>
+                        <td>Clé USB 128Go</td>
+                        <td>Accessoires</td>
+                        <td>25</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>27</td>
+                        <td>Appareil Photo Reflex</td>
+                        <td>Appareils photo</td>
+                        <td>899</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>28</td>
+                        <td>Écouteurs Gaming</td>
+                        <td>Casques audio</td>
+                        <td>179</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>29</td>
+                        <td>Smartphone Pro Max</td>
+                        <td>Smartphones</td>
+                        <td>1299</td>
+                        <td>17</td>
+                    </tr>
+                    <tr>
+                        <td>30</td>
+                        <td>Casque Audio Noise Cancelling</td>
+                        <td>Casques audio</td>
+                        <td>249</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>31</td>
+                        <td>Écran 4K Ultra HD</td>
+                        <td>Moniteurs</td>
+                        <td>499</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>32</td>
+                        <td>Clavier Mécanique Gaming</td>
+                        <td>Accessoires</td>
+                        <td>129</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>33</td>
+                        <td>Souris Gaming RGB</td>
+                        <td>Accessoires</td>
+                        <td>69</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>34</td>
+                        <td>Disque SSD 512Go</td>
+                        <td>Stockage</td>
+                        <td>99</td>
+                        <td>55</td>
+                    </tr>
+                    <tr>
+                        <td>35</td>
+                        <td>Chargeur Solar Pro</td>
+                        <td>Accessoires</td>
+                        <td>49</td>
+                        <td>90</td>
+                    </tr>
+                    <tr>
+                        <td>36</td>
+                        <td>Smartwatch Sport Edition</td>
+                        <td>Montres connectées</td>
+                        <td>199</td>
+                        <td>70</td>
+                    </tr>
+                    <tr>
+                        <td>37</td>
+                        <td>Objectif Photo Canon</td>
+                        <td>Appareils photo</td>
+                        <td>399</td>
+                        <td>18</td>
+                    </tr>
+                    <tr>
+                        <td>38</td>
+                        <td>Tablette 8 pouces</td>
+                        <td>Tablettes</td>
+                        <td>179</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>39</td>
+                        <td>Support Universel pour Téléphone</td>
+                        <td>Accessoires</td>
+                        <td>15</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>40</td>
+                        <td>Écran Ultra Large 34 pouces</td>
+                        <td>Moniteurs</td>
+                        <td>699</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>41</td>
+                        <td>Console PlayStation 5</td>
+                        <td>Consoles de jeux</td>
+                        <td>499</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>42</td>
+                        <td>Caméra GoPro Hero 10</td>
+                        <td>Caméras de surveillance</td>
+                        <td>349</td>
+                        <td>25</td>
+                    </tr>
+                    <tr>
+                        <td>43</td>
+                        <td>Enceinte Sonos One</td>
+                        <td>Enceintes</td>
+                        <td>179</td>
+                        <td>60</td>
+                    </tr>
+                    <tr>
+                        <td>44</td>
+                        <td>Station Météo Connectée</td>
+                        <td>Accessoires</td>
+                        <td>79</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>45</td>
+                        <td>Mini Projecteur LED</td>
+                        <td>Projecteurs</td>
+                        <td>249</td>
+                        <td>35</td>
+                    </tr>
+                    <tr>
+                        <td>46</td>
+                        <td>Enceinte JBL Xtreme</td>
+                        <td>Enceintes</td>
+                        <td>249</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>47</td>
+                        <td>Caméra de Sécurité Wi-Fi</td>
+                        <td>Caméras de surveillance</td>
+                        <td>199</td>
+                        <td>40</td>
+                    </tr>
+                    <tr>
+                        <td>48</td>
+                        <td>Projecteur 4K Ultra HD</td>
+                        <td>Projecteurs</td>
+                        <td>799</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td>49</td>
+                        <td>Écouteurs Bose QC35</td>
+                        <td>Casques audio</td>
+                        <td>349</td>
+                        <td>10</td>
+                    </tr>
+                    <tr>
+                        <td>50</td>
+                        <td>Disque Dur Externe 2To</td>
+                        <td>Stockage</td>
+                        <td>129</td>
+                        <td>20</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tableau 4 : Historique des ventes -->
+            <h3>Historique des ventes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Vente</th>
+                        <th>ID Client</th>
+                        <th>ID Produit</th>
+                        <th>Quantité</th>
+                        <th>Date de vente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>3</td>
+                        <td>2</td>
+                        <td>2024-10-01</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2024-10-02</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>3</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>2024-10-03</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>2024-10-04</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>5</td>
+                        <td>1</td>
+                        <td>2024-10-05</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>5</td>
+                        <td>6</td>
+                        <td>3</td>
+                        <td>2024-10-06</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>6</td>
+                        <td>7</td>
+                        <td>2</td>
+                        <td>2024-10-07</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>7</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>2024-10-08</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>8</td>
+                        <td>9</td>
+                        <td>1</td>
+                        <td>2024-10-09</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>9</td>
+                        <td>10</td>
+                        <td>1</td>
+                        <td>2024-10-10</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>10</td>
+                        <td>11</td>
+                        <td>2</td>
+                        <td>2024-10-11</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>11</td>
+                        <td>12</td>
+                        <td>1</td>
+                        <td>2024-10-12</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>12</td>
+                        <td>13</td>
+                        <td>1</td>
+                        <td>2024-10-13</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>13</td>
+                        <td>14</td>
+                        <td>2</td>
+                        <td>2024-10-14</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>14</td>
+                        <td>15</td>
+                        <td>1</td>
+                        <td>2024-10-15</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>15</td>
+                        <td>16</td>
+                        <td>3</td>
+                        <td>2024-10-16</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>16</td>
+                        <td>17</td>
+                        <td>2</td>
+                        <td>2024-10-17</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>17</td>
+                        <td>18</td>
+                        <td>1</td>
+                        <td>2024-10-18</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>1</td>
+                        <td>2024-10-19</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>19</td>
+                        <td>20</td>
+                        <td>2</td>
+                        <td>2024-10-20</td>
+                    </tr>
+                    <tr>
+                        <td>21</td>
+                        <td>20</td>
+                        <td>21</td>
+                        <td>1</td>
+                        <td>2024-10-21</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>1</td>
+                        <td>22</td>
+                        <td>2</td>
+                        <td>2024-10-22</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>2</td>
+                        <td>23</td>
+                        <td>3</td>
+                        <td>2024-10-23</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td>3</td>
+                        <td>24</td>
+                        <td>2</td>
+                        <td>2024-10-24</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>4</td>
+                        <td>25</td>
+                        <td>1</td>
+                        <td>2024-10-25</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tableau 5 : Nombre de produits achetés par client -->
+            <h3>Nombre de produits achetés par client</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Client</th>
+                        <th>Nom du client</th>
+                        <th>Total produits achetés</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Jean Dupont</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Claire Martin</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Paul Leclerc</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Alice Bernard</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Marc Dupuis</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Lucie Lefevre</td>
+                        <td>7</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Hélène Gauthier</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Antoine Lemoine</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Jean-Pierre Martin</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Julie Rousseau</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td>David Lefevre</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>Bernadette Aubert</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>13</td>
+                        <td>Sophie Clément</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>14</td>
+                        <td>Jean-Marc Dufresne</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>15</td>
+                        <td>Caroline Lefevre</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>16</td>
+                        <td>François Robin</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td>Isabelle Charpentier</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>18</td>
+                        <td>Michel Durand</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>19</td>
+                        <td>Valérie Tanguy</td>
+                        <td>4</td>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>Jacques Moreau</td>
+                        <td>7</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </section>
+    </main>
+
+    <footer>
+        <section id="contact">
+            <h4>Contactez-nous</h4>
+            <p>Pour toute question ou information complémentaire, n'hésitez pas à nous contacter :</p>
+            <ul>
+                <li>Email : <a href="mailto:contact@electronics-store.com">contact@electronics-store.com</a></li>
+                <li>Téléphone : <a href="tel:+33123456789">+33 1 23 45 67 89</a></li>
+                <li>Adresse : 45 Rue des Appareils Électroniques, 75000 Paris, France</li>
+            </ul>
+        </section>
+    
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="https://www.facebook.com/ElectronicsStore" target="_blank">Facebook</a></li>
+                <li><a href="https://twitter.com/ElectronicsStore" target="_blank">Twitter</a></li>
+                <li><a href="https://www.instagram.com/ElectronicsStore" target="_blank">Instagram</a></li>
+            </ul>
+        </section>
+    
+        <section id="footer-info">
+            <p>&copy; 2024 Electronics Store. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détail du produit - SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Titre de la page -->
+        <section class="products-header">
+            <h1>Détails du produit</h1>
+        </section>
+        <!-- Détails du produit -->
+        <section class="product-detail">
+            <div id="product-container" class="product-container">
+                <!-- Les détails du produit seront chargés ici dynamiquement -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function getProductIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        }
+
+        // Charger les détails du produit
+        async function loadProductDetails() {
+            const productContainer = document.getElementById('product-container');
+
+            if (!productContainer) {
+                console.error("L'élément 'product-container' est introuvable !");
+                return;
+            }
+
+            const produitId = getProductIdFromURL();
+            if (!produitId) {
+                productContainer.innerHTML = '<p>Produit non trouvé.</p>';
+                return;
+            }
+
+            try {
+                const response = await fetch('/data/produits.json'); // Remplacez par le chemin correct de votre fichier JSON
+                if (!response.ok) {
+                    throw new Error(`Erreur lors du chargement du fichier JSON : ${response.statusText}`);
+                }
+
+                const produits = await response.json();
+                const produit = produits.find(item => item.id === parseInt(produitId, 10));
+
+                if (!produit) {
+                    productContainer.innerHTML = '<p>Produit non trouvé.</p>';
+                    return;
+                }
+
+                // Afficher les détails du produit
+                productContainer.innerHTML = `
+                    <div class="product-detail-card">
+                        <img src="/images/${produit.nom}.jpg" alt="${produit.nom}">
+                        <h1>${produit.nom}</h1>
+                        <p><strong>Catégorie :</strong> ${produit.categorie}</p>
+                        <p><strong>Description :</strong> ${produit.description}</p>
+                        <p><strong>Prix :</strong> ${produit.prix.toFixed(2)} CAD</p>
+                        <p><strong>Stock :</strong> ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</p>
+                        <button style="margin-top: 20px;" id="add-to-cart" class="btn" ${produit.stock > 0 ? "" : "disabled"}><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                    </div>
+                `;
+
+                // Ajouter un événement au bouton "Ajouter au panier"
+                const addToCartButton = document.getElementById('add-to-cart');
+                if (addToCartButton) {
+                    addToCartButton.addEventListener('click', () => {
+                        addToCart(produit);
+                    });
+                } else {
+                    console.error("Le bouton 'Ajouter au panier' est introuvable !");
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement des détails du produit :', error);
+                productContainer.innerHTML = '<p>Erreur lors du chargement du produit.</p>';
+            }
+        }
+
+        // Ajouter un produit au panier
+        function addToCart(produit) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existingProduct = cart.find(item => item.id === produit.id);
+
+            if (existingProduct) {
+                existingProduct.quantite += 1; // Incrémente la quantité si le produit existe déjà dans le panier
+            } else {
+                cart.push({ ...produit, quantite: 1 }); // Ajoute un nouveau produit avec une quantité de 1
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${produit.nom} a été ajouté au panier !`);
+        }
+
+        // Charger les détails du produit au chargement de la page
+        document.addEventListener('DOMContentLoaded', loadProductDetails);
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

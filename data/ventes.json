@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "client_id": 1,
+    "product_id": 3,
+    "quantite": 2,
+    "date": "2024-10-01"
+  },
+  {
+    "id": 1731714109643,
+    "products": [
+      {
+        "id": 6,
+        "nom": "Sony Barre de son S100F",
+        "quantite": 1,
+        "prixUnitaire": 129
+      }
+    ],
+    "total": 129,
+    "delivery": {
+      "address": null,
+      "type": null
+    },
+    "date": "2024-11-15T23:41:49.643Z"
+  }
+]

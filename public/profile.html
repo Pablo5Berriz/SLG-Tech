@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Utilisateur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count" style="right: 75px;">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Profil de l'utilisateur -->
+        <section class="profile-section">
+            <h1>Bienvenue, <span id="user-name">Utilisateur</span></h1>
+            <table class="profile-table">
+                <tr>
+                    <th>Email</th>
+                    <td><span id="user-email">example@example.com</span></td>
+                </tr>
+                <tr>
+                    <th>Numéro de téléphone</th>
+                    <td><span id="user-phone">Non spécifié</span></td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td><span id="user-address">Adresse non spécifiée</span></td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="credit-cards-section">
+            <h2>Mes Cartes de Crédit</h2>
+            <table class="credit-cards-table">
+                <thead>
+                    <tr>
+                        <th>Nom sur la carte</th>
+                        <th>Numéro de carte</th>
+                        <th>Date d'expiration</th>
+                    </tr>
+                </thead>
+                <tbody id="credit-cards-body">
+                    <!-- Les cartes seront chargées dynamiquement ici -->
+                </tbody>
+            </table>
+            <div id="no-cards-message">
+                <!-- Message si aucune carte enregistrée -->
+            </div>
+            <button id="add-card" class="btn btn-primary hidden" style="margin-left: 270px; margin-top: 50px;">Ajouter une carte</button>
+        </section>
+
+        <!-- Commandes de l'utilisateur -->
+        <section class="orders-section">
+            <h2>Mes Commandes</h2>
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-body">
+                    <!-- Les commandes seront chargées dynamiquement ici -->
+                </tbody>
+            </table>
+            <div id="no-orders-message">
+                <!-- Message si aucune commande enregistrée -->
+            </div>
+        </section>
+
+        <!-- Actions sur le profil -->
+        <section class="profile-actions">
+            <h2>Paramètres</h2>
+            <a href="edit-profile.html" id="edit-profile" class="btn btn-primary">Modifier le profil</a>
+            <button id="change-password" class="btn btn-secondary">Changer le mot de passe</button>
+            <button id="notifications-settings" class="btn btn-secondary">Paramètres des notifications</button>
+            <button id="privacy-settings" class="btn btn-secondary">Confidentialité</button>
+            <button id="delete-account" class="btn btn-danger">Supprimer le compte</button>
+            <button id="logout" class="btn btn-danger">Se déconnecter</button>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userNameElement = document.getElementById('user-name');
+            const userEmailElement = document.getElementById('user-email');
+            const userPhoneElement = document.getElementById('user-phone');
+            const userAddressElement = document.getElementById('user-address');
+            const ordersBody = document.getElementById('orders-body');
+            const creditCardsBody = document.getElementById('credit-cards-body');
+            const noCardsMessage = document.getElementById('no-cards-message');
+            const noOrdersMessage = document.getElementById('no-orders-message');
+            const addCardButton = document.getElementById('add-card');
+
+            const currentUserEmail = localStorage.getItem('email');
+
+            if (!currentUserEmail) {
+                alert('Vous devez vous connecter pour accéder à votre profil.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Charger les informations utilisateur
+            async function loadProfile() {
+                try {
+                    const response = await fetch(`/api/clients/${currentUserEmail}`);
+                    if (!response.ok) throw new Error('Impossible de charger les données utilisateur.');
+
+                    const user = await response.json();
+                    userNameElement.textContent = user.name || 'Nom non renseigné';
+                    userEmailElement.textContent = user.email;
+                    userPhoneElement.textContent = user.phone || 'Non spécifié';
+                    userAddressElement.textContent = user.address || 'Non spécifiée';
+                } catch (error) {
+                    console.error(error.message);
+                    alert('Erreur lors du chargement du profil.');
+                }
+            }
+
+            // Charger les cartes de crédit
+            async function loadCreditCards() {
+                try {
+                    const response = await fetch(`/api/cartes/${currentUserEmail}`);
+                    const cards = await response.json();
+
+                    creditCardsBody.innerHTML = '';
+                    if (cards.length === 0) {
+                        noCardsMessage.textContent = 'Aucune carte enregistrée.';
+                        addCardButton.classList.remove('hidden');
+                        return;
+                    }
+
+                    cards.forEach(card => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${card.nom_sur_la_carte}</td>
+                            <td>${card.numero_tronque}</td>
+                            <td>${card.date_expiration}</td>
+                        `;
+                        creditCardsBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error(error.message);
+                    noCardsMessage.textContent = 'Erreur lors du chargement des cartes.';
+                }
+            }
+
+            // Charger les commandes
+            async function loadOrders() {
+                try {
+                    const response = await fetch(`/api/commandes/${currentUserEmail}`);
+                    const orders = await response.json();
+
+                    ordersBody.innerHTML = '';
+                    if (orders.length === 0) {
+                        noOrdersMessage.textContent = 'Aucune commande enregistrée.';
+                        return;
+                    }
+
+                    orders.forEach(order => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${order.id}</td>
+                            <td>${new Date(order.date).toLocaleDateString()}</td>
+                            <td>${order.status}</td>
+                        `;
+                        ordersBody.appendChild(row);
+                    });
+                } catch (error) {
+                    console.error(error.message);
+                    noOrdersMessage.textContent = 'Erreur lors du chargement des commandes.';
+                }
+            }
+
+            // Initialiser la page
+            loadProfile();
+            loadCreditCards();
+            loadOrders();
+        });
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>À propos - SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <section class="products-header">
+            <h1>A propos de SLG Tech</h1>
+        </section>
+
+        <!-- Présentation -->
+        <section class="about-presentation">
+            <div id="presentation">
+                <!-- Dynamically loaded content -->
+            </div>
+        </section>
+
+        <!-- Mission, Vision, Valeurs -->
+        <section class="about-details">
+            <div id="mission">
+                <h2>Notre Mission</h2>
+                <!-- Dynamically loaded content -->
+            </div>
+            <div id="vision">
+                <h2>Notre Vision</h2>
+                <!-- Dynamically loaded content -->
+            </div>
+            <div id="valeurs">
+                <h2>Nos Valeurs</h2>
+                <!-- Dynamically loaded content -->
+            </div>
+        </section>
+
+        <!-- Équipe -->
+        <section class="about-team">
+            <h1 >Rencontrez notre équipe</h1>
+            <div id="team-grid" class="team-grid" style="margin-top: 50px;">
+                <!-- Dynamically loaded content -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function loadAboutData() {
+            const aboutData = await fetchData('about');
+        
+            if (!aboutData) {
+                console.error("Impossible de charger les données 'À propos'.");
+                return;
+            }
+        
+            // Présentation
+            const presentationDiv = document.getElementById('presentation');
+            presentationDiv.innerHTML = `<p>${aboutData.presentation}</p>`;
+        
+            // Mission
+            const missionDiv = document.getElementById('mission');
+            missionDiv.innerHTML += `<p>${aboutData.mission}</p>`;
+        
+            // Vision
+            const visionDiv = document.getElementById('vision');
+            visionDiv.innerHTML += `<p>${aboutData.vision}</p>`;
+        
+            // Valeurs
+            const valeursDiv = document.getElementById('valeurs');
+            valeursDiv.innerHTML += aboutData.valeurs.map(valeur => `<li>${valeur}</li>`).join('');
+        
+            // Équipe
+            const teamGrid = document.getElementById('team-grid');
+            aboutData.team.forEach(member => {
+                const memberDiv = document.createElement('div');
+                memberDiv.classList.add('team-member');
+                memberDiv.innerHTML = `
+                    <img src="images/Members/${member.photo}" alt="${member.nom}">
+                    <h3>${member.nom}</h3>
+                    <p>${member.role}</p>
+                `;
+                teamGrid.appendChild(memberDiv);
+            });
+        }
+        
+        // Charger les détails du produit au chargement de la page
+        document.addEventListener("DOMContentLoaded", loadAboutData);
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

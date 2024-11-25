@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion | SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+    
+    <main>
+        <section class="login-h1">
+            <h1>Connexion</h1>
+        </section>
+        <section class="login-container">
+            <div class="login-wrapper">
+                <div class="image-container">
+                    <img src="Images/login.jpg" alt="Illustration de connexion">
+                </div>
+                <div class="form-container">
+                    <form id="login-form">
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required placeholder="Entrez votre email">
+                        
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" name="password" required minlength="6" placeholder="Mot de passe (minimum 6 caractères)">
+                        
+                        <button type="submit">Se connecter</button>
+                    </form>
+                    <p>Pas encore inscrit ? <a href="signup.html">Créer un compte</a></p>
+                    <p><a href="forgot_password.html">Mot de passe oublié ?</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+        
+            if (!loginForm) {
+                console.error("Formulaire de connexion non trouvé !");
+                return;
+            }
+        
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+        
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+        
+                if (!email || !password) {
+                    alert('Veuillez remplir tous les champs.');
+                    return;
+                }
+        
+                try {
+                    const response = await fetch('/api/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, password }),
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error('Identifiants invalides. Vérifiez votre email et mot de passe.');
+                    }
+        
+                    const user = await response.json();
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('email', user.email);
+                    localStorage.setItem('username', user.name);
+        
+                    const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
+                    if (redirectAfterLogin) {
+                        localStorage.removeItem('redirectAfterLogin');
+                        window.location.href = redirectAfterLogin;
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                } catch (error) {
+                    console.error('Erreur lors de la connexion :', error.message);
+                    alert(error.message || 'Connexion échouée.');
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+
+    <script src="scripts.js"></script>
+
+</body>
+</html>
+

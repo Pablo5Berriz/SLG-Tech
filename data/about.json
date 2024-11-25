@@ -1,0 +1,16 @@
+{
+    "presentation": "SLG Tech est une boutique en ligne basée au Québec spécialisée dans la vente de produits électroniques. Nous offrons une large gamme de produits innovants tels que des smartphones, des ordinateurs, des accessoires et bien plus encore.",
+    "mission": "Chez SLG Tech, notre mission est de transformer la manière dont nos clients accèdent à la technologie en offrant une gamme variée de produits électroniques de haute qualité à des prix compétitifs. Nous nous engageons à fournir une expérience d'achat en ligne intuitive, rapide et sécurisée, tout en assurant un service client exceptionnel. Notre objectif est de bâtir une relation de confiance durable avec nos clients, en leur permettant de profiter des dernières innovations technologiques sans compromettre leur budget.",
+    "vision": "Notre vision est de devenir le leader incontournable du commerce électronique dans le domaine de la technologie, non seulement au Québec, mais également à l'échelle nationale et internationale. Nous aspirons à créer une plateforme où la technologie est accessible à tous, grâce à un mélange unique d'innovation, de simplicité et de fiabilité. À travers une croissance durable et l'adoption des meilleures pratiques du secteur, nous souhaitons redéfinir les standards du e-commerce technologique et devenir une référence incontournable pour les passionnés de technologie et les professionnels.",
+    "valeurs": [
+        "Innovation continue : Nous restons à l'avant-garde des évolutions technologiques pour anticiper et répondre efficacement aux besoins de nos clients. Nos équipes recherchent constamment de nouvelles idées pour améliorer nos produits, services et expériences en ligne.",
+        "Engagement envers la qualité et la satisfaction client : Chaque produit que nous proposons est rigoureusement sélectionné pour garantir sa qualité et sa durabilité. Nous mettons un point d’honneur à ce que chaque interaction avec nos clients dépasse leurs attentes, car leur satisfaction est notre priorité absolue.",
+        "Transparence et honnêteté : Nous croyons en des pratiques commerciales éthiques et responsables. Nos prix, politiques et engagements sont clairs et sans ambiguïté, car nous valorisons une relation basée sur la confiance avec nos clients et partenaires."
+    ],
+    "team": [
+        { "nom": "Jean Dupont", "role": "Directeur général", "photo": "paul-quentin.jpg" },
+        { "nom": "Claire Martin", "role": "Responsable marketing", "photo": "claire-martin.jpg" },
+        { "nom": "Paul Leclerc", "role": "Développeur Web", "photo": "paul-leclerc.jpg" },
+        { "nom": "Sophie Bernard", "role": "Support client", "photo": "sophie-bernard.jpg" }
+    ]
+}

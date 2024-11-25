@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre commande | SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <section class="thank-you">
+            <h1>Merci pour votre commande !</h1>
+            <p style="margin-top: 50px;">Votre commande a été passée avec succès. Nous vous remercions pour votre confiance.</p>
+            <p><strong>Numéro de commande :</strong> <span id="order-number"></span></p>
+            <p>Un email de confirmation contenant les détails de votre commande vous sera envoyé sous peu.</p>
+            <div class="actions" style="margin-top: 50px;">
+                <a href="index.html" class="btn">Retourner à l'accueil</a>
+                <a href="produits.html" class="btn">Continuer vos achats</a>
+            </div>
+        </section>
+    </main>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const orderNumber = localStorage.getItem('orderNumber') || 'Non disponible';
+            document.getElementById('order-number').textContent = orderNumber;
+
+            // Nettoyer le panier et les données après confirmation
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartTotalWithTaxesAndDelivery');
+            localStorage.removeItem('orderNumber');
+        });
+    </script>
+</body>
+</html>

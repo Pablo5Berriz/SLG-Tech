@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription | SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+    
+    <main>
+        <section class="login-h1">
+            <h1>Créer un compte</h1>
+        </section>
+        <section class="login-container">
+            <div class="login-wrapper">
+                <div class="image-container">
+                    <img src="../Images/signup.jpg" alt="Illustration de connexion">
+                </div>
+                <div class="form-container">
+                    <form id="signup-form">
+                        <label for="name">Nom complet :</label>
+                        <input type="text" id="name" name="name" required>
+
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" name="email" required>
+                        
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" name="password" required>
+                        
+                        <button type="submit">S'inscrire</button>
+                    </form>
+                    <p>Déjà inscrit ? <a href="login.html">Se connecter</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Gestion du formulaire d'inscription
+            const signupForm = document.getElementById('signup-form');
+            if (signupForm) {
+                signupForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const name = document.getElementById('name').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value.trim();
+    
+                    if (!name || !email || !password) {
+                        alert('Veuillez remplir tous les champs.');
+                        return;
+                    }
+    
+                    try {
+                        // Envoyer les informations au serveur
+                        const response = await fetch('http://localhost:3000/api/signup', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ name, email, password }),
+                        });
+    
+                        if (response.ok) {
+                            const result = await response.json();
+                            alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+                            window.location.href = 'login.html';
+                        } else if (response.status === 409) {
+                            alert('Cet email est déjà utilisé.');
+                        } else {
+                            alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+                        }
+                    } catch (err) {
+                        console.error('Erreur lors de l\'inscription :', err);
+                        alert('Impossible de se connecter au serveur. Veuillez vérifier votre connexion.');
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

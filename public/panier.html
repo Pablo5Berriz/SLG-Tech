@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panier - SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <section class="cart-header">
+            <h1>Mon Panier</h1>
+            <p>Vérifiez les produits ajoutés et passez à l'étape suivante.</p>
+        </section>
+
+        <section class="cart-items-section">
+            <table class="cart-table" id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prix (CAD)</th>
+                        <th>Quantité</th>
+                        <th>Sous-total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Articles dynamiques -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="cart-summary">
+            <h2>Résumé</h2>
+            <p>Total : <span id="cart-total">0 CAD</span></p>
+            <button id="finalize-purchase" class="button">Finaliser l'achat</button>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartCountElement = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const finalizePurchaseButton = document.getElementById('finalize-purchase');
+
+            // Mettre à jour le compteur du panier
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, product) => sum + product.quantite, 0);
+                cartCountElement.textContent = totalItems > 0 ? totalItems : '';
+                cartCountElement.style.display = totalItems > 0 ? 'inline' : 'none';
+            }
+
+            // Charger les articles du panier
+            function loadCart() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cartItemsContainer.innerHTML = '';
+
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<tr><td colspan="5">Votre panier est vide.</td></tr>';
+                    cartTotalElement.textContent = '0.00 CAD';
+                    return;
+                }
+
+                let total = 0;
+
+                cart.forEach((item, index) => {
+                    const subtotal = item.prix * item.quantite;
+                    total += subtotal;
+
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.nom}</td>
+                        <td>${item.prix.toFixed(2)} CAD</td>
+                        <td>
+                            <input type="number" value="${item.quantite}" min="1" data-index="${index}" class="quantity-input">
+                        </td>
+                        <td>${subtotal.toFixed(2)} CAD</td>
+                        <td>
+                            <button class="btn-remove" data-index="${index}">Supprimer</button>
+                        </td>
+                    `;
+                    cartItemsContainer.appendChild(row);
+                });
+
+                cartTotalElement.textContent = `${total.toFixed(2)} CAD`;
+
+                // Attacher les événements "Supprimer"
+                document.querySelectorAll('.btn-remove').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const index = parseInt(e.target.dataset.index, 10);
+                        removeProduct(index);
+                    });
+                });
+
+                // Gestion des quantités
+                document.querySelectorAll('.quantity-input').forEach(input => {
+                    input.addEventListener('input', (e) => {
+                        const index = parseInt(e.target.dataset.index, 10);
+                        const newQuantity = parseInt(e.target.value, 10) || 1;
+                        updateQuantity(index, newQuantity);
+                    });
+                });
+            }
+
+            // Supprimer un produit du panier
+            function removeProduct(index) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                cart.splice(index, 1);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                loadCart();
+                updateCartCount();
+            }
+
+            // Mettre à jour la quantité d'un produit
+            function updateQuantity(index, quantity) {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                if (quantity > 0) {
+                    cart[index].quantite = quantity;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    loadCart();
+                }
+            }
+
+            // Vérifier si l'utilisateur est connecté
+            async function isUserLoggedIn() {
+                return localStorage.getItem('isLoggedIn') === 'true';
+            }
+
+            // Finaliser l'achat
+            async function finalizePurchase() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                if (cart.length === 0) {
+                    alert('Votre panier est vide.');
+                    return;
+                }
+        
+                if (!(await isUserLoggedIn())) {
+                    localStorage.setItem('redirectAfterLogin', 'confirmation.html');
+                    window.location.href = 'login.html';
+                    return;
+                }
+        
+                window.location.href = 'confirmation.html';
+            }
+
+            // Initialisation
+            updateCartCount();
+            loadCart();
+            finalizePurchaseButton.addEventListener('click', finalizePurchase);
+        });
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>

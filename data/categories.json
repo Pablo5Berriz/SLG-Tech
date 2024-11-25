@@ -1,0 +1,12 @@
+[
+    {"id": 1, "nom": "Smartphones"},
+    {"id": 2, "nom": "Ordinateurs"},
+    {"id": 3, "nom": "Accessoires informatiques"},
+    {"id": 4, "nom": "Casques audio"},
+    {"id": 5, "nom": "Montres connectées"},
+    {"id": 6, "nom": "Tablettes"},
+    {"id": 7, "nom": "Appareils photo"},
+    {"id": 8, "nom": "USB et stockage"},
+    {"id": 9, "nom": "Accessoires audio"},
+    {"id": 10, "nom": "Équipements gaming"}
+]

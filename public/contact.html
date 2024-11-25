@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - SLG Tech</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+        </div>
+    </header>
+
+    <main>
+        <!-- Section Contact -->
+        <section class="contact-header">
+            <h1>Nous contacter</h1>
+            <p>Vous avez une question ou besoin d'aide ? Envoyez-nous un message et nous vous répondrons rapidement.</p>
+        </section>
+
+        <!-- Formulaire de contact -->
+        <section class="contact-form-section">
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nom complet :</label>
+                    <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Adresse email :</label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Sujet :</label>
+                    <input type="text" id="subject" name="subject" placeholder="Sujet du message" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message :</label>
+                    <textarea id="message" name="message" placeholder="Votre message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn">Envoyer</button>
+            </form>
+        </section>
+
+        <!-- Informations de contact -->
+        <section class="contact-info">
+            <h2>Nos coordonnées</h2>
+            <ul>
+                <li>Email : <a href="mailto:contact@slgtech.com">contact@slgtech.com</a></li>
+                <li>Téléphone : <a href="tel:+15145555555">+1 514 555 5555</a></li>
+                <li>Adresse : 123 Rue des Innovations, Montréal, QC, Canada</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+        
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+        
+            // Affichage dans la console pour vérification (à remplacer par une API ou un backend)
+            console.log('Nom:', name);
+            console.log('Email:', email);
+            console.log('Sujet:', subject);
+            console.log('Message:', message);
+        
+            // Simulation de réponse
+            alert('Votre message a été envoyé avec succès. Nous vous répondrons bientôt.');
+            
+            // Réinitialisation du formulaire
+            document.getElementById('contact-form').reset();
+        });
+    </script>
+
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>
