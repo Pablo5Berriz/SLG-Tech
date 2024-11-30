@@ -14,7 +14,7 @@ const reviewsRoutes = require('./routes/reviewsRoutes');
 const statisticsRoutes = require('./routes/statisticsRoutes');
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 const verifySession = require("./middleware/verifySession");
 
@@ -55,6 +55,7 @@ app.use("/crm", verifySession);
 app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
 
+<<<<<<< HEAD
     // Charger les clients
     const clients = loadClients(); // Charger les données depuis le fichier clients.json
     const client = clients.find((c) => c.email === email);
@@ -72,6 +73,18 @@ app.post("/api/login", (req, res) => {
         // Enregistrer les informations utilisateur dans la session
         req.session.user = { id: client.id, email: client.email, name: client.name };
         res.status(200).json({ message: "Connexion réussie." });
+=======
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
+
+// Récupérer les catégories
+app.get('/api/categories', (req, res) => {
+    fs.readFile('./data/categories.json', 'utf8', (err, data) => {
+        if (err) return res.status(500).send("Erreur lors de la lecture des données de catégories.");
+        res.json(JSON.parse(data));
+>>>>>>> 34379f97c35febdf3165578699814ec847b495d8
     });
 });
 
