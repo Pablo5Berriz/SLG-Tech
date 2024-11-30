@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1732843342085,
+    "user_id": 1732833618750,
+    "orderNumber": "SLG1732843342069",
+    "cart": [
+      {
+        "id": 27,
+        "nom": "Caméra Sony",
+        "categorie": "Appareils photo",
+        "description": "Sony Caméra Vlog ZV-1F pour les créateurs de contenu et les vlogueurs",
+        "prix": 549,
+        "stock": 10,
+        "quantite": 1
+      }
+    ],
+    "total": 636.21,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
+    "date": "2024-11-29T01:22:22.085Z"
+  },
+  {
+    "id": 1732843654221,
+    "user_id": 1732833618750,
+    "orderNumber": "SLG1732843654220",
+    "cart": [
+      {
+        "id": 1,
+        "nom": "Apple Iphone 15 pro",
+        "categorie": "Smartphones",
+        "description": "L'iPhone 15 Pro offre une expérience de pointe avec un écran Super Retina XDR, une puce A17 Bionic et un appareil photo révolutionnaire pour des photos et vidéos incroyables.",
+        "prix": 1000,
+        "stock": 20,
+        "quantite": 1
+      }
+    ],
+    "total": 1154.75,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
+    "date": "2024-11-29T01:27:34.221Z"
+  },
+  {
+    "id": 1732887963968,
+    "user_id": 1732833618750,
+    "orderNumber": "SLG1732887963963",
+    "cart": [
+      {
+        "id": 1,
+        "nom": "Apple Iphone 15 pro",
+        "categorie": "Smartphones",
+        "description": "L'iPhone 15 Pro offre une expérience de pointe avec un écran Super Retina XDR, une puce A17 Bionic et un appareil photo révolutionnaire pour des photos et vidéos incroyables.",
+        "prix": 1000,
+        "stock": 20,
+        "quantite": 1
+      }
+    ],
+    "total": 1154.75,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
+    "date": "2024-11-29T13:46:03.968Z"
+  },
+  {
+    "id": 1732893287385,
+    "user_id": 1732833618750,
+    "orderNumber": "SLG1732893287383",
+    "cart": [
+      {
+        "id": 39,
+        "nom": "Support de téléphone",
+        "categorie": "Accessoires informatiques",
+        "description": "Miracase Support de téléphone universel pour grille d'aération de voiture avec clip réglable compatible avec iPhone 15 Series/14/13/12/11 Pro Max/XR/Samsung et autres téléphones",
+        "prix": 20,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 28,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
+    "date": "2024-11-29T15:14:47.385Z"
+  },
+  {
+    "id": 1732938188181,
+    "userId": 1732833618750,
+    "orderNumber": "SLG1732938188178",
+    "cart": [
+      {
+        "id": 24,
+        "nom": "Tablette Samsung",
+        "categorie": "Tablettes",
+        "description": "Samsung Galaxy Tab S9 FE Mint Tablette Android 6 Go de RAM 128 Go de stockage, écran 10,9 pouces 90 Hz, indice IP68, charge rapide 45 W",
+        "prix": 399,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 463.75,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
+    "date": "2024-11-30T03:43:08.181Z"
+  }
+]

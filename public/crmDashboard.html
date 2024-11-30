@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Dashboard | SLG Tech</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Barre latérale -->
+    <div class="sidebar">
+        <h2>CRM SLG Tech</h2>
+        <ul>
+            <li><a href="crmCategories.html">Catégories</a></li>
+            <li><a href="crmProduits.html">Produits</a></li>
+            <li><a href="crmClients.html">Clients</a></li>
+            <li><a href="crmCommandes.html">Commandes</a></li>
+            <li><a href="crmAvis.html">Avis</a></li>
+            <li><a href="crmStatistiques.html">Statistiques</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <header class="crm-header">
+            <h1>CRM Dashboard</h1>
+            <button id="logout-btn" class="logout-button">Déconnexion</button>
+        </header>
+
+        <main>
+            <section class="overview">
+                <h2>Vue d'ensemble</h2>
+                <div class="dashboard-grid">
+                    <div class="dashboard-card" id="categories-card">
+                        <h3>Catégories</h3>
+                        <p id="categories-count">Chargement...</p>
+                    </div>
+                    <div class="dashboard-card" id="produits-card">
+                        <h3>Produits</h3>
+                        <p id="produits-count">Chargement...</p>
+                    </div>
+                    <div class="dashboard-card" id="clients-card">
+                        <h3>Clients</h3>
+                        <p id="clients-count">Chargement...</p>
+                    </div>
+                    <div class="dashboard-card" id="commandes-card">
+                        <h3>Commandes</h3>
+                        <p id="commandes-count">Chargement...</p>
+                    </div>
+                    <div class="dashboard-card" id="avis-card">
+                        <h3>Avis</h3>
+                        <p id="avis-count">Chargement...</p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h3>Catégories populaires</h3>
+                <div id="popular-categories"></div>
+            </section>
+            
+            <section>
+                <h2>Produits populaires</h2>
+                <div id="popular-products"></div>
+            </section>
+            
+            <section>
+                <h2>Statistiques des ventes</h2>
+                <canvas id="sales-chart" width="400" height="200"></canvas>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+        </footer>
+    </div>
+
+    <script src="/js/crmDashboard.js"></script>
+</body>
+</html>

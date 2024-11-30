@@ -40,361 +40,544 @@
             </div>
         </section>
 
-        <!-- Section Livraison -->
-        <section class="section delivery-info">
-            <h1>Adresse de livraison</h1>
-            <div class="info-block">
-                <p id="delivery-address">Chargement...</p>
-                <div id="address-form-container" class="form-container hidden">
-                    <form id="address-form">
-                        <label for="address">Adresse :</label>
-                        <input type="text" id="address" name="address" required placeholder="Entrez votre adresse complète">
-                        <label for="city">Ville :</label>
-                        <input type="text" id="city" name="city" required placeholder="Entrez votre ville">
-                        <label for="postal-code">Code postal :</label>
-                        <input type="text" id="postal-code" name="postal-code" required placeholder="Entrez votre code postal">
-                        <label>
-                            <input type="checkbox" id="is-default"> Définir comme adresse par défaut
-                        </label>
-                        <button type="submit" class="btn save-button">Enregistrer</button>
-                    </form>
-                </div>
-                <div class="actions">
-                    <button id="add-address" class="btn action-button" aria-label="Ajouter une adresse">Ajouter une adresse</button>
-                    <button id="edit-address" class="btn action-button" aria-label="Modifier l'adresse">Modifier</button>
-                    <button id="delete-address" class="btn action-button" aria-label="Supprimer l'adresse">Supprimer</button>
-                </div>
-            </div>
-        </section>
-
         <!-- Section Paiement -->
         <section class="section payment-info">
             <h1>Mode de paiement</h1>
-            <div class="info-block">
-                <p id="payment-method">Aucun mode de paiement sélectionné.</p>
-                <div id="payment-selection">
-                    <label><input type="radio" name="payment-option" value="paypal"> PayPal</label>
-                    <label><input type="radio" name="payment-option" value="interac"> Interac e-Transfer</label>
-                    <label><input type="radio" name="payment-option" value="credit-card"> Carte de Crédit</label>
+            <div class="payment-container" id="payment-method">
+                <div class="payment-options" id="payment-selection">
+                    <button class="payment-button paypal">Paypal</button>
+                    <button class="payment-button apple-pay">Apple Pay</button>
+                    <button class="payment-button stripe">Stripe</button>
+                </div>
+                <div class="separator">ou payez avec votre carte bancaire</div>
+                <form class="payment-form">
+                    <div class="form-group">
+                        <label for="card-holder">Nom complet du titulaire</label>
+                        <input type="text" id="card-holder" placeholder="Entrez votre nom complet" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-number">Numéro de carte</label>
+                        <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="expiry-date">Date d'expiration</label>
+                            <input type="text" id="expiry-date" placeholder="MM/AA" maxlength="5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="CVV" maxlength="3" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="checkout-button">Enregistrer</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Section de résumé du total -->
+        <section class="section total-summary">
+            <div class="checkout-container">
+                <h1 class="checkout-title">Résumé total de la commande</h1>
+                
+                <div class="checkout-section">
+                    <h2 class="section-title">Adresse</h2>
+                    <p class="section-content" id="delivery-address">Chargement...</p>
+                    <div class="actions">
+                        <button id="add-address" class="checkout-button">Ajouter</button>
+                        <button id="edit-address" class="edit-button">Modifier</button>
+                        <button id="delete-address" class="cancel-button"">Supprimer</button>
+                    </div>
+                </div>
+                
+                <div class="checkout-section">
+                    <h2 class="section-title">Méthode de paiement</h2>
+                    <p class="section-content">Visa<br>**** **** **** 4242</p>
+                </div>
+                
+                <div class="checkout-section promo-code">
+                    <h2 class="section-title">Avez-vous un code promo ?</h2>
+                    <div class="promo-input-container">
+                        <input type="text" class="promo-input" placeholder="Enter a Promo Code">
+                        <button class="apply-button">Apply</button>
+                    </div>
+                </div>
+                
+                <div class="checkout-section payment-summary">
+                    <h2 class="section-title">PAIEMENT</h2>
+                    <div class="summary-item">
+                        <span> <strong>Sous-total:</strong></span>
+                        <span id="subtotal">0.00 CAD</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Frais de livraison:</strong></span>
+                        <span id="delivery-fee">0.00 CAD</span>
+                    </div>
+                    <div class="summary-item">
+                        <span><strong>Taxes:</strong></span>
+                        <span id="taxes">0.00 CAD</span>
+                    </div>
+                </div>
+                
+                <div class="checkout-total">
+                    <span class="total-amount" id="total">0.00 CAD</span>
+                </div>
+                <div class="checkout-total">
+                    <button id="cancel-order" class="cancel-button" aria-label="Annuler la commande">Annuler</button>
+                    <button id="confirm-order" class="checkout-button" aria-label="Passer la commande">Payer</button>
                 </div>
             </div>
-            <div id="payment-forms">
-                <form id="paypal-form" class="hidden">
-                    <h3>Informations PayPal</h3>
-                    <label for="paypal-email">Email PayPal :</label>
-                    <input type="email" id="paypal-email" name="paypal-email" placeholder="Entrez votre email PayPal" required>
-                    <button type="submit" class="btn">Enregistrer</button>
-                </form>
-            
-                <form id="interac-form" class="hidden">
-                    <h3>Informations Interac e-Transfer</h3>
-                    <label for="interac-email">Email :</label>
-                    <input type="email" id="interac-email" name="interac-email" placeholder="Entrez votre email" required>
-                    <label for="interac-phone">Téléphone :</label>
-                    <input type="tel" id="interac-phone" name="interac-phone" placeholder="Entrez votre numéro de téléphone" required>
-                    <button type="submit" class="btn">Enregistrer</button>
-                </form>
-            
-                <form id="credit-card-form" class="hidden">
-                    <h3>Informations Carte de Crédit</h3>
-                    <label for="card-number">Numéro de carte :</label>
-                    <input type="text" id="card-number" name="card-number" placeholder="Entrez le numéro de la carte" required>
-                    <label for="card-holder">Titulaire :</label>
-                    <input type="text" id="card-holder" name="card-holder" placeholder="Nom sur la carte" required>
-                    <label for="expiry-date">Date d'expiration :</label>
-                    <input type="month" id="expiry-date" name="expiry-date" required>
-                    <button type="submit" class="btn">Enregistrer</button>
-                </form>
-            </div>
         </section>
-
-        <!-- Résumé du total -->
-        <section class="section total-summary">
-            <h1>Résumé du total</h1>
-            <div class="summary-item">
-                <p><strong>Sous-total :</strong><span id="subtotal">0.00 CAD</span></p>
-            </div>
-            <div class="summary-item">
-                <p><strong>Frais de livraison :</strong><span id="delivery-fee">0.00 CAD</span></p>
-            </div>
-            <div class="summary-item">
-                <p><strong>Taxes :</strong><span id="taxes">0.00 CAD</span></p>
-            </div>
-            <hr>
-            <div class="summary-total">
-                <p><strong>Montant total :</strong> <span id="total">0.00 CAD</span></p>
-            </div>
-        </section>
-
-        <!-- Boutons Confirmation -->
-        <div class="confirmation">
-            <button id="cancel-order" class="cancel-button" aria-label="Annuler la commande">Annuler la commande</button>
-            <button id="confirm-order" class="confirm-button" aria-label="Passer la commande">Passer la commande</button>
-        </div>
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const deliveryAddressElement = document.getElementById('delivery-address');
-        const addressFormContainer = document.getElementById('address-form-container');
-        const addressForm = document.getElementById('address-form');
-        const addAddressButton = document.getElementById('add-address');
-        const editAddressButton = document.getElementById('edit-address');
-        const deleteAddressButton = document.getElementById('delete-address');
-        const paymentMethodElement = document.getElementById('payment-method');
-        const paymentSelection = document.getElementById('payment-selection');
-        const cartItemsContainer = document.getElementById('cart-items');
-        const subtotalElement = document.getElementById('subtotal');
-        const deliveryFeeElement = document.getElementById('delivery-fee');
-        const taxesElement = document.getElementById('taxes');
-        const totalElement = document.getElementById('total');
-        const confirmOrderButton = document.getElementById('confirm-order');
-        const cancelOrderButton = document.getElementById('cancel-order');
+        document.addEventListener("DOMContentLoaded", () => {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            const deliveryAddressElement = document.getElementById("delivery-address");
+            const cartItemsContainer = document.getElementById("cart-items");
+            const subtotalElement = document.getElementById("subtotal");
+            const deliveryFeeElement = document.getElementById("delivery-fee");
+            const taxesElement = document.getElementById("taxes");
+            const totalElement = document.getElementById("total");
+            const addAddressButton = document.getElementById("add-address");
+            const editAddressButton = document.getElementById("edit-address");
+            const deleteAddressButton = document.getElementById("delete-address");
+            const paymentButtons = document.querySelectorAll(".payment-button");
+            const paymentForm = document.querySelector(".payment-form");
+            const confirmOrderButton = document.getElementById("confirm-order");
+            const cancelOrderButton = document.getElementById("cancel-order");
         
+            let selectedPaymentMethod = null;
+            
+            // Récupération de userId depuis le localStorage
+            const userId = parseInt(localStorage.getItem("userId"), 10);
+
+            if (!userId) {
+                alert("Veuillez vous connecter pour accéder à cette page.");
+                window.location.href = "login.html";
+                return;
+            }
+
             // Constants
             const TPS_RATE = 0.05; // Taxe TPS
             const TVQ_RATE = 0.09975; // Taxe TVQ
-            const DELIVERY_FEE = 5.00; // Frais de livraison par défaut
+            const DELIVERY_FEE = 5.0; // Frais de livraison par défaut
         
             // Fonction pour afficher les articles du panier
             function displayCartItems() {
-                cartItemsContainer.innerHTML = '';
+                cartItemsContainer.innerHTML = "";
                 let subtotal = 0;
-        
+
                 if (cart.length === 0) {
-                    cartItemsContainer.innerHTML = '<p>Votre panier est vide.</p>';
+                    cartItemsContainer.innerHTML = "<p>Votre panier est vide.</p>";
                     updateSummary(0);
                     return;
                 }
-        
-                cart.forEach(item => {
+
+                cart.forEach((item) => {
                     const itemTotal = item.prix * item.quantite;
                     subtotal += itemTotal;
-        
-                    const cartItem = document.createElement('div');
-                    cartItem.classList.add('cart-item');
-                    cartItem.innerHTML = `
-                        <div>
-                            <img src="/images/${item.nom}.jpg" alt="${item.nom}" class="item-image">
+
+                    const cartItemHTML = `
+                        <div class="cart-item">
+                            <img src="/Images/Produits/${encodeURIComponent(item.nom)}.jpg" 
+                                alt="${item.nom}" 
+                                onerror="this.src='/Images/default-product.jpg'" class="cart-image">
                             <p><strong>${item.nom}</strong></p>
                             <p><strong>Quantité :</strong> ${item.quantite}</p>
                             <p><strong>Prix :</strong> ${item.prix.toFixed(2)} CAD</p>
-                            <p><strong>Sous-total :</strong> ${(itemTotal).toFixed(2)} CAD</p>
+                            <p><strong>Sous-total :</strong> ${itemTotal.toFixed(2)} CAD</p>
                         </div>
                     `;
-                    cartItemsContainer.appendChild(cartItem);
+                    cartItemsContainer.insertAdjacentHTML("beforeend", cartItemHTML);
                 });
-        
+
                 updateSummary(subtotal);
             }
         
-            // Mettre à jour le résumé des totaux
+            // Fonction pour mettre à jour le résumé
             function updateSummary(subtotal) {
                 const tps = subtotal * TPS_RATE;
                 const tvq = subtotal * TVQ_RATE;
                 const totalWithTaxes = subtotal + tps + tvq + DELIVERY_FEE;
-        
+
                 subtotalElement.textContent = `${subtotal.toFixed(2)} CAD`;
                 taxesElement.textContent = `${(tps + tvq).toFixed(2)} CAD`;
                 deliveryFeeElement.textContent = `${DELIVERY_FEE.toFixed(2)} CAD`;
                 totalElement.textContent = `${totalWithTaxes.toFixed(2)} CAD`;
-        
-                localStorage.setItem('cartTotalWithTaxesAndDelivery', totalWithTaxes.toFixed(2));
+
+                localStorage.setItem("cartTotalWithTaxesAndDelivery", totalWithTaxes.toFixed(2));
             }
-        
-            // Charger les adresses enregistrées
-            function loadAddress() {
-                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
-                const defaultAddress = addresses.find(address => address.isDefault);
-        
-                if (defaultAddress) {
-                    deliveryAddressElement.textContent = `${defaultAddress.address}, ${defaultAddress.city}, ${defaultAddress.postalCode}`;
-                } else {
-                    deliveryAddressElement.textContent = "Aucune adresse spécifiée.";
+
+
+            // Fonction pour mettre à jour le stock d'un produit
+            const updateProductStock = async (productId, quantity) => {
+                try {
+                    const response = await fetch(`/api/produits/${productId}/stock`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ quantiteAchetee: quantity })
+                    });
+
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(errorData.message || "Erreur lors de la mise à jour du stock.");
+                    }
+
+                    // Vérifiez le nouveau stock après mise à jour
+                    const updatedProduct = await response.json(); // Assurez-vous que l'API retourne le produit mis à jour
+                    const remainingStock = updatedProduct.stock;
+
+                    if (remainingStock <= 10) {
+                        alert(
+                            `Attention : Le stock de "${updatedProduct.nom}" est critique (${remainingStock} unité${remainingStock > 1 ? "s" : ""} restante${remainingStock > 1 ? "s" : ""}). Pensez à réapprovisionner !`
+                        );
+                    }
+                } catch (error) {
+                    console.error(`Erreur mise à jour stock pour produit ${productId}:`, error.message);
+                    alert("Erreur lors de la mise à jour du stock. Veuillez réessayer.");
+                }
+            };
+
+
+            // Charger l'adresse par défaut
+            async function loadDefaultAddress() {
+                try {
+                    const response = await fetch(`/api/clients/${userId}`);
+                    if (!response.ok) throw new Error("Erreur lors du chargement des données client.");
+
+                    const clientData = await response.json();
+                    if (clientData.address) {
+                        const { address, city, postalCode } = clientData.address;
+                        deliveryAddressElement.textContent = `${address}, ${city}, ${postalCode}`;
+                    } else {
+                        deliveryAddressElement.textContent = "Aucune adresse par défaut définie.";
+                    }
+                } catch (error) {
+                    console.error("Erreur lors de la récupération de l'adresse par défaut :", error.message);
+                    deliveryAddressElement.textContent = "Erreur lors du chargement de l'adresse.";
                 }
             }
+
         
-            // Afficher le formulaire d'ajout/modification
-            function showForm(address = null) {
-                addressFormContainer.classList.remove('hidden');
-                if (address) {
-                    document.getElementById('address').value = address.address || '';
-                    document.getElementById('city').value = address.city || '';
-                    document.getElementById('postal-code').value = address.postalCode || '';
-                    document.getElementById('is-default').checked = address.isDefault || false;
-                } else {
-                    addressForm.reset();
-                }
-            }
+            // Ajouter une nouvelle adresse
+            addAddressButton.addEventListener("click", () => {
+                window.location.href = "add-address.html";
+            });
         
-            // Masquer le formulaire
-            function hideForm() {
-                addressFormContainer.classList.add('hidden');
-                addressForm.reset();
-            }
-        
-            // Ajouter une adresse
-            addAddressButton.addEventListener('click', () => showForm());
-        
-            // Modifier une adresse
-            editAddressButton.addEventListener('click', () => {
-                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
-                const defaultAddress = addresses.find(address => address.isDefault);
-        
-                if (!defaultAddress) {
-                    alert("Aucune adresse à modifier.");
-                    return;
-                }
-        
-                showForm(defaultAddress);
+            // Modifier l'adresse existante
+            editAddressButton.addEventListener("click", () => {
+                window.location.href = "edit-address.html";
             });
         
             // Supprimer une adresse
-            deleteAddressButton.addEventListener('click', () => {
-                const addresses = JSON.parse(localStorage.getItem('addresses')) || [];
-                const defaultAddressIndex = addresses.findIndex(address => address.isDefault);
+            if (deleteAddressButton) {
+                deleteAddressButton.addEventListener("click", async () => {
+                    const userEmail = localStorage.getItem("email");
+                    if (!userEmail) {
+                        alert("Veuillez vous connecter pour modifier l'adresse.");
+                        return;
+                    }
         
-                if (defaultAddressIndex === -1) {
-                    alert("Aucune adresse à supprimer.");
-                    return;
-                }
+                    try {
+                        const response = await fetch(`/api/clients/${userEmail}`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ address: null }),
+                        });
         
-                addresses.splice(defaultAddressIndex, 1);
+                        if (!response.ok) {
+                            throw new Error("Erreur lors de la suppression de l'adresse.");
+                        }
         
-                if (addresses.length > 0) {
-                    addresses[0].isDefault = true;
-                }
-        
-                localStorage.setItem('addresses', JSON.stringify(addresses));
-                alert("Adresse supprimée avec succès.");
-                loadAddress();
-            });
-        
-            // Enregistrer une adresse
-            addressForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-        
-                const newAddress = {
-                    address: document.getElementById('address').value.trim(),
-                    city: document.getElementById('city').value.trim(),
-                    postalCode: document.getElementById('postal-code').value.trim(),
-                    isDefault: document.getElementById('is-default').checked
-                };
-        
-                let addresses = JSON.parse(localStorage.getItem('addresses')) || [];
-        
-                if (newAddress.isDefault) {
-                    addresses = addresses.map(address => ({ ...address, isDefault: false }));
-                }
-        
-                addresses.push(newAddress);
-        
-                localStorage.setItem('addresses', JSON.stringify(addresses));
-                alert("Adresse enregistrée avec succès.");
-                hideForm();
-                loadAddress();
-            });
+                        deliveryAddressElement.textContent = "Aucune adresse par défaut définie.";
+                        alert("Adresse supprimée avec succès.");
+                    } catch (error) {
+                        console.error("Erreur lors de la suppression de l'adresse :", error.message);
+                        alert("Impossible de supprimer l'adresse. Veuillez réessayer.");
+                    }
+                });
+            }
 
-            // Gérer le changement de mode de paiement
-            paymentSelection.addEventListener('change', (e) => {
-                const selectedPaymentMethod = e.target.value;
 
-                // Cacher tous les formulaires de paiement
-                document.getElementById('paypal-form').classList.add('hidden');
-                document.getElementById('interac-form').classList.add('hidden');
-                document.getElementById('credit-card-form').classList.add('hidden');
-
-                // Afficher le formulaire correspondant
-                if (selectedPaymentMethod === 'paypal') {
-                    document.getElementById('paypal-form').classList.remove('hidden');
-                } else if (selectedPaymentMethod === 'interac') {
-                    document.getElementById('interac-form').classList.remove('hidden');
-                } else if (selectedPaymentMethod === 'credit-card') {
-                    document.getElementById('credit-card-form').classList.remove('hidden');
-                }
-
-                // Sauvegarder la méthode sélectionnée
-                localStorage.setItem('paymentMethod', selectedPaymentMethod);
-            });
-
-            // Sauvegarder les informations PayPal
-            document.getElementById('paypal-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const paypalEmail = document.getElementById('paypal-email').value.trim();
-                localStorage.setItem('paypalInfo', JSON.stringify({ email: paypalEmail }));
-                alert('Informations PayPal enregistrées avec succès !');
-                document.getElementById('paypal-form').classList.add('hidden');
-            });
-
-            // Sauvegarder les informations Interac e-Transfer
-            document.getElementById('interac-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const interacEmail = document.getElementById('interac-email').value.trim();
-                const interacPhone = document.getElementById('interac-phone').value.trim();
-                localStorage.setItem('interacInfo', JSON.stringify({ email: interacEmail, phone: interacPhone }));
-                alert('Informations Interac enregistrées avec succès !');
-                document.getElementById('interac-form').classList.add('hidden');
-            });
-
-            // Sauvegarder les informations Carte de Crédit
-            document.getElementById('credit-card-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const cardNumber = document.getElementById('card-number').value.trim();
-                const cardHolder = document.getElementById('card-holder').value.trim();
-                const expiryDate = document.getElementById('expiry-date').value.trim();
-                localStorage.setItem('creditCardInfo', JSON.stringify({ cardNumber, cardHolder, expiryDate }));
-                alert('Informations Carte de Crédit enregistrées avec succès !');
-                document.getElementById('credit-card-form').classList.add('hidden');
-            });
-
-            // Vérifier et charger le mode de paiement
-            function loadPaymentMethod() {
-                const savedPaymentMethod = localStorage.getItem('paymentMethod');
-                if (savedPaymentMethod) {
-                    document.querySelector(`input[value="${savedPaymentMethod}"]`).checked = true;
-                    paymentMethodElement.textContent = `Mode de paiement : ${
-                        savedPaymentMethod === 'credit-card' ? 'Carte de Crédit' : savedPaymentMethod === 'paypal' ? 'PayPal' : 'Interac e-Transfer'
-                    }`;
+            function loadDefaultCard() {
+                const cards = JSON.parse(localStorage.getItem('cards')) || [];
+                const defaultCard = cards.find(card => card.isDefault);
+            
+                if (defaultCard) {
+                    document.getElementById('card-holder').value = defaultCard.cardHolder;
+                    document.getElementById('card-number').value = defaultCard.cardNumber;
+                    document.getElementById('expiry-date').value = defaultCard.expiryDate;
+                    document.getElementById('cvv').value = ''; // Le CVV ne doit pas être enregistré pour des raisons de sécurité
                 } else {
-                    paymentMethodElement.textContent = "Aucun mode de paiement sélectionné.";
+                    console.log('Aucune carte par défaut trouvée.');
                 }
             }
         
+            // Sélection du mode de paiement
+            function handlePaymentSelection() {
+                paymentButtons.forEach((button) => {
+                    button.addEventListener("click", () => {
+                        // Désactiver tous les autres boutons actifs
+                        paymentButtons.forEach((btn) => btn.classList.remove("active"));
+                        // Activer le bouton cliqué
+                        button.classList.add("active");
+                        // Enregistrer le mode de paiement sélectionné
+                        selectedPaymentMethod = button.textContent.trim();
+                        console.log(`Mode de paiement sélectionné : ${selectedPaymentMethod}`);
+                    });
+                });
+
+                // Ajouter une logique pour le formulaire de carte bancaire
+                const paymentForm = document.querySelector(".payment-form");
+                const cardHolderInput = document.getElementById("card-holder");
+                const cardNumberInput = document.getElementById("card-number");
+                const expiryDateInput = document.getElementById("expiry-date");
+                const cvvInput = document.getElementById("cvv");
+
+                paymentForm.addEventListener("input", () => {
+                    // Vérifier si tous les champs de la carte bancaire sont remplis
+                    if (
+                        cardHolderInput.value.trim() &&
+                        /^\d{16}$/.test(cardNumberInput.value.replace(/\s+/g, "")) && // 16 chiffres sans espaces
+                        /^\d{2}\/\d{2}$/.test(expiryDateInput.value) && // Format MM/AA
+                        /^\d{3}$/.test(cvvInput.value) // CVV à 3 chiffres
+                    ) {
+                        selectedPaymentMethod = "Carte Bancaire";
+                        console.log("Mode de paiement sélectionné : Carte Bancaire");
+                    }
+                });
+            }
+
+        
+            // Validation du formulaire de paiement
+            paymentForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+        
+                const cardHolderInput = document.getElementById("card-holder").value.trim();
+                const cardNumberInput = document.getElementById("card-number").value.trim();
+                const expiryDateInput = document.getElementById("expiry-date").value.trim();
+                const cvvInput = document.getElementById("cvv").value.trim();
+        
+                if (!cardHolderInput) {
+                    alert("Veuillez entrer le nom complet du titulaire de la carte.");
+                    return;
+                }
+        
+                if (!/^\d{16}$/.test(cardNumberInput)) {
+                    alert("Veuillez entrer un numéro de carte valide (16 chiffres).");
+                    return;
+                }
+        
+                if (!/^\d{2}\/\d{2}$/.test(expiryDateInput)) {
+                    alert("Veuillez entrer une date d'expiration valide au format MM/AA.");
+                    return;
+                }
+        
+                if (!/^\d{3}$/.test(cvvInput)) {
+                    alert("Veuillez entrer un CVV valide (3 chiffres).");
+                    return;
+                }
+        
+                alert("Informations de carte bancaire enregistrées avec succès.");
+            });
+
+
+            // Fonction pour enregistrer une carte bancaire dans le localStorage et sauvegarder dans cartes.json
+            function saveCard(cardInfo) {
+                fetch('/api/cartes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(cardInfo),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors de l\'enregistrement de la carte.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Sauvegarde dans localStorage après enregistrement sur le serveur
+                        const cards = JSON.parse(localStorage.getItem('cards')) || [];
+                        cards.forEach(card => (card.isDefault = false)); // Désactiver l'ancienne carte par défaut
+                        cards.push(data.carte); // Ajouter la carte renvoyée par le serveur
+                        localStorage.setItem('cards', JSON.stringify(cards));
+                        alert('Carte enregistrée avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de l\'enregistrement de la carte :', error.message);
+                        alert('Erreur lors de l\'enregistrement de la carte. Veuillez réessayer.');
+                    });
+            }
+
+            
+            // Exemple d'enregistrement des informations de carte en localStorage (pour test uniquement)
+            localStorage.setItem(
+                "cardInfo",
+                JSON.stringify({
+                    number: "4242424242424242", // Numéro de test
+                    type: null, // Sera déterminé
+                })
+            );
+
+
+            // Fonction pour détecter le type de carte (Visa ou MasterCard)
+            function detectCardType(cardNumber) {
+                if (/^4[0-9]{12}(?:[0-9]{3})?$/.test(cardNumber)) {
+                    return "Visa";
+                } else if (/^5[1-5][0-9]{14}$/.test(cardNumber)) {
+                    return "MasterCard";
+                }
+                return "Inconnue"; // Au cas où le type de carte ne correspond pas
+            }
+
+            // Fonction pour afficher le type de carte et les 4 derniers chiffres
+            function displayCardInfo() {
+                const cardInfoElement = document.querySelector(".checkout-section .section-content");
+                const cardData = JSON.parse(localStorage.getItem("cardInfo"));
+
+                if (!cardData || !cardData.number) {
+                    cardInfoElement.textContent = "Aucune carte enregistrée.";
+                    return;
+                }
+
+                // Récupérer les 4 derniers chiffres
+                const lastFourDigits = cardData.number.slice(-4);
+
+                // Déterminer le type de carte
+                const cardType = detectCardType(cardData.number);
+
+                // Afficher le type de carte et les 4 derniers chiffres
+                cardInfoElement.innerHTML = `${cardType}<br>**** **** **** ${lastFourDigits}`;
+            }
+
+
+            // Fonction pour enregistrer une commande dans le localStorage et sauvegarder dans commandes.json
+            function saveOrder(orderInfo) {
+                fetch('/api/commandes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(orderInfo),
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur lors de l\'enregistrement de la commande.');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Sauvegarde dans localStorage après enregistrement sur le serveur
+                        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                        orders.push(data.commande); // Ajouter la commande renvoyée par le serveur
+                        localStorage.setItem('orders', JSON.stringify(orders));
+                        alert('Commande enregistrée avec succès.');
+                    })
+                    .catch(error => {
+                        console.error('Erreur lors de l\'enregistrement de la commande :', error.message);
+                        alert('Erreur lors de l\'enregistrement de la commande. Veuillez réessayer.');
+                    });
+            }
+
+            // Fonction pour générer un fichier JSON et proposer son téléchargement
+            function saveToFile(fileName, data) {
+                const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(jsonBlob);
+                link.download = fileName;
+                link.click();
+            }
+
             // Annuler la commande
-            cancelOrderButton.addEventListener('click', () => {
-                if (confirm('Êtes-vous sûr de vouloir annuler votre commande ?')) {
-                    localStorage.removeItem('cart');
-                    alert('Votre commande a été annulée.');
-                    window.location.href = 'index.html';
+            cancelOrderButton.addEventListener("click", () => {
+                if (confirm("Êtes-vous sûr de vouloir annuler votre commande ?")) {
+                    localStorage.removeItem("cart");
+                    alert("Votre commande a été annulée.");
+                    window.location.href = "index.html";
                 }
             });
         
             // Confirmation de la commande
-            confirmOrderButton.addEventListener('click', () => {
+            confirmOrderButton.addEventListener("click", async () => {
                 if (cart.length === 0) {
-                    alert('Votre panier est vide.');
+                    alert("Votre panier est vide.");
                     return;
                 }
-        
-                const shippingDetails = JSON.parse(localStorage.getItem('shippingDetails')) || {};
-                if (!shippingDetails.address || !shippingDetails.paymentMethod) {
-                    alert('Veuillez renseigner votre adresse et votre mode de paiement.');
+            
+                // Vérifier si une adresse de livraison est renseignée
+                if (!deliveryAddressElement.textContent || deliveryAddressElement.textContent === "Aucune adresse par défaut définie.") {
+                    alert("Veuillez renseigner une adresse de livraison.");
                     return;
                 }
+            
+                // Vérifier si un mode de paiement a été sélectionné
+                if (!selectedPaymentMethod) {
+                    alert("Veuillez sélectionner un mode de paiement.");
+                    return;
+                }
+            
+                // Validation spécifique au mode "Carte Bancaire"
+                if (selectedPaymentMethod === "Carte Bancaire") {
+                    const cardHolder = document.getElementById("card-holder").value.trim();
+                    const cardNumber = document.getElementById("card-number").value.replace(/\s+/g, "").trim();
+                    const expiryDate = document.getElementById("expiry-date").value.trim();
+                    const cvv = document.getElementById("cvv").value.trim();
+            
+                    if (!cardHolder || !/^\d{16}$/.test(cardNumber) || !/^\d{2}\/\d{2}$/.test(expiryDate) || !/^\d{3}$/.test(cvv)) {
+                        alert("Veuillez remplir correctement les informations de votre carte bancaire.");
+                        return;
+                    }
+                }
+                
+
+                // Mise à jour des stocks
+                try {
+                    for (const item of cart) {
+                        await updateProductStock(item.id, item.quantite);
+                    }
+
+                    // Générer un numéro de commande unique
+                    const orderNumber = `SLG${Date.now()}`;
+                    const orderDetails = {
+                        userId,
+                        orderNumber,
+                        cart,
+                        total: parseFloat(localStorage.getItem("cartTotalWithTaxesAndDelivery")),
+                        paymentMethod: selectedPaymentMethod,
+                        deliveryAddress: deliveryAddressElement.textContent,
+                    };
+
+                    // Envoi de la commande
+                    const response = await fetch("/api/commandes", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(orderDetails),
+                    });
         
-                const orderNumber = `SLG${Date.now()}`;
-                localStorage.setItem('orderNumber', orderNumber);
+                    if (!response.ok) throw new Error("Erreur lors de l'enregistrement de la commande.");
         
-                alert('Commande confirmée avec succès !');
-                window.location.href = 'remerciement.html';
+                    alert("Commande confirmée avec succès !");
+                    localStorage.removeItem("cart");
+                    window.location.href = "remerciement.html";
+                } catch (error) {
+                    console.error("Erreur lors de la confirmation de la commande :", error.message);
+                    alert("Erreur lors de la confirmation de la commande. Veuillez réessayer.");
+                }
             });
         
             // Initialisation
             displayCartItems();
-            loadAddress();
-            hideForm();
-            loadPaymentMethod();
+            loadDefaultAddress();
+            loadDefaultCard();
+            handlePaymentSelection();
+            displayCardInfo();
+            confirmOrderButton.addEventListener("click", confirmOrder);
         });
     </script>
 

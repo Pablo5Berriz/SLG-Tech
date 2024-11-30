@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SLG Tech - Découvrez notre large gamme de produits électroniques de qualité. Livraison rapide et garantie qualité.">
     <title>SLG Tech - Boutique d'Appareils Électroniques</title>
+    <link rel="icon" href="Images/logo.jpg" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="scripts.js"></script>
@@ -22,10 +23,14 @@
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmDashboard.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
             <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
         </div>
     </header>
@@ -107,8 +112,10 @@
             categories.forEach((category) => {
                 const div = document.createElement("div");
                 div.classList.add("category-item");
-                div.innerHTML = `
-                    <img src="images/categories/${category.nom}.jpg" alt="${category.nom}">
+                div.innerHTML = ` 
+                    <img src="/Images/categories/${encodeURIComponent(category.nom)}.jpg" 
+                     alt="${category.nom}" 
+                     onerror="this.src='/Images/default-product.jpg'">
                     <h3>${category.nom}</h3>
                 `;
         
@@ -140,9 +147,11 @@
                 const div = document.createElement("div");
                 div.classList.add("product-item");
                 div.innerHTML = `
-                    <img src="images/produits/${produit.nom}.jpg" alt="${produit.nom}">
+                    <img src="/Images/Produits/${encodeURIComponent(produit.nom)}.jpg" 
+                        alt="${produit.nom}" 
+                        onerror="this.src='/Images/default-product.jpg'">
                     <h3>${produit.nom}</h3>
-                    <p>Prix : ${produit.prix} CAD</p>
+                    <p><strong>Prix : ${produit.prix} CAD</strong></p>
                     <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
                 `;
                 produitGrid.appendChild(div);

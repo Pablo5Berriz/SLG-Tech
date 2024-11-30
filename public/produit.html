@@ -6,7 +6,7 @@
     <title>Détail du produit - SLG Tech</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js"></script>
+    <script defer src="scripts.js"></script> <!-- Assurez-vous que ce script est bien référencé -->
 </head>
 <body>
     <header class="header">
@@ -24,7 +24,10 @@
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <a href="panier.html" class="cart-link" aria-label="Voir le panier">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
             <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
         </div>
     </header>
@@ -35,62 +38,86 @@
             <h1>Détails du produit</h1>
         </section>
         <!-- Détails du produit -->
-        <section class="product-detail">
-            <div id="product-container" class="product-container">
+        <section>
+            <div id="product-container">
                 <!-- Les détails du produit seront chargés ici dynamiquement -->
             </div>
         </section>
     </main>
 
     <script>
+        // Fonction pour récupérer l'ID du produit à partir de l'URL
         function getProductIdFromURL() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
         }
-
-        // Charger les détails du produit
+    
+        // Met à jour le compteur du panier dans l'icône
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalCount = cart.reduce((sum, item) => sum + (parseInt(item.quantite, 10) || 0), 0);
+            const cartCountElement = document.getElementById('cart-count');
+        
+            if (cartCountElement) {
+                cartCountElement.textContent = totalCount || 0; // Affiche 0 si le panier est vide
+            }
+        }
+        
+    
+        // Fonction pour charger les détails du produit
         async function loadProductDetails() {
             const productContainer = document.getElementById('product-container');
-
+    
             if (!productContainer) {
                 console.error("L'élément 'product-container' est introuvable !");
                 return;
             }
-
+    
             const produitId = getProductIdFromURL();
             if (!produitId) {
                 productContainer.innerHTML = '<p>Produit non trouvé.</p>';
                 return;
             }
-
+    
             try {
-                const response = await fetch('/data/produits.json'); // Remplacez par le chemin correct de votre fichier JSON
+                // Remplacez par le chemin correct de votre fichier JSON
+                const response = await fetch('/data/produits.json');
                 if (!response.ok) {
                     throw new Error(`Erreur lors du chargement du fichier JSON : ${response.statusText}`);
                 }
-
+    
                 const produits = await response.json();
                 const produit = produits.find(item => item.id === parseInt(produitId, 10));
-
+    
                 if (!produit) {
                     productContainer.innerHTML = '<p>Produit non trouvé.</p>';
                     return;
                 }
 
-                // Afficher les détails du produit
+                //  chemin de l'image des produits
+                const imageUrl = `/Images/Produits/${produit.nom}.jpg`;
+                const defaultImageUrl = '/Images/default-product.jpg'; // Image par défaut en cas d’erreur
+
+    
                 productContainer.innerHTML = `
-                    <div class="product-detail-card">
-                        <img src="/images/${produit.nom}.jpg" alt="${produit.nom}">
-                        <h1>${produit.nom}</h1>
-                        <p><strong>Catégorie :</strong> ${produit.categorie}</p>
-                        <p><strong>Description :</strong> ${produit.description}</p>
-                        <p><strong>Prix :</strong> ${produit.prix.toFixed(2)} CAD</p>
-                        <p><strong>Stock :</strong> ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</p>
-                        <button style="margin-top: 20px;" id="add-to-cart" class="btn" ${produit.stock > 0 ? "" : "disabled"}><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="${imageUrl}" alt="Image de ${produit.nom}" onerror="this.src='${defaultImageUrl}'">
+                        </div>
+                        <div class="product-details">
+                            <h1 class="product-title">${produit.nom}</h1>
+                            <p class="product-subtitle">${produit.categorie}</p>
+                            <p class="product-description"> ${produit.description}</p>
+                            <div class="product-price-buy">
+                                <span class="product-price"> ${produit.prix.toFixed(2)} CAD</p>
+                                <p><strong>Stock :</strong> ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</p>
+                                <button class="buy-now" id="add-to-cart" ${produit.stock > 0 ? "" : "disabled"}><i class="fa fa-shopping-cart"></i> Ajouter au panier</button>
+                            </div>
+                        </div>
                     </div>
                 `;
-
-                // Ajouter un événement au bouton "Ajouter au panier"
+    
+                // Gestion de l'ajout au panier
                 const addToCartButton = document.getElementById('add-to-cart');
                 if (addToCartButton) {
                     addToCartButton.addEventListener('click', () => {
@@ -104,33 +131,38 @@
                 productContainer.innerHTML = '<p>Erreur lors du chargement du produit.</p>';
             }
         }
-
-        // Ajouter un produit au panier
-        function addToCart(produit) {
+    
+        // Fonction pour ajouter un produit au panier
+        function addToCart(product) {
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const existingProduct = cart.find(item => item.id === produit.id);
-
+            const existingProduct = cart.find(item => item.id === product.id);
+        
             if (existingProduct) {
-                existingProduct.quantite += 1; // Incrémente la quantité si le produit existe déjà dans le panier
+                existingProduct.quantite += 1; // Augmente la quantité
             } else {
-                cart.push({ ...produit, quantite: 1 }); // Ajoute un nouveau produit avec une quantité de 1
+                // Ajouter un nouveau produit avec une quantité par défaut de 1
+                cart.push({ ...product, quantite: 1 });
             }
-
+        
             localStorage.setItem('cart', JSON.stringify(cart));
-            alert(`${produit.nom} a été ajouté au panier !`);
+            updateCartCount(); // Met à jour le compteur
+            alert(`${product.nom} a été ajouté au panier !`);
         }
-
-        // Charger les détails du produit au chargement de la page
-        document.addEventListener('DOMContentLoaded', loadProductDetails);
+    
+        // Initialisation : charger les détails du produit et mettre à jour le compteur
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProductDetails();
+            updateCartCount();
+        });
     </script>
 
     <footer style="margin-top: 100px;">
         <section id="social">
             <h4>Suivez-nous sur les réseaux sociaux</h4>
             <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
+                <li><a href="#" aria-label="Suivez-nous sur Facebook">Facebook</a></li>
+                <li><a href="#" aria-label="Suivez-nous sur Twitter">Twitter</a></li>
+                <li><a href="#" aria-label="Suivez-nous sur Instagram">Instagram</a></li>
             </ul>
         </section>
         <section id="footer-info">

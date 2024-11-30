@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1732833618750,
+    "name": "Clémence Tchaiwou",
+    "email": "Tchaiwouclemence@gmail.com",
+    "password": "$2b$10$CKmjez82XJPHngUABuhZtOJ8h0a/unJBEXXJHc1iBTl3V91W0ULxm",
+    "isLoggedIn": false,
+    "phone": "5143217894",
+    "address": {
+      "address": "102 Rue Principale",
+      "city": "Ottawa",
+      "postalCode": "O1P2Q3"
+    }
+  },
+  {
+    "id": 1732952449104,
+    "name": "Admin",
+    "email": "paulquentin4@gmail.com",
+    "password": "$2b$10$6Xgnhque4llPVPK8ZhQX1.kkZj.zZT4qrDSqWwjPtRRnBp0QMycFy",
+    "role": "admin",
+    "isLoggedIn": false
+  }
+]

@@ -97,7 +97,9 @@
                 const memberDiv = document.createElement('div');
                 memberDiv.classList.add('team-member');
                 memberDiv.innerHTML = `
-                    <img src="images/Members/${member.photo}" alt="${member.nom}">
+                    <img src="/Images/Members/${encodeURIComponent(member.photo)}"
+                        alt="${member.nom}"
+                        onerror="this.src='/Images/default-product.jpg'">
                     <h3>${member.nom}</h3>
                     <p>${member.role}</p>
                 `;

@@ -23,7 +23,7 @@
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count" style="right: 75px;">0</span></a>
+            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
             <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
         </div>
     </header>
@@ -56,6 +56,7 @@
                         <th>Nom sur la carte</th>
                         <th>Numéro de carte</th>
                         <th>Date d'expiration</th>
+                        <th>Par défaut</th>
                     </tr>
                 </thead>
                 <tbody id="credit-cards-body">
@@ -65,7 +66,7 @@
             <div id="no-cards-message">
                 <!-- Message si aucune carte enregistrée -->
             </div>
-            <button id="add-card" class="btn btn-primary hidden" style="margin-left: 270px; margin-top: 50px;">Ajouter une carte</button>
+            <button id="add-card" class="btn btn-primary" style="margin-left: 270px; margin-top: 50px;">Ajouter une carte</button>
         </section>
 
         <!-- Commandes de l'utilisateur -->
@@ -76,8 +77,8 @@
                     <tr>
                         <th>ID</th>
                         <th>Date</th>
+                        <th>Total</th>
                         <th>Statut</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="orders-body">
@@ -87,7 +88,7 @@
             <div id="no-orders-message">
                 <!-- Message si aucune commande enregistrée -->
             </div>
-        </section>
+        </section>>
 
         <!-- Actions sur le profil -->
         <section class="profile-actions">
@@ -112,91 +113,184 @@
             const noCardsMessage = document.getElementById('no-cards-message');
             const noOrdersMessage = document.getElementById('no-orders-message');
             const addCardButton = document.getElementById('add-card');
-
-            const currentUserEmail = localStorage.getItem('email');
-
-            if (!currentUserEmail) {
+            const editProfileButton = document.getElementById('edit-profile');
+            const changePasswordButton = document.getElementById('change-password');
+            const notificationsSettingsButton = document.getElementById('notifications-settings');
+            const privacySettingsButton = document.getElementById('privacy-settings');
+            const deleteAccountButton = document.getElementById('delete-account');
+            const logoutButton = document.getElementById('logout');
+    
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
                 alert('Vous devez vous connecter pour accéder à votre profil.');
                 window.location.href = 'login.html';
                 return;
             }
 
-            // Charger les informations utilisateur
-            async function loadProfile() {
+            async function loadProfile(userId) {
                 try {
-                    const response = await fetch(`/api/clients/${currentUserEmail}`);
+                    const response = await fetch(`/api/clients/${userId}`);
                     if (!response.ok) throw new Error('Impossible de charger les données utilisateur.');
 
                     const user = await response.json();
                     userNameElement.textContent = user.name || 'Nom non renseigné';
                     userEmailElement.textContent = user.email;
                     userPhoneElement.textContent = user.phone || 'Non spécifié';
-                    userAddressElement.textContent = user.address || 'Non spécifiée';
+                    userAddressElement.textContent = user.address 
+                        ? `${user.address.address}, ${user.address.city}, ${user.address.postalCode}`
+                        : 'Non spécifiée';
                 } catch (error) {
-                    console.error(error.message);
+                    console.error('Erreur lors du chargement du profil:', error.message);
                     alert('Erreur lors du chargement du profil.');
                 }
             }
 
-            // Charger les cartes de crédit
             async function loadCreditCards() {
                 try {
-                    const response = await fetch(`/api/cartes/${currentUserEmail}`);
-                    const cards = await response.json();
+                    const response = await fetch(`/api/cartes/${userId}`);
+                    if (!response.ok) throw new Error('Erreur lors du chargement des cartes.');
 
+                    const userCards = await response.json();
                     creditCardsBody.innerHTML = '';
-                    if (cards.length === 0) {
+                    if (userCards.length === 0) {
                         noCardsMessage.textContent = 'Aucune carte enregistrée.';
-                        addCardButton.classList.remove('hidden');
                         return;
                     }
 
-                    cards.forEach(card => {
+                    noCardsMessage.textContent = '';
+                    userCards.forEach(card => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${card.nom_sur_la_carte}</td>
-                            <td>${card.numero_tronque}</td>
-                            <td>${card.date_expiration}</td>
+                            <td>${card.cardHolder}</td>
+                            <td>${card.cardNumber}</td>
+                            <td>${card.expiryDate}</td>
+                            <td>${card.isDefault ? 'Oui' : 'Non'}</td>
                         `;
                         creditCardsBody.appendChild(row);
                     });
                 } catch (error) {
-                    console.error(error.message);
+                    console.error('Erreur lors du chargement des cartes:', error.message);
                     noCardsMessage.textContent = 'Erreur lors du chargement des cartes.';
                 }
             }
 
-            // Charger les commandes
             async function loadOrders() {
                 try {
-                    const response = await fetch(`/api/commandes/${currentUserEmail}`);
-                    const orders = await response.json();
-
+                    const userId = parseInt(localStorage.getItem('userId'), 10); // Assurez-vous que userId est valide
+                    console.log("Chargement des commandes pour userId :", userId); // Log pour débogage
+            
+                    const response = await fetch(`/api/commandes/${userId}`);
+                    if (!response.ok) throw new Error('Erreur lors du chargement des commandes.');
+            
+                    const userOrders = await response.json();
+            
                     ordersBody.innerHTML = '';
-                    if (orders.length === 0) {
+                    if (userOrders.length === 0) {
                         noOrdersMessage.textContent = 'Aucune commande enregistrée.';
                         return;
                     }
-
-                    orders.forEach(order => {
+            
+                    noOrdersMessage.textContent = '';
+                    userOrders.forEach(order => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-                            <td>${order.id}</td>
+                            <td>${order.orderNumber}</td>
                             <td>${new Date(order.date).toLocaleDateString()}</td>
-                            <td>${order.status}</td>
+                            <td>${order.total}</td>
+                            <td>${order.paymentMethod}</td>
                         `;
                         ordersBody.appendChild(row);
                     });
                 } catch (error) {
-                    console.error(error.message);
+                    console.error('Erreur lors du chargement des commandes:', error.message);
                     noOrdersMessage.textContent = 'Erreur lors du chargement des commandes.';
                 }
             }
 
+            // Redirection vers la page d'ajout de carte
+            addCardButton.addEventListener('click', () => {
+                window.location.href = 'add_card.html';
+            });
+    
+            // Gérer les actions des boutons
+            editProfileButton.addEventListener('click', () => {
+                window.location.href = 'edit-profile.html';
+            });
+    
+            changePasswordButton.addEventListener('click', () => {
+                alert('Redirection vers la page de changement de mot de passe.');
+                window.location.href = 'change-password.html';
+            });
+    
+            notificationsSettingsButton.addEventListener('click', () => {
+                alert('Redirection vers la page des paramètres de notifications.');
+                window.location.href = 'notifications-settings.html';
+            });
+    
+            privacySettingsButton.addEventListener('click', () => {
+                alert('Redirection vers la page des paramètres de confidentialité.');
+                window.location.href = 'privacy-settings.html';
+            });
+    
+            deleteAccountButton.addEventListener('click', async () => {
+                if (!userId) {
+                    alert('Erreur : Aucun email utilisateur trouvé. Veuillez vous reconnecter.');
+                    return;
+                }
+            
+                if (confirm('Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.')) {
+                    try {
+                        // Ajout de logs pour débogage
+                        console.log(`Tentative de suppression du compte avec l'email : ${userId}`);
+            
+                        // Requête DELETE vers l'API backend
+                        const response = await fetch(`/data/clients.json/${encodeURIComponent$(userId)}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+            
+                        if (!response.ok) {
+                            // Gérer les cas où l'utilisateur n'est pas trouvé ou autre erreur
+                            if (response.status === 404) {
+                                alert('Utilisateur non trouvé. Veuillez vérifier votre compte.');
+                            } else if (response.status === 400) {
+                                alert("Requête invalide. L'email utilisateur est requis.");
+                            } else {
+                                alert('Erreur lors de la suppression du compte. Veuillez réessayer.');
+                            }
+                            throw new Error(`Échec de la suppression : ${response.status}`);
+                        }
+            
+                        // Succès de la suppression
+                        alert('Votre compte a été supprimé avec succès.');
+                        localStorage.removeItem('userid'); // Supprime l'email stocké localement
+                        window.location.href = 'signup.html'; // Redirige vers la page d'inscription
+                    } catch (error) {
+                        // Logs pour débogage
+                        console.error('Erreur lors de la suppression du compte :', error.message);
+                        alert('Erreur lors de la suppression du compte. Veuillez contacter le support.');
+                    }
+                }
+            });
+    
+            logoutButton.addEventListener('click', () => {
+                if (confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                    localStorage.removeItem('userid');
+                    alert('Déconnexion réussie.');
+                    window.location.href = 'login.html';
+                }
+            });
+    
             // Initialiser la page
-            loadProfile();
-            loadCreditCards();
-            loadOrders();
+            try {
+                await loadProfile(userId);
+                await loadCreditCards();
+                await loadOrders();
+            } catch (error) {
+                console.error('Erreur globale:', error.message);
+            }
         });
     </script>
 

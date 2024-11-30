@@ -41,6 +41,13 @@
                 <!-- Les produits de la catégorie seront injectés ici -->
             </div>
         </section>
+
+        <!-- Pagination -->
+        <section class="pagination">
+            <div id="pagination-controls">
+                <!-- Les boutons de pagination seront générés ici -->
+            </div>
+        </section>
     </main>
 
     <script>
@@ -85,7 +92,9 @@
                     const productCard = document.createElement('div');
                     productCard.classList.add('product-item');
                     productCard.innerHTML = `
-                        <img src="images/produits/${produit.nom}.jpg" alt="${produit.nom}">
+                        <img src="/Images/Produits/${encodeURIComponent(produit.nom)}.jpg"
+                            alt="${produit.nom}" 
+                            onerror="this.src='/Images/default-product.jpg'">
                         <h3>${produit.nom}</h3>
                         <p><strong>Prix :</strong> ${produit.prix} CAD</p>
                         <p><strong>Stock :</strong> ${produit.stock > 0 ? `${produit.stock} disponible(s)` : 'En rupture de stock'}</p>
@@ -99,6 +108,128 @@
                 productGrid.innerHTML = '<p>Impossible de charger les produits. Veuillez réessayer plus tard.</p>';
             }
         }
+
+        // Générer les boutons de pagination
+        // Variables globales pour la pagination
+    const itemsPerPage = 6; // Nombre de produits par page
+    let currentPage = 1;
+
+    // Charger et afficher les produits avec pagination
+    async function displayPaginatedProducts(page = 1) {
+        currentPage = page; // Mettre à jour la page actuelle
+        const categoryName = getCategoryFromURL();
+        const categoryTitleElement = document.getElementById('category-title');
+        const productGrid = document.getElementById('category-product-grid');
+
+        if (!categoryName) {
+            categoryTitleElement.textContent = "Catégorie non spécifiée";
+            productGrid.innerHTML = '<p>Aucune catégorie sélectionnée.</p>';
+            return;
+        }
+
+        try {
+            const produits = await fetchData('produits'); // Récupère les données des produits
+            if (!produits || produits.length === 0) {
+                throw new Error('Aucun produit trouvé.');
+            }
+
+            // Filtrer les produits correspondant à la catégorie
+            const filteredProducts = produits.filter(produit => produit.categorie.toLowerCase() === categoryName.toLowerCase());
+
+            if (filteredProducts.length === 0) {
+                categoryTitleElement.textContent = `Aucun produit trouvé dans la catégorie "${categoryName}"`;
+                productGrid.innerHTML = '<p>Aucun produit disponible dans cette catégorie.</p>';
+                return;
+            }
+
+            // Mettre à jour le titre de la catégorie
+            categoryTitleElement.textContent = `Produits de la catégorie : ${categoryName}`;
+
+            // Pagination : calcul des indices de début et de fin
+            const startIndex = (page - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
+
+            // Injecter les produits dans la grille
+            productGrid.innerHTML = ''; // Réinitialiser la grille
+            paginatedProducts.forEach(produit => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-item');
+                productCard.innerHTML = `
+                    <img src="images/produits/${produit.nom}.jpg" alt="${produit.nom}">
+                    <h3>${produit.nom}</h3>
+                    <p><strong>Prix :</strong> ${produit.prix} CAD</p>
+                    <p><strong>Stock :</strong> ${produit.stock > 0 ? `${produit.stock} disponible(s)` : 'En rupture de stock'}</p>
+                    <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
+                `;
+                productGrid.appendChild(productCard);
+            });
+
+            // Afficher les contrôles de pagination
+            displayPaginationControls(filteredProducts.length, page);
+        } catch (error) {
+            console.error('Erreur lors du chargement des produits :', error.message);
+            categoryTitleElement.textContent = "Erreur de chargement";
+            productGrid.innerHTML = '<p>Impossible de charger les produits. Veuillez réessayer plus tard.</p>';
+        }
+    }
+
+    // Générer les boutons de pagination
+    function displayPaginationControls(totalItems, currentPage) {
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        const paginationControls = document.getElementById('pagination-controls') || createPaginationControls();
+
+        paginationControls.innerHTML = ''; // Réinitialiser les contrôles
+
+        // Bouton Précédent
+        if (currentPage > 1) {
+            const prevButton = document.createElement('button');
+            prevButton.textContent = 'Précédent';
+            prevButton.addEventListener('click', () => {
+                displayPaginatedProducts(currentPage - 1);
+            });
+            paginationControls.appendChild(prevButton);
+        }
+
+        // Boutons pour chaque page
+        for (let i = 1; i <= totalPages; i++) {
+            const pageButton = document.createElement('button');
+            pageButton.textContent = i;
+            if (i === currentPage) {
+                pageButton.classList.add('active');
+            }
+            pageButton.addEventListener('click', () => {
+                displayPaginatedProducts(i);
+            });
+            paginationControls.appendChild(pageButton);
+        }
+
+        // Bouton Suivant
+        if (currentPage < totalPages) {
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Suivant';
+            nextButton.addEventListener('click', () => {
+                displayPaginatedProducts(currentPage + 1);
+            });
+            paginationControls.appendChild(nextButton);
+        }
+    }
+
+    // Crée et insère la section des contrôles de pagination
+    function createPaginationControls() {
+        const main = document.querySelector('main');
+        const paginationSection = document.createElement('section');
+        paginationSection.id = 'pagination-controls';
+        paginationSection.style.textAlign = 'center';
+        paginationSection.style.marginTop = '20px';
+        main.appendChild(paginationSection);
+        return paginationSection;
+    }
+
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        displayPaginatedProducts();
+    });
         
         // Initialisation au chargement de la page
         document.addEventListener('DOMContentLoaded', loadCategoryProducts);

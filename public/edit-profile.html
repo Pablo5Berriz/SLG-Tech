@@ -25,6 +25,7 @@
         </nav>
         <div>
             <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
+            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
         </div>
     </header>
 
@@ -34,16 +35,22 @@
             <form id="edit-profile-form">
                 <label for="name">Nom :</label>
                 <input type="text" id="name" name="name" placeholder="Entrez votre nom complet" required>
-
+            
                 <label for="email">Email :</label>
                 <input type="email" id="email" name="email" disabled placeholder="Votre adresse email">
-
+            
                 <label for="phone">Numéro de téléphone :</label>
                 <input type="tel" id="phone" name="phone" placeholder="Entrez votre numéro de téléphone" pattern="[0-9]{10}" title="Entrez un numéro valide à 10 chiffres.">
-
+            
                 <label for="address">Adresse :</label>
-                <input type="text" id="address" name="address" placeholder="Entrez votre adresse complète" required>
-
+                <input type="text" id="address" name="address" placeholder="Entrez votre adresse (ex: mumere de rue)" required>
+            
+                <label for="city">Ville :</label>
+                <input type="text" id="city" name="city" placeholder="Entrez votre ville" required>
+            
+                <label for="postalCode">Code Postal :</label>
+                <input type="text" id="postalCode" name="postalCode" placeholder="Entrez votre code postal (ex: A1B 2C3)" required>
+            
                 <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
             </form>
         </section>
@@ -51,58 +58,67 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const email = localStorage.getItem('email');
-
-            if (!email) {
+            const userId = localStorage.getItem('userId'); // Assurez-vous que userId est défini
+        
+            if (!userId) {
                 alert("Vous devez être connecté pour accéder à cette page.");
                 window.location.href = 'login.html';
                 return;
             }
-
+        
             const editProfileForm = document.getElementById('edit-profile-form');
-
+        
             // Charger les informations existantes
             async function loadProfile() {
                 try {
-                    const response = await fetch(`/api/profile?email=${email}`);
+                    const response = await fetch(`/api/profile?userId=${userId}`); // Envoi de userId
                     if (!response.ok) throw new Error('Impossible de charger vos informations utilisateur.');
-
+        
                     const user = await response.json();
                     document.getElementById('name').value = user.name || '';
-                    document.getElementById('email').value = user.email || email;
+                    document.getElementById('email').value = user.email || '';
                     document.getElementById('phone').value = user.phone || '';
-                    document.getElementById('address').value = user.address || '';
+        
+                    if (user.address) {
+                        document.getElementById('address').value = user.address.address || '';
+                        document.getElementById('city').value = user.address.city || '';
+                        document.getElementById('postalCode').value = user.address.postalCode || '';
+                    }
                 } catch (error) {
                     console.error('Erreur lors du chargement des informations utilisateur :', error.message);
                     alert("Une erreur s'est produite. Veuillez réessayer.");
                 }
             }
-
+        
             // Gestion de la soumission du formulaire
             editProfileForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-
+        
                 const updatedUser = {
                     name: document.getElementById('name').value.trim(),
                     phone: document.getElementById('phone').value.trim(),
-                    address: document.getElementById('address').value.trim(),
+                    address: {
+                        address: document.getElementById('address').value.trim(),
+                        city: document.getElementById('city').value.trim(),
+                        postalCode: document.getElementById('postalCode').value.trim(),
+                    },
                 };
-
+        
                 // Validation côté client
-                if (!updatedUser.name || !updatedUser.phone || !updatedUser.address) {
+                if (!updatedUser.name || !updatedUser.phone || !updatedUser.address.address || !updatedUser.address.city || !updatedUser.address.postalCode) {
                     alert('Tous les champs doivent être remplis.');
                     return;
                 }
-
+        
                 try {
-                    const response = await fetch(`/api/profile?email=${email}`, {
+                    const response = await fetch(`/api/profile?userId=${userId}`, { // Envoi de userId
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(updatedUser)
+                        body: JSON.stringify(updatedUser),
                     });
-
+        
                     if (!response.ok) throw new Error('Impossible de mettre à jour votre profil.');
-
+        
                     alert('Vos informations ont été mises à jour avec succès.');
                     window.location.href = 'profile.html';
                 } catch (error) {
@@ -110,7 +126,7 @@
                     alert("Une erreur s'est produite lors de la mise à jour. Veuillez réessayer.");
                 }
             });
-
+        
             loadProfile();
         });
     </script>

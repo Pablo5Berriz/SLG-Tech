@@ -87,10 +87,13 @@
                     }
         
                     const user = await response.json();
+        
+                    // Stocker userId dans localStorage
                     localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('email', user.email);
+                    localStorage.setItem('userId', user.id); // Utilisation de userId
                     localStorage.setItem('username', user.name);
         
+                    // Redirection après connexion
                     const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
                     if (redirectAfterLogin) {
                         localStorage.removeItem('redirectAfterLogin');

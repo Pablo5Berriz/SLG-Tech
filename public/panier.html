@@ -91,19 +91,20 @@
                     const subtotal = item.prix * item.quantite;
                     total += subtotal;
 
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${item.nom}</td>
-                        <td>${item.prix.toFixed(2)} CAD</td>
-                        <td>
-                            <input type="number" value="${item.quantite}" min="1" data-index="${index}" class="quantity-input">
-                        </td>
-                        <td>${subtotal.toFixed(2)} CAD</td>
-                        <td>
-                            <button class="btn-remove" data-index="${index}">Supprimer</button>
-                        </td>
+                    const row = `
+                        <tr>
+                            <td>${item.nom}</td>
+                            <td>${item.prix.toFixed(2)} CAD</td>
+                            <td>
+                                <input type="number" value="${item.quantite}" min="1" data-index="${index}" class="quantity-input">
+                            </td>
+                            <td>${subtotal.toFixed(2)} CAD</td>
+                            <td>
+                                <button class="btn-remove" data-index="${index}">Supprimer</button>
+                            </td>
+                        </tr>
                     `;
-                    cartItemsContainer.appendChild(row);
+                    cartItemsContainer.insertAdjacentHTML("beforeend", row);
                 });
 
                 cartTotalElement.textContent = `${total.toFixed(2)} CAD`;
@@ -117,8 +118,8 @@
                 });
 
                 // Gestion des quantités
-                document.querySelectorAll('.quantity-input').forEach(input => {
-                    input.addEventListener('input', (e) => {
+                document.querySelectorAll(".quantity-input").forEach((input) => {
+                    input.addEventListener("input", (e) => {
                         const index = parseInt(e.target.dataset.index, 10);
                         const newQuantity = parseInt(e.target.value, 10) || 1;
                         updateQuantity(index, newQuantity);
@@ -142,6 +143,7 @@
                     cart[index].quantite = quantity;
                     localStorage.setItem('cart', JSON.stringify(cart));
                     loadCart();
+                    updateCartCount();
                 }
             }
 

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une Carte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="index.html">
+                <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
+            </a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="about.html">À propos</a></li>
+                <li><a href="produits.html">Produits</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <section class="section add-card-section">
+            <h1>Ajouter une Carte Bancaire</h1>
+            <form id="add-card-form">
+                <div class="form-group">
+                    <label for="card-holder">Nom sur la carte</label>
+                    <input type="text" id="card-holder" name="cardHolder" placeholder="Nom complet" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-number">Numéro de carte</label>
+                    <input type="text" id="card-number" name="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label for="expiry-date">Date d'expiration</label>
+                        <input type="text" id="expiry-date" name="expiryDate" placeholder="MM/AA" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="is-default">
+                        <input type="checkbox" id="is-default" name="isDefault" value="true">
+                        Définir comme carte par défaut
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary">Ajouter la carte</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("add-card-form");
+        
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+        
+                const cardHolder = document.getElementById("card-holder").value.trim();
+                const cardNumber = document.getElementById("card-number").value.replace(/\s+/g, "").trim();
+                const expiryDate = document.getElementById("expiry-date").value.trim();
+                const isDefault = document.getElementById("is-default").checked;
+        
+                // Validation des champs
+                if (!cardHolder) {
+                    alert("Le nom du titulaire de la carte est obligatoire.");
+                    return;
+                }
+        
+                if (!/^\d{16}$/.test(cardNumber)) {
+                    alert("Veuillez entrer un numéro de carte valide (16 chiffres).");
+                    return;
+                }
+        
+                if (!/^\d{2}\/\d{2}$/.test(expiryDate)) {
+                    alert("Veuillez entrer une date d'expiration valide au format MM/AA.");
+                    return;
+                }
+        
+                const userId = localStorage.getItem("userId");
+                if (!userId) {
+                    alert("Erreur : Vous devez être connecté pour ajouter une carte.");
+                    return;
+                }
+        
+                const cardData = {
+                    userId: parseInt(userId, 10), // Convertir en entier
+                    cardHolder,
+                    cardNumber: `**** **** **** ${cardNumber.slice(-4)}`, // Masquer le numéro de carte
+                    expiryDate,
+                    isDefault,
+                };
+        
+                try {
+                    // Envoi au backend pour enregistrer dans cartes.json
+                    const response = await fetch("/api/cartes", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(cardData),
+                    });
+        
+                    if (!response.ok) {
+                        throw new Error("Erreur lors de l'enregistrement de la carte.");
+                    }
+        
+                    const result = await response.json();
+        
+                    // Mettre à jour le localStorage
+                    const cards = JSON.parse(localStorage.getItem("cards")) || [];
+                    if (isDefault) {
+                        cards.forEach(card => (card.isDefault = false)); // Réinitialiser les cartes par défaut
+                    }
+                    cards.push(result.carte);
+                    localStorage.setItem("cards", JSON.stringify(cards));
+        
+                    alert("Carte ajoutée avec succès !");
+                    window.location.href = "profile.html";
+                } catch (error) {
+                    console.error("Erreur lors de l'ajout de la carte :", error.message);
+                    alert("Erreur lors de l'enregistrement de la carte. Veuillez réessayer.");
+                }
+            });
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="margin-top: 100px;">
+        <section id="social">
+            <h4>Suivez-nous sur les réseaux sociaux</h4>
+            <ul>
+                <li><a href="#">Facebook</a></li>
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+            </ul>
+        </section>
+
+        <section id="footer-info">
+            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+            <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+        </section>
+    </footer>
+</body>
+</html>
