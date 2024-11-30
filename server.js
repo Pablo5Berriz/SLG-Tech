@@ -55,7 +55,6 @@ app.use("/crm", verifySession);
 app.post("/api/login", (req, res) => {
     const { email, password } = req.body;
 
-<<<<<<< HEAD
     // Charger les clients
     const clients = loadClients(); // Charger les données depuis le fichier clients.json
     const client = clients.find((c) => c.email === email);
@@ -73,18 +72,19 @@ app.post("/api/login", (req, res) => {
         // Enregistrer les informations utilisateur dans la session
         req.session.user = { id: client.id, email: client.email, name: client.name };
         res.status(200).json({ message: "Connexion réussie." });
-=======
+    });
+});
+
+// Route pour la page d'accueil
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html');
 });
-
 
 // Récupérer les catégories
 app.get('/api/categories', (req, res) => {
     fs.readFile('./data/categories.json', 'utf8', (err, data) => {
         if (err) return res.status(500).send("Erreur lors de la lecture des données de catégories.");
         res.json(JSON.parse(data));
->>>>>>> 34379f97c35febdf3165578699814ec847b495d8
     });
 });
 
@@ -98,12 +98,10 @@ app.post("/api/logout", (req, res) => {
     });
 });
 
-app.get("/crm/dashboard", verifySession, (req, res) => {
-    // Utiliser les données de l'utilisateur connecté
-    const user = req.user;
-
+// Exemple de route protégée
+app.get('/crm/dashboard', requireAuth, (req, res) => {
     res.status(200).json({
-        message: `Bienvenue ${user.email} sur le tableau de bord CRM.`,
+        message: `Bienvenue ${req.session.user.name} sur le tableau de bord CRM.`,
     });
 });
 
@@ -121,9 +119,9 @@ function loadClients() {
 // Vérification de la session utilisateur
 app.get('/api/session-check', (req, res) => {
     if (req.session && req.session.user) {
-        return res.status(200).json({ message: "Session valide." });
+        return res.status(200).json({ message: 'Session valide.', user: req.session.user });
     }
-    return res.status(401).json({ message: "Session expirée." });
+    return res.status(401).json({ message: 'Session expirée.' });
 });
 
 // Chemins vers les fichiers JSON
@@ -175,7 +173,7 @@ app.post("/api/create-admin", async (req, res) => {
 
 
 
-// Endpoint pour récupérer les catégories
+// Charger les catégories
 app.get('/api/categories', (req, res) => {
     fs.readFile('./data/categories.json', 'utf8', (err, data) => {
         if (err) {
@@ -192,11 +190,20 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
-// Récupérer les produits
+// Charger les produits
 app.get('/api/produits', (req, res) => {
     fs.readFile('./data/produits.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).send("Erreur lors de la lecture des données de produits.");
-        res.json(JSON.parse(data));
+        if (err) {
+            console.error("Erreur lors de la lecture des produits :", err.message);
+            return res.status(500).json({ message: "Erreur interne du serveur" });
+        }
+        try {
+            const produits = JSON.parse(data);
+            res.status(200).json(produits);
+        } catch (error) {
+            console.error("Erreur lors du parsing des produits :", error.message);
+            res.status(500).json({ message: "Erreur de format des données" });
+        }
     });
 });
 
@@ -207,7 +214,7 @@ app.put('/api/produits/:id/stock', (req, res) => {
     const { quantiteAchetee } = req.body;
 
     if (isNaN(produitId) || !quantiteAchetee || quantiteAchetee <= 0) {
-        return res.status(400).json({ message: "Données invalides pour la mise à jour du stock." });
+        return res.status(400).json({ message: 'Données invalides pour la mise à jour du stock.' });
     }
 
     fs.readFile('./data/produits.json', 'utf8', (err, data) => {
@@ -224,10 +231,8 @@ app.put('/api/produits/:id/stock', (req, res) => {
             return res.status(400).json({ message: "Stock insuffisant pour cette commande." });
         }
 
-        // Mettre à jour le stock
         produit.stock -= quantiteAchetee;
 
-        // Sauvegarder les modifications
         fs.writeFile('./data/produits.json', JSON.stringify(produits, null, 2), 'utf8', (err) => {
             if (err) return res.status(500).json({ message: "Erreur lors de la sauvegarde des produits." });
 
@@ -805,6 +810,6 @@ app.use((err, req, res, next) => {
 });
 
 // Démarrage du serveur
-app.listen(port, () => {
-    console.log(`SLG Tech API en écoute sur http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`SLG Tech API en écoute sur http://localhost:${PORT}`);
 });
