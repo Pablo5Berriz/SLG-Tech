@@ -83,19 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // Fonction pour charger le panier depuis le backend
-    async function loadCart(userId) {
-        if (!userId) return;
-        try {
-            const response = await fetch(`/api/cart/${userId}`);
-            if (!response.ok) throw new Error("Erreur lors du chargement du panier.");
-            const cartData = await response.json();
-            localStorage.setItem("cart", JSON.stringify(cartData)); // Sauvegarde dans le localStorage
-            updateCartCount(); // Met à jour le compteur
-            console.log("Panier chargé :", cartData);
-        } catch (error) {
-            console.error("Erreur lors du chargement du panier :", error.message);
-        }
-    }
+    
 
     // Vérifie si l'utilisateur est connecté avant de finaliser l'achat
     const confirmOrderButton = document.querySelector("#confirm-order");
@@ -109,14 +97,32 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    async function loadCart(userId) {
+        if (!userId) return;
+        try {
+            const response = await fetch(`api/cart/${userId}`);
+            if (!response.ok) throw new Error("Erreur lors du chargement du panier.");
+            const cartData = await response.json();
+            console.log("Panier récupéré depuis le backend :", cartData);
+    
+            // Met à jour le localStorage uniquement si le panier du backend est valide
+            if (cartData && cartData.length > 0) {
+                localStorage.setItem("cart", JSON.stringify(cartData));
+            }
+        } catch (error) {
+            console.error("Erreur lors de la récupération du panier :", error.message);
+        }
+    }
+
     // Fonction pour mettre à jour le nombre de produits dans le panier
     function updateCartCount() {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const itemCount = cart.reduce((total, item) => total + (parseInt(item.quantite, 10) || 0), 0);
+        console.log("Contenu du panier pour compteur :", cart);
+        const totalItems = cart.reduce((sum, product) => sum + product.quantite, 0);
+    
         const cartCountElement = document.getElementById("cart-count");
-
         if (cartCountElement) {
-            cartCountElement.textContent = itemCount > 0 ? itemCount : "0"; // Affiche 0 si le panier est vide
+            cartCountElement.textContent = totalItems > 0 ? totalItems : "0";
         }
     }
 
@@ -127,17 +133,28 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addToCart = function (product) {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const existingProduct = cart.find((item) => item.id === product.id);
-
+    
         if (existingProduct) {
-            existingProduct.quantite += 1; // Incrémente la quantité
+            existingProduct.quantite += 1; // Augmente la quantité si le produit existe déjà
         } else {
             cart.push({ ...product, quantite: 1 }); // Ajoute un nouveau produit
         }
-
-        localStorage.setItem("cart", JSON.stringify(cart));
+    
+        localStorage.setItem("cart", JSON.stringify(cart)); // Sauvegarde dans localStorage
         updateCartCount(); // Met à jour le compteur
         alert(`${product.nom} a été ajouté au panier !`);
+        console.log("Panier après ajout :", cart); // Log du contenu du panier
     };
+});
+
+// Gestion du menu de navigation
+document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.querySelector(".menu-toggle");
+    const sidebar = document.querySelector(".sidebar");
+
+    menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+    });
 });
 
 // Fonction générique pour charger les données JSON
@@ -155,22 +172,26 @@ async function fetchData(endpoint) {
 }
 
 // Connexion au CRM
-document.getElementById("crm-access-btn").addEventListener("click", async () => {
-    try {
-        // Vérifier si la session est valide
-        const response = await fetch('/api/session-check', {
-            method: 'GET',
-            credentials: 'include', // Inclure les cookies pour la session
+const crmAccessBtn = document.getElementById("crm-access-btn");
+    if (crmAccessBtn) {
+        crmAccessBtn.addEventListener("click", async () => {
+            try {
+                const response = await fetch("/api/session-check", {
+                    method: "GET",
+                    credentials: "include",
+                });
+
+                if (!response.ok) {
+                    throw new Error("Session expirée. Veuillez vous reconnecter.");
+                }
+
+                const sessionData = await response.json();
+                console.log("Session valide :", sessionData);
+
+                window.location.href = "crmDashboard.html";
+            } catch (error) {
+                alert(error.message);
+                window.location.href = "crmLogin.html";
+            }
         });
-
-        if (!response.ok) {
-            throw new Error("Session expirée. Veuillez vous reconnecter.");
-        }
-
-        // Rediriger vers le CRM si la session est valide
-        window.location.href = "crmDashboard.html";
-    } catch (error) {
-        alert(error.message);
-        window.location.href = "crmLogin.html"; // Redirection vers la page de connexion
     }
-});
