@@ -16,19 +16,45 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+            <li>
+                <a href="panier.html">
+                    Panier <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+            <li>
+                <div id="user-menu-container" style="margin-right: -300px;">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <!-- Main Content -->
     <main class="container">
@@ -147,7 +173,7 @@
             const cancelOrderButton = document.getElementById("cancel-order");
         
             let selectedPaymentMethod = null;
-            
+
             // Récupération de userId depuis le localStorage
             const userId = parseInt(localStorage.getItem("userId"), 10);
 
@@ -209,38 +235,6 @@
             }
 
 
-            // Fonction pour mettre à jour le stock d'un produit
-            const updateProductStock = async (productId, quantity) => {
-                try {
-                    const response = await fetch(`/api/produits/${productId}/stock`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({ quantiteAchetee: quantity })
-                    });
-
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || "Erreur lors de la mise à jour du stock.");
-                    }
-
-                    // Vérifiez le nouveau stock après mise à jour
-                    const updatedProduct = await response.json(); // Assurez-vous que l'API retourne le produit mis à jour
-                    const remainingStock = updatedProduct.stock;
-
-                    if (remainingStock <= 10) {
-                        alert(
-                            `Attention : Le stock de "${updatedProduct.nom}" est critique (${remainingStock} unité${remainingStock > 1 ? "s" : ""} restante${remainingStock > 1 ? "s" : ""}). Pensez à réapprovisionner !`
-                        );
-                    }
-                } catch (error) {
-                    console.error(`Erreur mise à jour stock pour produit ${productId}:`, error.message);
-                    alert("Erreur lors de la mise à jour du stock. Veuillez réessayer.");
-                }
-            };
-
-
             // Charger l'adresse par défaut
             async function loadDefaultAddress() {
                 try {
@@ -263,12 +257,12 @@
         
             // Ajouter une nouvelle adresse
             addAddressButton.addEventListener("click", () => {
-                window.location.href = "add-address.html";
+                window.location.href = "add_address.html";
             });
         
             // Modifier l'adresse existante
             editAddressButton.addEventListener("click", () => {
-                window.location.href = "edit-address.html";
+                window.location.href = "addresse_edit.html";
             });
         
             // Supprimer une adresse
@@ -534,16 +528,13 @@
                         return;
                     }
                 }
-                
-
-                // Mise à jour des stocks
+            
                 try {
-                    for (const item of cart) {
-                        await updateProductStock(item.id, item.quantite);
-                    }
-
+                    
                     // Générer un numéro de commande unique
                     const orderNumber = `SLG${Date.now()}`;
+            
+                    // Créer les détails de la commande
                     const orderDetails = {
                         userId,
                         orderNumber,
@@ -552,22 +543,28 @@
                         paymentMethod: selectedPaymentMethod,
                         deliveryAddress: deliveryAddressElement.textContent,
                     };
-
-                    // Envoi de la commande
+            
+                    // Sauvegarder le numéro de commande dans le localStorage
+                    localStorage.setItem("orderNumber", orderNumber);
+            
+                    // Enregistrez la commande
                     const response = await fetch("/api/commandes", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify(orderDetails),
                     });
-        
-                    if (!response.ok) throw new Error("Erreur lors de l'enregistrement de la commande.");
-        
+            
+                    if (!response.ok) {
+                        throw new Error("Erreur lors de l'enregistrement de la commande.");
+                    }
+            
+                    console.log("Commande enregistrée avec succès :", orderDetails);
+            
                     alert("Commande confirmée avec succès !");
-                    localStorage.removeItem("cart");
                     window.location.href = "remerciement.html";
                 } catch (error) {
                     console.error("Erreur lors de la confirmation de la commande :", error.message);
-                    alert("Erreur lors de la confirmation de la commande. Veuillez réessayer.");
+                    alert("Une erreur est survenue lors de la confirmation de votre commande. Veuillez réessayer.");
                 }
             });
         
@@ -577,7 +574,6 @@
             loadDefaultCard();
             handlePaymentSelection();
             displayCardInfo();
-            confirmOrderButton.addEventListener("click", confirmOrder);
         });
     </script>
 
