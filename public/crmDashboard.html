@@ -5,77 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRM Dashboard | SLG Tech</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="crm.css">
 </head>
 <body>
     <!-- Barre latérale -->
     <div class="sidebar">
-        <h2>CRM SLG Tech</h2>
+        <h2>SLG Tech CRM</h2>
         <ul>
-            <li><a href="crmCategories.html">Catégories</a></li>
-            <li><a href="crmProduits.html">Produits</a></li>
-            <li><a href="crmClients.html">Clients</a></li>
-            <li><a href="crmCommandes.html">Commandes</a></li>
-            <li><a href="crmAvis.html">Avis</a></li>
-            <li><a href="crmStatistiques.html">Statistiques</a></li>
+          <li><a href="crmDashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+          <li><a href="crmCategories.html"><i class="fas fa-th-list"></i> Catégories</a></li>
+          <li><a href="crmProduits.html"><i class="fas fa-box-open"></i> Produits</a></li>
+          <li><a href="crmClients.html"><i class="fas fa-users"></i> Clients</a></li>
+          <li><a href="crmCommandes.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+          <li><a href="crmAvis.html"><i class="fas fa-star"></i> Avis</a></li>
+          <li><a href="crmStatistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a></li>
+          <li><a href="crmParametres.html"><i class="fas fa-cogs"></i> Paramètres</a></li>
+          <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+          <!-- Dernier lien avec icône de maison -->
+          <li id="home-link"><a href="Index.html"><i class="fas fa-home"></i> SLT Tech</a></li>
         </ul>
     </div>
 
     <!-- Contenu principal -->
     <div class="main-content">
-        <header class="crm-header">
-            <h1>CRM Dashboard</h1>
-            <button id="logout-btn" class="logout-button">Déconnexion</button>
-        </header>
-
         <main>
-            <section class="overview">
-                <h2>Vue d'ensemble</h2>
+            <section>
+                <h1>Tableau de bord</h1>
                 <div class="dashboard-grid">
                     <div class="dashboard-card" id="categories-card">
-                        <h3>Catégories</h3>
-                        <p id="categories-count">Chargement...</p>
+                        <h3><i class="fas fa-th-list"></i> Catégories</h3>
+                        <p id="categories-count" class="p">Chargement...</p>
                     </div>
                     <div class="dashboard-card" id="produits-card">
-                        <h3>Produits</h3>
-                        <p id="produits-count">Chargement...</p>
+                        <h3><i class="fas fa-box-open"></i> Produits</h3>
+                        <p id="produits-count" class="p">Chargement...</p>
                     </div>
                     <div class="dashboard-card" id="clients-card">
-                        <h3>Clients</h3>
-                        <p id="clients-count">Chargement...</p>
+                        <h3><i class="fas fa-users"></i> Clients</h3>
+                        <p id="clients-count" class="p">Chargement...</p>
                     </div>
                     <div class="dashboard-card" id="commandes-card">
-                        <h3>Commandes</h3>
-                        <p id="commandes-count">Chargement...</p>
+                        <h3><i class="fas fa-shopping-cart"></i> Commandes</h3>
+                        <p id="commandes-count" class="p">Chargement...</p>
                     </div>
                     <div class="dashboard-card" id="avis-card">
-                        <h3>Avis</h3>
-                        <p id="avis-count">Chargement...</p>
+                        <h3><i class="fas fa-star"></i> Avis</h3>
+                        <p id="avis-count" class="p">Chargement...</p>
                     </div>
                 </div>
             </section>
 
             <section>
-                <h3>Catégories populaires</h3>
-                <div id="popular-categories"></div>
-            </section>
-            
-            <section>
-                <h2>Produits populaires</h2>
-                <div id="popular-products"></div>
-            </section>
-            
-            <section>
-                <h2>Statistiques des ventes</h2>
-                <canvas id="sales-chart" width="400" height="200"></canvas>
+                <div class="charts">
+                    <div class="chart-card">
+                        <h2>Catégories populaires</h2>
+                        <div id="popular-categories" class="popular-item">
+                            <!-- Contenu dynamique ou statique ici -->
+                            <p>Aucune catégorie populaire pour l'instant.</p>
+                        </div>
+                    </div>
+              
+                    <div class="chart-card">
+                        <h2>Produits populaires</h2>
+                        <div id="popular-products" class="popular-item">
+                            <!-- Contenu dynamique ou statique ici -->
+                            <p>Aucun produit populaire pour l'instant.</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-card">
+                        <h2>Statistiques des ventes</h2>
+                        <canvas id="sales-chart" width="400" height="200"></canvas>
+                    </div>
+                </div>
             </section>
         </main>
 
-        <footer>
-            <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+        <footer style="margin-top: 100px;">
+            <section id="social">
+                <h4>Suivez-nous sur les réseaux sociaux</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </section>
+    
+            <section id="footer-info">
+                <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+                <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+            </section>
         </footer>
     </div>
-
     <script src="/js/crmDashboard.js"></script>
 </body>
 </html>
