@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Paramètres | SLG Tech</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"> <!-- FontAwesome -->
+    <link rel="stylesheet" href="crm.css">
+</head>
+<body>
+    <!-- Barre latérale -->
+    <div class="sidebar">
+        <h2>SLG Tech CRM</h2>
+        <ul>
+          <li><a href="crmDashboard.html"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+          <li><a href="crmCategories.html"><i class="fas fa-th-list"></i> Catégories</a></li>
+          <li><a href="crmProduits.html"><i class="fas fa-box-open"></i> Produits</a></li>
+          <li><a href="crmClients.html"><i class="fas fa-users"></i> Clients</a></li>
+          <li><a href="crmCommandes.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+          <li><a href="crmAvis.html"><i class="fas fa-star"></i> Avis</a></li>
+          <li><a href="crmStatistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a></li>
+          <li><a href="crmParametres.html" class="active"><i class="fas fa-cogs"></i> Paramètres</a></li>
+          <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+          <li id="home-link"><a href="Index.html"><i class="fas fa-home"></i> SLT Tech</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <main>
+            <section>
+                <h1>CRM - Paramètres</h1>
+                <p>Gérez les configurations générales de votre CRM.</p>
+
+                <!-- Section des paramètres généraux -->
+                <div class="settings-section">
+                    <h2>Paramètres généraux</h2>
+                    <form id="general-settings">
+                        <label for="shop-name">Nom de la boutique :</label>
+                        <input type="text" id="shop-name" value="SLG Tech">
+
+                        <label for="email">Email de contact :</label>
+                        <input type="email" id="email" value="infos.slg.tech@gmail.com">
+
+                        <label for="phone">Téléphone :</label>
+                        <input type="tel" id="phone" value="+1 514 567 8901">
+
+                        <label for="timezone">Fuseau horaire :</label>
+                        <select id="timezone"></select> <!-- Dynamique via JS -->
+
+                        <label for="language">Langue :</label>
+                        <select id="language">
+                            <option value="fr">Français</option>
+                            <option value="en">Anglais</option>
+                            <option value="es">Espagnol</option>
+                        </select>
+
+                        <button type="submit">Enregistrer les modifications</button>
+                    </form>
+                </div>
+
+                <!-- Section du mode sombre -->
+                <div class="settings-section">
+                    <h2>Mode sombre</h2>
+                    <label for="dark-mode">
+                        <input type="checkbox" id="dark-mode">
+                        Activer le mode sombre
+                    </label>
+                </div>
+
+                <!-- Section des notifications -->
+                <div class="settings-section">
+                    <h2>Notifications</h2>
+                    <form id="notification-settings">
+                        <label for="email-notifications">
+                            <input type="checkbox" id="email-notifications" checked>
+                            Activer les notifications par email
+                        </label>
+                        <label for="sms-notifications">
+                            <input type="checkbox" id="sms-notifications">
+                            Activer les notifications par SMS
+                        </label>
+                        <button type="submit">Enregistrer les notifications</button>
+                    </form>
+                </div>
+
+                <!-- Section avancée -->
+                <div class="settings-section">
+                    <h2>Configurations avancées</h2>
+                    <label for="auto-backup">
+                        <input type="checkbox" id="auto-backup" checked>
+                        Activer la sauvegarde automatique
+                    </label>
+                    <button id="backup-now">Sauvegarder maintenant</button>
+                    <button id="restore-defaults">Restaurer les paramètres par défaut</button>
+                </div>
+            </section>
+        </main>
+        <footer style="margin-top: 100px;">
+            <section id="social">
+                <h4>Suivez-nous sur les réseaux sociaux</h4>
+                <ul>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Instagram</a></li>
+                </ul>
+            </section>
+    
+            <section id="footer-info">
+                <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+                <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+            </section>
+        </footer>
+    </div>
+    <script src="/js/crmParametres.js"></script>
+</body>
+</html>

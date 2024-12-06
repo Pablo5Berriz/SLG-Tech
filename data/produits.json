@@ -3,7 +3,7 @@
     "id": 1,
     "nom": "Apple Iphone 15 pro",
     "categorie": "Smartphones",
-    "description": "L'iPhone 15 Pro offre une expérience de pointe avec un écran Super Retina XDR, une puce A17 Bionic et un appareil photo révolutionnaire pour des photos et vidéos incroyables.",
+    "description": "Smartphone premium avec écran Super Retina XDR, puce A17 Bionic, appareil photo révolutionnaire.",
     "prix": 1000,
     "stock": 50
   },
@@ -11,7 +11,7 @@
     "id": 2,
     "nom": "Laptop Dell",
     "categorie": "Ordinateurs",
-    "description": "Dell Ordinateur portable Inspiron 3530 - Écran tactile FHD 15,6 pouces, processeur Intel Core i7-1165G7, mémoire DDR4 3200 GB, stockage SSD 512 Go, rétroprojecteur, Bluetooth 5.0 et Wi-Fi 6.",
+    "description": "Ordinateur portable avec écran tactile FHD, Intel Core i7, SSD 512 Go, Wi-Fi 6.",
     "prix": 1299,
     "stock": 30
   },
@@ -19,7 +19,7 @@
     "id": 3,
     "nom": "Casque Bluetooth JBL",
     "categorie": "Casques audio",
-    "description": "JBL Live 660NC Casque Bluetooth supra-auriculaire sans fil avec suppression du bruit, jusqu'à 50 heures de lecture, bleu",
+    "description": "Casque sans fil avec réduction de bruit, 50 heures d'autonomie, design confortable.",
     "prix": 279,
     "stock": 50
   },
@@ -27,7 +27,7 @@
     "id": 4,
     "nom": "Apple Watch Série 9",
     "categorie": "Montres connectées",
-    "description": "Apple Watch Series 9 [GPS 45 mm] Smartwatch avec boîtier en aluminium argenté et boucle sport bleu hivernal. Tracker fitness, oxygène dans le sang et applications ECG, résistant à l'eau, taille unique",
+    "description": "Smartwatch élégante avec suivi fitness, ECG, oxygène sanguin, résistante à l’eau.",
     "prix": 570,
     "stock": 50
   },
@@ -35,7 +35,7 @@
     "id": 5,
     "nom": "Apple Ipad Pro",
     "categorie": "Tablettes",
-    "description": "Apple iPad Pro 11 pouces (M4) : écran Ultra Retina XDR avec verre standard, 256 Go, caméra frontale 12 Mpx paysage/caméra arrière 12 MP, Wi-Fi 6E, Face ID — Argent ",
+    "description": "Tablette haut de gamme avec écran Ultra Retina, 256 Go, Face ID, caméra avancée.",
     "prix": 1299,
     "stock": 30
   },
@@ -43,7 +43,7 @@
     "id": 6,
     "nom": "Barre de son",
     "categorie": "Accessoires audio",
-    "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+    "description": "Barre de son compacte avec Bluetooth, son clair, haut-parleur Bass Reflex, facile d’installation.",
     "prix": 129,
     "stock": 100
   },
@@ -51,7 +51,7 @@
     "id": 7,
     "nom": "Ordinateur ASUS",
     "categorie": "Ordinateurs",
-    "description": "ROG Strix G13 Gaming PC de bureau, Intel Core i7-14700F, GeForce RTX 4060, 32 Go de RAM DDR5, 1 To SSD Gen 4, Windows 11 Home, G13CHR-DSI74060-CB",
+    "description": "PC gaming puissant avec Intel i7, RTX 4060, 32 Go RAM, SSD 1 To.",
     "prix": 1999,
     "stock": 30
   },
@@ -59,15 +59,15 @@
     "id": 8,
     "nom": "Kingston DataTraveler",
     "categorie": "Accessoires informatiques",
-    "description": "Kingston DataTraveler Exodia Clé USB 3.2 256 Go DTX/256 Go",
+    "description": "Clé USB 256 Go rapide avec connectivité USB 3.2, compact et fiable.",
     "prix": 29,
-    "stock": 100
+    "stock": 99
   },
   {
     "id": 9,
     "nom": "Caméra de sécurité 4K",
     "categorie": "Accessoires informatiques",
-    "description": "Lorex Caméra de sécurité 4K avec technologie WiFi 6 - Pour intérieur/extérieur - Pour système de surveillance Lorex - Éclairage de sécurité, détection de mouvement, vision nocturne en couleur",
+    "description": "Caméra 4K avec WiFi 6, vision nocturne couleur, détection de mouvement, intérieur/extérieur.",
     "prix": 249,
     "stock": 50
   },
@@ -75,7 +75,7 @@
     "id": 10,
     "nom": "Apple Iphone 14 pro",
     "categorie": "Smartphones",
-    "description": "L'iPhone 14 Pro offre une expérience de pointe avec un écran Super Retina XDR, une puce A17 Bionic et un appareil photo révolutionnaire pour des photos et vidéos incroyables.",
+    "description": "Smartphone avancé avec écran Super Retina XDR, puce A17 Bionic, appareil photo innovant.",
     "prix": 849,
     "stock": 50
   },
@@ -83,7 +83,7 @@
     "id": 11,
     "nom": "Apple MacBook Air",
     "categorie": "Ordinateurs",
-    "description": "Apple MacBook Air 13 2024 avec puce M3 : conçu pour Apple Intelligence, écran Retina liquide de 13,6 pouces, processeur Intel Core i7-1165G7, mémoire DDR4 3200 GB, stockage SSD 512 Go, rétroprojecteur, prise en charge Bluetooth 5.0, Wi-Fi 6, prise en charge du mode sans fil, prise en charge du mode sans fil, prise en charge du mode sans fil.",
+    "description": "Ordinateur portable avec puce M3, écran Retina, 512 Go SSD, design compact, performant.",
     "prix": 1299,
     "stock": 30
   },
@@ -91,7 +91,7 @@
     "id": 12,
     "nom": "Casque Bluetooth Sony",
     "categorie": "Casques audio",
-    "description": "Sony WH-1000XM4 Casque sans fil avec suppression du bruit, micro pour appels téléphoniques, commande vocale Alexa, noir",
+    "description": "Casque sans fil avec réduction de bruit, micro pour appels, commande vocale Alexa.",
     "prix": 278,
     "stock": 50
   },
@@ -99,7 +99,7 @@
     "id": 13,
     "nom": "Samsung Galaxy Watch7",
     "categorie": "Montres connectées",
-    "description": "Samsung Galaxy Watch7 Montre intelligente, 44 mm, suivi de remise en forme, capteur bio-actif, coaching de sommeil personnalisé, Bluetooth, gris marbre",
+    "description": "Montre connectée avec suivi fitness, capteur bioactif, suivi sommeil, Bluetooth, design élégant.",
     "prix": 369,
     "stock": 50
   },
@@ -107,7 +107,7 @@
     "id": 14,
     "nom": "Nintendo Switch",
     "categorie": "Équipements gaming",
-    "description": "Nintendo Switch (OLED Model) with Neon Red & Neon Blue Joy-Con - OLED Console Red & Neon Joy-Con Edition",
+    "description": "Console OLED, manettes Neon Red & Neon Blue, expérience gaming immersive et portable.",
     "prix": 449,
     "stock": 150
   },
@@ -115,7 +115,7 @@
     "id": 15,
     "nom": "Câble HDMI",
     "categorie": "Accessoires informatiques",
-    "description": "UGREEN Câble d'extension HDMI 0,5 m, HDMI mâle vers femelle HDMI prend en charge 4K 60 Hz 3D HDR pour Oculus Rift, PS4 PS3, TV Stick, Switch Lite, lecteur Blu-ray, TV 3D, Roku, Xbox 360, HDTV",
+    "description": "Câble HDMI haute performance, supporte 4K, HDR, compatible PS4, Xbox, TV, Blu-ray.",
     "prix": 15,
     "stock": 50
   },
@@ -123,15 +123,15 @@
     "id": 16,
     "nom": "Disque dur externe",
     "categorie": "USB et Stockage",
-    "description": "Seagate Disque dur externe portable de 1 To - USB 3.0 pour PC, Mac, PS4, Xbox - STGX1000400 - Noir",
+    "description": "Disque dur portable 1 To, USB 3.0, compatible PC/Mac, design compact et fiable.",
     "prix": 85,
-    "stock": 75
+    "stock": 73
   },
   {
     "id": 17,
     "nom": "Carte mère Asus",
     "categorie": "Accessoires informatiques",
-    "description": "Asus Rog Strix B550-F - Carte mère de jeux vidéo AM4 ATX (processeur AMD Ryzen™ de 3e génération, PCle 4.0, RL 2,5 Go, BIOS FlashBack, HDMI 2.1, en-tête RGB adressable de 2e génération et technologie AURA Sync)",
+    "description": "Carte mère gaming avec compatibilité Ryzen, PCIe 4.0, BIOS FlashBack, Aura Sync.",
     "prix": 219,
     "stock": 50
   },
@@ -139,7 +139,7 @@
     "id": 18,
     "nom": "Appareil photo Canon",
     "categorie": "Appareils photo",
-    "description": "Canon EOS R50 Appareil photo sans miroir RF-S18-45 mm F4.5-6.3 est un kit d'objectif STM, capteur CMOS 24,2 mégapixels (APS-C), vidéo 4K, appareil photo hybride, photo et vidéo, vlogging",
+    "description": "Appareil hybride avec capteur 24 MP, vidéo 4K, idéal pour vlogging et photos professionnelles.",
     "prix": 849,
     "stock": 50
   },
@@ -147,7 +147,7 @@
     "id": 19,
     "nom": "Samsung Galaxy S24 Ultra",
     "categorie": "Smartphones",
-    "description": "Samsung Galaxy S24 Ultra 5G (256 Go) compatible IA, S Pen, écran AMOLED 120 Hz, appareil photo 200 MP, nuistographie, débloqué, avec super chargeur 45 W – Gris titane",
+    "description": "Smartphone avec S Pen, écran AMOLED 120 Hz, appareil photo 200 MP, charge rapide.",
     "prix": 1269,
     "stock": 13
   },
@@ -155,7 +155,7 @@
     "id": 20,
     "nom": "Écouteur Sony",
     "categorie": "Casques audio",
-    "description": "Sony LinkBuds Fit Écouteurs intra-auriculaires sans fil antibruit, petits et légers avec supports d'air nouvellement développés, violet",
+    "description": "Écouteurs sans fil antibruit, design léger, son clair, Bluetooth performant, longue autonomie.",
     "prix": 299,
     "stock": 50
   },
@@ -163,7 +163,7 @@
     "id": 21,
     "nom": "Processeur AMD",
     "categorie": "Accessoires informatiques",
-    "description": "AMD Ryzen 5 5600X – Processeur pour ordinateur de bureau déverrouillé, 6 cœurs et 12 fils, avec refroidisseur Wraith Stealth",
+    "description": "Processeur 6 cœurs performant avec refroidisseur inclus, idéal pour gaming et multitâche.",
     "prix": 199,
     "stock": 50
   },
@@ -171,7 +171,7 @@
     "id": 22,
     "nom": "Carte graphique ASUS",
     "categorie": "Accessoires informatiques",
-    "description": "ASUS ROG Strix GeForce RTX™ 4060 OC Edition Carte graphique de jeu (PCIe 4.0, 8 Go GDDR6, DLSS 3, HDMI 2.1a, DisplayPort 1.4a, Axial-tech Fan Design, Aura Sync, technologie 0 dB)",
+    "description": "Carte graphique RTX 4060, 8 Go GDDR6, DLSS 3, HDMI 2.1a, refroidissement silencieux.",
     "prix": 539,
     "stock": 30
   },
@@ -179,15 +179,15 @@
     "id": 23,
     "nom": "Moniteur Samsung",
     "categorie": "Équipements gaming",
-    "description": "Samsung Écran de jeu Odyssey G30D FHD 24 po 1 ms 180 Hz avec mode Eye Saver – AMD FreeSync – Support réglable en hauteur avec inclinaison, pivotant, pivot, capacité de montage VESA – LS24DG302ENXZA",
+    "description": "Écran FHD 24 pouces, 180 Hz, AMD FreeSync, ajustable en hauteur, mode Eye Saver.",
     "prix": 179,
-    "stock": 50
+    "stock": 49
   },
   {
     "id": 24,
     "nom": "Tablette Samsung",
     "categorie": "Tablettes",
-    "description": "Samsung Galaxy Tab S9 FE Mint Tablette Android 6 Go de RAM 128 Go de stockage, écran 10,9 pouces 90 Hz, indice IP68, charge rapide 45 W",
+    "description": "Tablette Android 10,9 pouces, IP68, charge rapide 45W, stockage 128 Go, RAM 6 Go.",
     "prix": 399,
     "stock": 49
   },
@@ -195,23 +195,23 @@
     "id": 25,
     "nom": "Station de charge",
     "categorie": "Accessoires informatiques",
-    "description": "UGREEN MagFlow Station de charge sans fil 2 en 1, station de charge rapide compatible avec le support de chargeur MagSafe, pour iPhone 15 Pro Max 14 Pro 13 Plus 12 Series, Airpods Pro 2, 3",
+    "description": "Chargeur sans fil rapide, compatible iPhone et AirPods, design compact et pratique.",
     "prix": 49,
-    "stock": 50
+    "stock": 49
   },
   {
     "id": 26,
     "nom": "Clé USB SanDisk",
     "categorie": "USB et Stockage",
-    "description": "SanDisk Ultra Flair SDCZ73-128G-G46 Clé USB 3.0 haute performance jusqu'à 150 Mo/s Noir/argenté 128 Go",
+    "description": "Clé USB rapide 128 Go, design élégant, performance jusqu'à 150 Mo/s.",
     "prix": 20,
-    "stock": 75
+    "stock": 73
   },
   {
     "id": 27,
     "nom": "Caméra Sony",
     "categorie": "Appareils photo",
-    "description": "Sony Caméra Vlog ZV-1F pour les créateurs de contenu et les vlogueurs",
+    "description": "Caméra pour vlogging avec qualité vidéo et photo exceptionnelle, facile à transporter.",
     "prix": 549,
     "stock": 30
   },
@@ -219,7 +219,7 @@
     "id": 28,
     "nom": "Casque de jeu Logitech",
     "categorie": "Casques audio",
-    "description": "Casque de jeu Logitech G535 avec technologie sans fil Lightspeed : casque supra-auriculaire léger, relevez le micro pour couper le son, stéréo, compatible avec ordinateur personnel, PS4, PS5, rechargeable par USB, noir",
+    "description": "Casque gaming sans fil léger, recharge rapide, micro relevable, design ergonomique.",
     "prix": 109,
     "stock": 75
   },
@@ -227,7 +227,7 @@
     "id": 29,
     "nom": "Samsung Galaxy S23 Ultra",
     "categorie": "Smartphones",
-    "description": "Samsung Galaxy S23 Ultra (5G), 256 Go – Noir fantôme",
+    "description": "Smartphone haut de gamme avec écran AMOLED, 256 Go, appareil photo avancé, noir fantôme.",
     "prix": 930,
     "stock": 30
   },
@@ -235,7 +235,7 @@
     "id": 30,
     "nom": "Apple AirPods Max",
     "categorie": "Casques audio",
-    "description": "Apple AirPods Max Casque supra-auriculaire sans fil, suppression active du bruit de niveau professionnel, mode transparence, audio spatial personnalisé, chargement USB-C, casque Bluetooth pour iPhone",
+    "description": "Casque Bluetooth avec réduction active de bruit, audio spatial, design haut de gamme.",
     "prix": 647,
     "stock": 50
   },
@@ -243,7 +243,7 @@
     "id": 31,
     "nom": "Moniteur LG",
     "categorie": "Équipements gaming",
-    "description": "LG UltraWide 29WP500-B Écran Full HD 5 ms 75 Hz 29 pouces avec écran IPS et AMD FreeSync, Noir",
+    "description": "Écran UltraWide 29 pouces, Full HD, AMD FreeSync, design moderne et polyvalent.",
     "prix": 229,
     "stock": 30
   },
@@ -251,7 +251,7 @@
     "id": 32,
     "nom": "Clavier de jeu HyperX",
     "categorie": "Accessoires informatiques",
-    "description": "HyperX Alloy Origins Core – Clavier de jeu mécanique Tenkeyless, contrôle de la lumière par logiciel et personnalisation macro, facteur de forme compact, rétroéclairage à DEL RVB, interrupteur",
+    "description": "Clavier mécanique compact, rétroéclairage RGB, personnalisable via logiciel, design Tenkeyless.",
     "prix": 80,
     "stock": 50
   },
@@ -259,7 +259,7 @@
     "id": 33,
     "nom": "Souris de jeu Redragon",
     "categorie": "Accessoires informatiques",
-    "description": "Redragon Souris de jeu sans fil avec 8 000 ppp, souris de jeu PC avec bouton incendie, rétroéclairée RVB, ergonomique, rechargeable, 70 heures pour Windows, Mac Gamer, noir",
+    "description": "Souris gaming sans fil RGB, ergonomique, 70 heures d’autonomie, performances optimisées.",
     "prix": 50,
     "stock": 75
   },
@@ -267,7 +267,7 @@
     "id": 34,
     "nom": "Disque dur interne SSD",
     "categorie": "USB et Stockage",
-    "description": "fanxiang S500 Pro Disque dur interne SSD NVMe M.2 2280 PCIe Gen3x4 3200 Mo/s 3D NAND TLC 320TBW 512 Go",
+    "description": "Disque SSD rapide NVMe 512 Go, idéal pour PC gaming et multitâche.",
     "prix": 50,
     "stock": 75
   },
@@ -275,7 +275,7 @@
     "id": 35,
     "nom": "Chargeur solaire Riapow",
     "categorie": "Accessoires informatiques",
-    "description": "Riapow Chargeur solaire 26800 mAh, chargeur solaire Qi 3,0 A, chargeur portable, batterie externe avec 4 sorties et lampe torche LED, chargeurs de téléphone pour téléphone, tablette et camping",
+    "description": "Chargeur portable solaire 26800 mAh, compatible téléphones, tablettes, camping, avec lampe torche LED.",
     "prix": 49,
     "stock": 100
   },
@@ -283,7 +283,7 @@
     "id": 36,
     "nom": "Montre intelligente Ticwatch",
     "categorie": "Montres connectées",
-    "description": "Ticwatch Pro 5 Montre intelligente Android, Snapdragon W5+ Gen 1 Wear OS, autonomie de 80 h, moniteur de santé / remise en forme, GPS intégré, 5 ATM étanche, boussole, NFC, appareil Android uniquement",
+    "description": "Montre connectée Android, GPS intégré, NFC, autonomie 80 h, design robuste et étanche.",
     "prix": 470,
     "stock": 75
   },
@@ -291,7 +291,7 @@
     "id": 37,
     "nom": "Objectif Canon",
     "categorie": "Appareils photo",
-    "description": "Canon EF Objectif 50 mm f/1.8 STM",
+    "description": "Objectif 50 mm STM performant, idéal pour portraits et vidéos de qualité.",
     "prix": 169,
     "stock": 30
   },
@@ -299,7 +299,7 @@
     "id": 38,
     "nom": "Apple iPad",
     "categorie": "Tablettes",
-    "description": "Apple iPad (10e génération) : avec puce A14 Bionic, écran Retina liquide de 11,9 pouces, 64 Go, Wi-Fi 6, appareil photo avant/arrière 12 MP, Touch ID, autonomie de la batterie toute la journée - Rose",
+    "description": "iPad 10e génération, puce A14, écran Retina, 64 Go, design élégant, autonomie prolongée.",
     "prix": 449,
     "stock": 50
   },
@@ -307,15 +307,15 @@
     "id": 39,
     "nom": "Support de téléphone",
     "categorie": "Accessoires informatiques",
-    "description": "Miracase Support de téléphone universel pour grille d'aération de voiture avec clip réglable compatible avec iPhone 15 Series/14/13/12/11 Pro Max/XR/Samsung et autres téléphones",
+    "description": "Support ajustable pour voiture, compatible smartphones, design compact et robuste.",
     "prix": 20,
-    "stock": 99
+    "stock": 97
   },
   {
     "id": 40,
     "nom": "Moniteur LG 34WP65G",
     "categorie": "Équipements gaming",
-    "description": "LG 34WP65G-B Écran UltraWide 34 pouces 21:9 FHD (2560 x 1080) IPS DisplayHDR 400, AMD FreeSync, support réglable en hauteur et en inclinaison – Noir",
+    "description": "Écran UltraWide 34 pouces FHD, support ajustable, FreeSync, idéal pour gaming.",
     "prix": 499,
     "stock": 30
   },
@@ -323,7 +323,7 @@
     "id": 41,
     "nom": "PlayStation 5",
     "categorie": "Équipements gaming",
-    "description": "PlayStation 5 Console - Disc Edition - God of War Ragnarök Bundle",
+    "description": "Console next-gen avec bundle God of War, design moderne et puissance exceptionnelle.",
     "prix": 499,
     "stock": 30
   },
@@ -331,7 +331,7 @@
     "id": 42,
     "nom": "Caméra GoPro Hero 10",
     "categorie": "Accessoires informatiques",
-    "description": "GoPro HERO10 Caméra d'action étanche avec écran LCD avant et écran tactile arrière, vidéo 5.3K60 Ultra HD, photos 23 MP, diffusion en direct 1080p, webcam, stabilisation",
+    "description": "Caméra d’action 5.3K étanche, stabilisation avancée, écran tactile, parfaite pour aventures.",
     "prix": 349,
     "stock": 50
   },
@@ -339,7 +339,7 @@
     "id": 43,
     "nom": "Sonos One",
     "categorie": "Enceintes",
-    "description": "Sonos One (Gen 2) - Haut-parleur intelligent à commande vocale avec Amazon Alexa intégré - Noir",
+    "description": "Haut-parleur intelligent avec commande vocale, son clair, design moderne, compatibilité Alexa.",
     "prix": 459,
     "stock": 75
   },
@@ -347,7 +347,7 @@
     "id": 44,
     "nom": "Thermomètre Geevon",
     "categorie": "Accessoires informatiques",
-    "description": "Geevon Thermomètre hygromètre numérique sans fil pour intérieur et extérieur, écran LCD tactile, indice de chaleur, point de rosée, indicateur de confort, réveil et rétroéclairage réglable",
+    "description": "Thermomètre sans fil intérieur/extérieur, affichage LCD tactile, suivi température et confort.",
     "prix": 79,
     "stock": 50
   },
@@ -355,7 +355,7 @@
     "id": 45,
     "nom": "Mini Projecteur WiMiUS",
     "categorie": "Accessoires informatiques",
-    "description": "Mini projecteur avec WiFi 5G et Bluetooth, WiMiUS 1080p Projecteur Portable Projecteur de Film Extérieur Écran 300 Pouces Projecteur Home Cinéma Compatible",
+    "description": "Projecteur 1080p avec WiFi 5G, Bluetooth, image jusqu'à 300 pouces, idéal pour cinéma maison.",
     "prix": 249,
     "stock": 50
   },
@@ -363,7 +363,7 @@
     "id": 46,
     "nom": "Haut-parleur JBL",
     "categorie": "Accessoires audio",
-    "description": "JBL Xtreme 4 – Haut-parleur Bluetooth portatif, son puissant et basses profondes, étanchéité IP67, 24 heures de lecture, chargeur portatif, PartyBoost pour jumelage de plusieurs haut-parleurs (bleu)",
+    "description": "Haut-parleur Bluetooth étanche avec basses profondes, autonomie 24 h, mode PartyBoost.",
     "prix": 449,
     "stock": 50
   },
@@ -371,7 +371,7 @@
     "id": 47,
     "nom": "Caméra de sécurité TP-Link",
     "categorie": "Accessoires informatiques",
-    "description": "TP-Link Tapo Caméra de sécurité intérieure WiFi 2K Pan/Tilt pour bébé et animal domestique avec suivi de mouvement à 360°, audio bidirectionnel, vision nocturne, stockage cloud et local",
+    "description": "Caméra WiFi intérieure, suivi mouvement, audio bidirectionnel, vision nocturne, stockage cloud.",
     "prix": 55,
     "stock": 50
   },
@@ -379,7 +379,7 @@
     "id": 48,
     "nom": "Projecteur AURZEN",
     "categorie": "Accessoires informatiques",
-    "description": "Projecteur tout-en-un 4K pris en charge, projecteur intelligent AURZEN Boom 3 avec Netflix officiel, audio DoIby 3D et haut-parleurs 36 W, mise au point automatique AI et Keystone, projecteur",
+    "description": "Projecteur 4K avec audio Dolby, Netflix intégré, mise au point automatique.",
     "prix": 499,
     "stock": 30
   },
@@ -387,7 +387,7 @@
     "id": 49,
     "nom": "Casque Bluetooth Bose",
     "categorie": "Casques audio",
-    "description": "Bose QuietComfort 35 Casque Bluetooth sans fil Noir",
+    "description": "Casque sans fil avec réduction active de bruit, design confortable, qualité sonore supérieure.",
     "prix": 449,
     "stock": 30
   },
@@ -395,7 +395,7 @@
     "id": 50,
     "nom": "Disque dur externe UnionSine",
     "categorie": "USB et Stockage",
-    "description": "UnionSine HD-2510 Disque dur externe portable ultra fin USB 3.0 pour PC, Mac, ordinateur de bureau, ordinateur portable, PS4, Xbox One, Xbox 360 Transmission super rapide Noir 2 To",
+    "description": "Disque dur portable USB 3.0, 2 To, design ultra fin, rapide et fiable.",
     "prix": 100,
     "stock": 30
   }

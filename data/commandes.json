@@ -98,5 +98,503 @@
     "paymentMethod": "Carte Bancaire",
     "deliveryAddress": "102 Rue Principale, Ottawa, O1P2Q3",
     "date": "2024-11-30T03:43:08.181Z"
+  },
+  {
+    "id": 1733330838884,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733330838882",
+    "cart": [
+      {
+        "id": 25,
+        "nom": "Station de charge",
+        "categorie": "Accessoires informatiques",
+        "description": "UGREEN MagFlow Station de charge sans fil 2 en 1, station de charge rapide compatible avec le support de chargeur MagSafe, pour iPhone 15 Pro Max 14 Pro 13 Plus 12 Series, Airpods Pro 2, 3",
+        "prix": 49,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 61.34,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-04T16:47:18.884Z"
+  },
+  {
+    "id": 1733331714182,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733331714179",
+    "cart": [
+      {
+        "id": 23,
+        "nom": "Moniteur Samsung",
+        "categorie": "Équipements gaming",
+        "description": "Samsung Écran de jeu Odyssey G30D FHD 24 po 1 ms 180 Hz avec mode Eye Saver – AMD FreeSync – Support réglable en hauteur avec inclinaison, pivotant, pivot, capacité de montage VESA – LS24DG302ENXZA",
+        "prix": 179,
+        "stock": 50,
+        "quantite": 1
+      },
+      {
+        "id": 8,
+        "nom": "Kingston DataTraveler",
+        "categorie": "Accessoires informatiques",
+        "description": "Kingston DataTraveler Exodia Clé USB 3.2 256 Go DTX/256 Go",
+        "prix": 29,
+        "stock": 100,
+        "quantite": 1
+      },
+      {
+        "id": 26,
+        "nom": "Clé USB SanDisk",
+        "categorie": "USB et Stockage",
+        "description": "SanDisk Ultra Flair SDCZ73-128G-G46 Clé USB 3.0 haute performance jusqu'à 150 Mo/s Noir/argenté 128 Go",
+        "prix": 20,
+        "stock": 75,
+        "quantite": 2
+      }
+    ],
+    "total": 290.14,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T17:01:54.182Z"
+  },
+  {
+    "id": 1733333988222,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733333988220",
+    "cart": [
+      {
+        "id": 16,
+        "nom": "Disque dur externe",
+        "categorie": "USB et Stockage",
+        "description": "Seagate Disque dur externe portable de 1 To - USB 3.0 pour PC, Mac, PS4, Xbox - STGX1000400 - Noir",
+        "prix": 85,
+        "stock": 75,
+        "quantite": 1
+      }
+    ],
+    "total": 102.73,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T17:39:48.222Z"
+  },
+  {
+    "id": 1733335388444,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733335388427",
+    "cart": [
+      {
+        "id": 39,
+        "nom": "Support de téléphone",
+        "categorie": "Accessoires informatiques",
+        "description": "Miracase Support de téléphone universel pour grille d'aération de voiture avec clip réglable compatible avec iPhone 15 Series/14/13/12/11 Pro Max/XR/Samsung et autres téléphones",
+        "prix": 20,
+        "stock": 99,
+        "quantite": 1
+      }
+    ],
+    "total": 28,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T18:03:08.444Z"
+  },
+  {
+    "id": 1733339771456,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733339771401",
+    "cart": [
+      {
+        "id": 6,
+        "nom": "Barre de son",
+        "categorie": "Accessoires audio",
+        "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+        "prix": 129,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 153.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T19:16:11.456Z"
+  },
+  {
+    "id": 1733339785951,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733339785911",
+    "cart": [
+      {
+        "id": 6,
+        "nom": "Barre de son",
+        "categorie": "Accessoires audio",
+        "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+        "prix": 129,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 153.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T19:16:25.951Z"
+  },
+  {
+    "id": 1733340179876,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733340179865",
+    "cart": [
+      {
+        "id": 6,
+        "nom": "Barre de son",
+        "categorie": "Accessoires audio",
+        "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+        "prix": 129,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 153.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T19:22:59.876Z"
+  },
+  {
+    "id": 1733340568895,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733340568855",
+    "cart": [
+      {
+        "id": 6,
+        "nom": "Barre de son",
+        "categorie": "Accessoires audio",
+        "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+        "prix": 129,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 153.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T19:29:28.895Z"
+  },
+  {
+    "id": 1733340604308,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733340604296",
+    "cart": [
+      {
+        "id": 6,
+        "nom": "Barre de son",
+        "categorie": "Accessoires audio",
+        "description": "Sony Barre de son S100F 2.0 canaux avec haut-parleur Bass Reflex, tweeter intégré et Bluetooth, (HTS100F), installation facile, compacte, utilisation au bureau à domicile avec son clair noir",
+        "prix": 129,
+        "stock": 100,
+        "quantite": 1
+      }
+    ],
+    "total": 153.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T19:30:04.308Z"
+  },
+  {
+    "id": 1733342460735,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733342460697",
+    "cart": [
+      {
+        "id": 15,
+        "nom": "Câble HDMI",
+        "categorie": "Accessoires informatiques",
+        "description": "UGREEN Câble d'extension HDMI 0,5 m, HDMI mâle vers femelle HDMI prend en charge 4K 60 Hz 3D HDR pour Oculus Rift, PS4 PS3, TV Stick, Switch Lite, lecteur Blu-ray, TV 3D, Roku, Xbox 360, HDTV",
+        "prix": 15,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 22.25,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T20:01:00.735Z"
+  },
+  {
+    "id": 1733343446117,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733343446106",
+    "cart": [
+      {
+        "id": 15,
+        "nom": "Câble HDMI",
+        "categorie": "Accessoires informatiques",
+        "description": "UGREEN Câble d'extension HDMI 0,5 m, HDMI mâle vers femelle HDMI prend en charge 4K 60 Hz 3D HDR pour Oculus Rift, PS4 PS3, TV Stick, Switch Lite, lecteur Blu-ray, TV 3D, Roku, Xbox 360, HDTV",
+        "prix": 15,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 22.25,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T20:17:26.117Z"
+  },
+  {
+    "id": 1733344437197,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733344437183",
+    "cart": [
+      {
+        "id": 15,
+        "nom": "Câble HDMI",
+        "categorie": "Accessoires informatiques",
+        "description": "UGREEN Câble d'extension HDMI 0,5 m, HDMI mâle vers femelle HDMI prend en charge 4K 60 Hz 3D HDR pour Oculus Rift, PS4 PS3, TV Stick, Switch Lite, lecteur Blu-ray, TV 3D, Roku, Xbox 360, HDTV",
+        "prix": 15,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 22.25,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T20:33:57.197Z"
+  },
+  {
+    "id": 1733345560440,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733345560429",
+    "cart": [
+      {
+        "id": 32,
+        "nom": "Clavier de jeu HyperX",
+        "categorie": "Accessoires informatiques",
+        "description": "HyperX Alloy Origins Core – Clavier de jeu mécanique Tenkeyless, contrôle de la lumière par logiciel et personnalisation macro, facteur de forme compact, rétroéclairage à DEL RVB, interrupteur",
+        "prix": 80,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 96.98,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T20:52:40.440Z"
+  },
+  {
+    "id": 1733346235807,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733346235796",
+    "cart": [
+      {
+        "id": 47,
+        "nom": "Caméra de sécurité TP-Link",
+        "categorie": "Accessoires informatiques",
+        "description": "TP-Link Tapo Caméra de sécurité intérieure WiFi 2K Pan/Tilt pour bébé et animal domestique avec suivi de mouvement à 360°, audio bidirectionnel, vision nocturne, stockage cloud et local",
+        "prix": 55,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 68.24,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T21:03:55.807Z"
+  },
+  {
+    "id": 1733346400950,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733346400939",
+    "cart": [
+      {
+        "id": 4,
+        "nom": "Apple Watch Série 9",
+        "categorie": "Montres connectées",
+        "description": "Apple Watch Series 9 [GPS 45 mm] Smartwatch avec boîtier en aluminium argenté et boucle sport bleu hivernal. Tracker fitness, oxygène dans le sang et applications ECG, résistant à l'eau, taille unique",
+        "prix": 570,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 660.36,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T21:06:40.950Z"
+  },
+  {
+    "id": 1733347156996,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733347156986",
+    "cart": [
+      {
+        "id": 27,
+        "nom": "Caméra Sony",
+        "categorie": "Appareils photo",
+        "description": "Sony Caméra Vlog ZV-1F pour les créateurs de contenu et les vlogueurs",
+        "prix": 549,
+        "stock": 30,
+        "quantite": 1
+      }
+    ],
+    "total": 636.21,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T21:19:16.996Z"
+  },
+  {
+    "id": 1733348141205,
+    "user_id": 1733331351796,
+    "orderNumber": "SLG1733348141191",
+    "cart": [
+      {
+        "id": 8,
+        "nom": "Kingston DataTraveler",
+        "categorie": "Accessoires informatiques",
+        "description": "Kingston DataTraveler Exodia Clé USB 3.2 256 Go DTX/256 Go",
+        "prix": 29,
+        "stock": 99,
+        "quantite": 1
+      }
+    ],
+    "total": 38.34,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "750 Avenue du chat, Québec, Q1R2S3",
+    "date": "2024-12-04T21:35:41.205Z"
+  },
+  {
+    "id": 1733493126531,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733493126521",
+    "cart": [
+      {
+        "id": 15,
+        "nom": "Câble HDMI",
+        "categorie": "Accessoires informatiques",
+        "description": "Câble HDMI haute performance, supporte 4K, HDR, compatible PS4, Xbox, TV, Blu-ray.",
+        "prix": 15,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 22.25,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T13:52:06.531Z"
+  },
+  {
+    "id": 1733496773005,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733496772972",
+    "cart": [
+      {
+        "id": 28,
+        "nom": "Casque de jeu Logitech",
+        "categorie": "Casques audio",
+        "description": "Casque gaming sans fil léger, recharge rapide, micro relevable, design ergonomique.",
+        "prix": 109,
+        "stock": 75,
+        "quantite": 1
+      }
+    ],
+    "total": 130.32,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T14:52:53.005Z"
+  },
+  {
+    "id": 1733497300351,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733497300307",
+    "cart": [
+      {
+        "id": 4,
+        "nom": "Apple Watch Série 9",
+        "categorie": "Montres connectées",
+        "description": "Smartwatch élégante avec suivi fitness, ECG, oxygène sanguin, résistante à l’eau.",
+        "prix": 570,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 660.36,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T15:01:40.351Z"
+  },
+  {
+    "id": 1733498290652,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733498290610",
+    "cart": [
+      {
+        "id": 4,
+        "nom": "Apple Watch Série 9",
+        "categorie": "Montres connectées",
+        "description": "Smartwatch élégante avec suivi fitness, ECG, oxygène sanguin, résistante à l’eau.",
+        "prix": 570,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 660.36,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T15:18:10.652Z"
+  },
+  {
+    "id": 1733499736144,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733499736120",
+    "cart": [
+      {
+        "id": 2,
+        "nom": "Laptop Dell",
+        "categorie": "Ordinateurs",
+        "description": "Ordinateur portable avec écran tactile FHD, Intel Core i7, SSD 512 Go, Wi-Fi 6.",
+        "prix": 1299,
+        "stock": 30,
+        "quantite": 1
+      }
+    ],
+    "total": 1498.53,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T15:42:16.144Z"
+  },
+  {
+    "id": 1733500689907,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733500689862",
+    "cart": [
+      {
+        "id": 10,
+        "nom": "Apple Iphone 14 pro",
+        "categorie": "Smartphones",
+        "description": "Smartphone avancé avec écran Super Retina XDR, puce A17 Bionic, appareil photo innovant.",
+        "prix": 849,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 981.14,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T15:58:09.907Z"
+  },
+  {
+    "id": 1733501096727,
+    "user_id": 1733149170990,
+    "orderNumber": "SLG1733501096714",
+    "cart": [
+      {
+        "id": 9,
+        "nom": "Caméra de sécurité 4K",
+        "categorie": "Accessoires informatiques",
+        "description": "Caméra 4K avec WiFi 6, vision nocturne couleur, détection de mouvement, intérieur/extérieur.",
+        "prix": 249,
+        "stock": 50,
+        "quantite": 1
+      }
+    ],
+    "total": 291.29,
+    "paymentMethod": "Carte Bancaire",
+    "deliveryAddress": "6354 Boulevard Cote Vertu, Montréal, H2V3T4",
+    "date": "2024-12-06T16:04:56.727Z"
   }
 ]

@@ -19,5 +19,31 @@
     "password": "$2b$10$6Xgnhque4llPVPK8ZhQX1.kkZj.zZT4qrDSqWwjPtRRnBp0QMycFy",
     "role": "admin",
     "isLoggedIn": false
+  },
+  {
+    "id": 1733149170990,
+    "name": "Infotech",
+    "email": "solutionsinfos2023@gmail.com",
+    "password": "$2b$10$v2m/GDiz/SXUirW6Bt95Q.dqfnlGKFmyvKbd/yU9nwsEFg22856qi",
+    "isLoggedIn": false,
+    "phone": "5145678901",
+    "address": {
+      "address": "6354 Boulevard Cote Vertu",
+      "city": "Montréal",
+      "postalCode": "H2V3T4"
+    }
+  },
+  {
+    "id": 1733331351796,
+    "name": "Pablo Berriz",
+    "email": "infos.garageslg@gmail.com",
+    "password": "$2b$10$N6pElTmtA.qrJJwkU8cpse5WSEypJroPXebAbflcuKVrKnpehNwRa",
+    "isLoggedIn": false,
+    "phone": "4389012345",
+    "address": {
+      "address": "750 Avenue du chat",
+      "city": "Québec",
+      "postalCode": "Q1R2S3"
+    }
   }
 ]

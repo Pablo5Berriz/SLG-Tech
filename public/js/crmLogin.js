@@ -37,4 +37,5 @@ function applyDarkMode() {
     } else {
         document.body.classList.remove("dark-mode");
     }
+    
 }

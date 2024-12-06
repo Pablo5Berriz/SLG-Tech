@@ -6,5 +6,21 @@
     "cardNumber": "**** **** **** 4242",
     "expiryDate": "12/29",
     "isDefault": true
+  },
+  {
+    "id": 1733178087191,
+    "user_id": 1733149170990,
+    "cardHolder": "Infotech Solutions",
+    "cardNumber": "**** **** **** 6789",
+    "expiryDate": "01/30",
+    "isDefault": true
+  },
+  {
+    "id": 1733331583176,
+    "user_id": 1733331351796,
+    "cardHolder": "Pablo Berriz",
+    "cardNumber": "**** **** **** 3456",
+    "expiryDate": "01/29",
+    "isDefault": true
   }
 ]

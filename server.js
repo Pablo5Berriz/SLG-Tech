@@ -939,4 +939,8 @@ app.use((err, req, res, next) => {
 // Démarrage du serveur
 app.listen(PORT, () => {
     console.log(`SLG Tech API en écoute sur http://localhost:${PORT}`);
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 9fad80b (Mis à jour)

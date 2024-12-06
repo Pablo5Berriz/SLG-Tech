@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produits | CRM SLG Tech</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="crm.css">
+</head>
+<body>
+    <!-- Barre latérale -->
+    <div class="sidebar">
+        <h2>SLG Tech CRM</h2>
+        <ul>
+          <li><a href="crmDashboard.html"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+          <li><a href="crmCategories.html"><i class="fas fa-th-list"></i> Catégories</a></li>
+          <li><a href="crmProduits.html" class="active"><i class="fas fa-box-open"></i> Produits</a></li>
+          <li><a href="crmClients.html"><i class="fas fa-users"></i> Clients</a></li>
+          <li><a href="crmCommandes.html"><i class="fas fa-shopping-cart"></i> Commandes</a></li>
+          <li><a href="crmAvis.html"><i class="fas fa-star"></i> Avis</a></li>
+          <li><a href="crmStatistiques.html"><i class="fas fa-chart-bar"></i> Statistiques</a></li>
+          <li><a href="crmParametres.html"><i class="fas fa-cogs"></i> Paramètres</a></li>
+          <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Déconnexion</a></li>
+          <li id="home-link"><a href="Index.html"><i class="fas fa-home"></i> SLT Tech</a></li>
+        </ul>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <main>
+            <section>
+                <h1>Produits</h1>
+                <p>Gérez les produits disponibles pour la vente.</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Nom</th>
+                      <th>Description</th>
+                      <th>Prix</th>
+                      <th>Stock</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="produits-table">
+                    <!-- Données dynamiques ici -->
+                  </tbody>
+                </table>
+            </section>
+        </main>
+        <footer style="margin-top: 100px;">
+          <section id="social">
+              <h4>Suivez-nous sur les réseaux sociaux</h4>
+              <ul>
+                  <li><a href="#">Facebook</a></li>
+                  <li><a href="#">Twitter</a></li>
+                  <li><a href="#">Instagram</a></li>
+              </ul>
+          </section>
+  
+          <section id="footer-info">
+              <p>&copy; 2024 SLG Tech. Tous droits réservés.</p>
+              <p><a href="privacy-policy.html">Politique de confidentialité</a> | <a href="terms-of-service.html">Conditions d'utilisation</a></p>
+          </section>
+      </footer>
+    </div>
+    <script src="/js/crmProduits.js"></script>
+</body>
+</html>

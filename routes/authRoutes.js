@@ -59,9 +59,9 @@ router.post('/api/login', async (req, res) => {
 // Endpoint de vérification de session
 router.get('/api/session-check', (req, res) => {
     if (!req.session || !req.session.user) {
-        return res.status(401).json({ message: "Session expirée." });
+        return res.status(401).json({ message: "Session invalide ou expirée." });
     }
-    res.status(200).json({ message: "Session active." });
+    res.status(200).json({ message: "Session active.", user: req.session.user });
 });
 
 
@@ -78,8 +78,9 @@ router.post('/api/logout', (req, res) => {
 
 // Middleware pour protéger les routes (à utiliser si nécessaire)
 const verifySession = (req, res, next) => {
+    console.log('Session actuelle :', req.session); // Vérifiez si la session contient des données
     if (!req.session || !req.session.user) {
-        return res.status(401).json({ message: "Accès non autorisé. Veuillez vous connecter." });
+        return res.status(401).json({ message: 'Accès non autorisé. Veuillez vous connecter.' });
     }
     next();
 };
