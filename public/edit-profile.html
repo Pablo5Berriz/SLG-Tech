@@ -15,19 +15,45 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+            <li>
+                <a href="panier.html">
+                    Panier <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+            <li>
+                <div id="user-menu-container" style="margin-right: -300px;">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <main class="profile-main">
         <section>
@@ -58,6 +84,8 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+        
+            // Fonction pour charger le profil
             const userId = localStorage.getItem('userId'); // Assurez-vous que userId est défini
         
             if (!userId) {
