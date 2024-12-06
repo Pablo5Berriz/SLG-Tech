@@ -17,13 +17,14 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="crmDashboard.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
@@ -31,9 +32,19 @@
                 Panier <i class="fa fa-shopping-cart"></i>
                 <span id="cart-count" class="cart-count">0</span>
             </a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+        </ul>
+    </div>
 
     <main>
         <!-- Section de bienvenue -->
@@ -128,7 +139,7 @@
                 categoryGrid.appendChild(div);
             });
         }
-        
+
         // Afficher les produits en vedette
         async function displayFeaturedProducts() {
             const produits = await fetchData("produits");
@@ -208,18 +219,7 @@
             await displayCustomerReviews(); // Charge les avis des clients
             await displayPartners(); // Charge les partenaires
         }
-
-        async function fetchData(type) {
-            try {
-                const response = await fetch(`/api/${type}`);
-                if (!response.ok) throw new Error(`Erreur lors du chargement de ${type}`);
-                return await response.json();
-            } catch (error) {
-                console.error(`Erreur avec ${type}:`, error);
-                return null;
-            }
-        }
-        document.addEventListener('DOMContentLoaded', init);        
+        document.addEventListener('DOMContentLoaded', init);  
     </script>
 
     <footer style="margin-top: 100px;">
