@@ -1,4 +1,3 @@
-/* Configuration de base */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -19,365 +18,269 @@ body {
     --violet: #8E44AD;
 }
 
-/* Header */
-header {
-    background: linear-gradient(to right, var(--red), var(--orange), var(--yellow), var(--green), var(--blue), var(--indigo), var(--violet));
+.header {
+    background: linear-gradient(to right, #FF5733, #FF8D1A, #FFC300, #75C044, #3498DB, #6C5CE7, #8E44AD);
     padding: 10px 20px;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-    flex-wrap: wrap; /* Pour gérer les petits écrans */
-    gap: 10px; /* Espacement pour flex-wrap */
+    position: relative;
 }
 
 /* Logo */
-header .logo img {
+.logo img {
     width: 120px;
     max-width: 100%;
 }
 
 /* Navigation */
-header nav ul {
+.nav {
     display: flex;
+}
+
+.nav-list {
     list-style: none;
+    display: flex;
     margin: 0;
     padding: 0;
-    gap: 30px; /* Espacement réduit pour les petits écrans */
-    flex-wrap: wrap; /* Permet de s'adapter à la largeur */
+    gap: 30px;
 }
 
-header nav ul li a {
-    font-size: 1.2rem;
+.nav-list li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    transition: color 0.3s ease-in-out;
-}
-
-header nav ul li a:hover {
-    color: var(--yellow);
-}
-
-/* Actions à droite */
-header div {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Aligne les éléments à droite */
-    padding: 0 10px;
-    gap: 20px; /* Espacement entre les icônes */
-}
-
-/* Lien général dans le header */
-header a {
     font-size: 1.2rem;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease-in-out;
+    transition: color 0.3s ease;
 }
 
-header a:hover {
-    color: var(--yellow);
+.nav-list li a:hover {
+    color: #FFC300;
 }
 
-/* panier */
+/* Panier */
 .cart-link {
-    position: relative; /* Nécessaire pour positionner le compteur */
-    color: white; /* Couleur du texte */
-    text-decoration: none; /* Supprime les soulignements */
-    font-size: 1.2rem; /* Taille du texte du lien */
-    display: inline-flex; /* Pour aligner le texte et l'icône */
-    align-items: center; /* Centrer verticalement le texte et l'icône */
-    gap: 5px; /* Espacement entre "Panier" et l'icône */
-}
-
-/* Icône du panier */
-.fa-shopping-cart {
-    font-size: 1.5rem; /* Ajuste la taille de l'icône */
-    position: relative; /* Positionne le compteur par rapport à cette icône */
-    color: white; /* Couleur de l'icône */
-}
-
-/* Compteur associé au panier */
-.cart-count {
-    position: absolute; /* Position absolue par rapport au parent .cart-link */
-    top: -8px; /* Ajustement vertical */
-    right: -10px; /* Ajustement horizontal */
-    background-color: red; /* Couleur de fond du compteur */
-    color: white; /* Couleur du texte */
-    font-size: 0.9rem; /* Taille du texte du compteur */
-    font-weight: bold; /* Texte en gras */
-    padding: 2px 6px; /* Espace intérieur pour arrondir */
-    border-radius: 50%; /* Arrondi parfait pour un cercle */
-    display: flex; /* Flexbox pour centrer le contenu */
-    justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: inline-flex;
+    margin-left: 750px;
     align-items: center;
-    z-index: 10; width: 10px; /* Taille fixe pour un cercle uniforme */ 
-    height: 20px; 
+    gap: 5px;
 }
 
-/* Pour écrans de 1024px et moins (tablettes) */
-@media (max-width: 1024px) {
-    .cart-link {
-        font-size: 1rem; /* Réduction de la taille du texte */
-    }
-
-    .fa-shopping-cart {
-        font-size: 1.3rem; /* Réduction de la taille de l'icône */
-    }
-
-    .cart-count {
-        top: 6px; /* Ajustement vertical */
-        right: 8px; /* Ajustement horizontal */
-        font-size: 0.8rem; /* Taille réduite du texte */
-        width: 18px; /* Taille du cercle réduite */
-        height: 18px;
-    }
+.cart-count {
+    background-color: red;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
 }
 
-/* Pour écrans de 768px et moins (iPad Mini et smartphones larges) */
-@media (max-width: 768px) {
-    .cart-link {
-        font-size: 0.9rem; /* Réduction supplémentaire */
-    }
-
-    .fa-shopping-cart {
-        font-size: 1.2rem; /* Réduction encore pour petits écrans */
-    }
-
-    .cart-count {
-        top: -15px;
-        right: -70px;
-        font-size: 0.7rem;
-        width: 16px;
-        height: 16px;
-    }
+.user-icon-container {
+    width: 20px;
+    margin-right: 50px;
 }
 
-/* Pour smartphones (375px et moins, ex: iPhone SE) */
-@media (max-width: 375px) {
-    .cart-link {
-        font-size: 0.8rem; /* Texte encore plus petit */
-    }
-
-    .fa-shopping-cart {
-        font-size: 1rem; /* Taille minimale de l'icône */
-    }
-
-    .cart-count {
-        top: 4px;
-        right: 6px;
-        font-size: 0.6rem;
-        width: 14px;
-        height: 14px;
-    }
+/* Bouton menu hamburger */
+.menu-toggle {
+    display: none; /* Caché sur les grands écrans */
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+    margin-left: 400px;
+    z-index: 101;
 }
 
-/* Icônes utilisateur */
+/* Icône utilisateur */
 .user-menu-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .user-icon {
-    font-size: 20px; /* Taille adaptée aux petits écrans */
+    font-size: 1.5rem;
     cursor: pointer;
-    color: #333;
+    color: white;
     transition: color 0.3s ease;
 }
 
 .user-icon:hover {
-    color: var(--yellow); /* Ajout d'une couleur au survol */
+    color: #FFC300;
 }
 
 /* Menu utilisateur */
 .user-menu {
     position: absolute;
-    top: 40px; 
-    left: -180%;
-    display: flex;
-    flex-direction: column;
-    width: 150px; /* Ajustement pour un contenu plus large */
-}
-
-.user-menu.hidden {
-    display: none;
-}
-
-.user-menu.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Items du menu utilisateur */
-.menu-item {
-    padding: 10px 15px;
-    text-decoration: none;
-    color: #333;
-    font-size: 14px;
-    background-color: transparent;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    cursor: pointer;
-}
-
-.menu-item:hover {
-    background-color: var(--yellow);
-    color: #000;
-}
-
-/* Icône des paramètres */
-.settings-icon {
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 15px;
-    color: #333;
-    transition: color 0.3s ease;
-}
-
-.settings-icon:hover {
-    color: #007bff; /* Couleur au survol */
-}
-
-/* Menu déroulant */
-.dropdown-menu {
-    position: absolute;
-    top: calc(100% + 10px); /* Déplacer sous l'icône */
-    right: 50%;
-    transform: translateX(-50%); /* Centrer */
+    top: 40px;
+    left: 0;
     background-color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
-    width: 200px; /* Légèrement plus large pour des textes longs */
+    width: 200px;
+    display: flex;
+    flex-direction: column;
     padding: 5px 0;
     list-style: none;
-    opacity: 0;
-    visibility: hidden;
-    z-index: 1000;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 10;
 }
 
-.dropdown-menu.show {
-    opacity: 1;
-    visibility: visible;
+.user-menu.hidden {
+    display: none; 
 }
 
-.dropdown-menu li {
+.user-menu .menu-item {
     padding: 10px 15px;
-    text-align: left;
-    white-space: nowrap; /* Pour éviter les sauts de ligne */
-}
-
-.dropdown-menu li a {
     text-decoration: none;
     color: #333;
-    font-size: 14px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-menu .menu-item:hover {
+    background-color: #FFC300;
+    color: #000;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* Caché par défaut */
+    height: 100%;
+    width: 250px;
+    background: linear-gradient(to right, #6C5CE7, #8E44AD);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 100;
     display: flex;
-    align-items: center;
-    gap: 10px;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top: 50px;
+    margin-left: 30px;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
     transition: color 0.3s ease;
 }
 
-.dropdown-menu li a:hover {
-    color: #007bff;
+.sidebar ul li a:hover {
+    color: #FFC300;
 }
 
-.dropdown-menu li:not(:last-child) {
-    border-bottom: 1px solid #eee; /* Délimitation visuelle */
+.sidebar.active {
+    left: 0; /* Visible */
 }
 
-/* Responsive Design */
-@media (max-width: 1292px) {
-    header {
-        padding: 10px 15px;
+/* Responsive Styles */
+
+/* Tablettes (9", 11", 12") */
+@media screen and (max-width: 1200px) {
+    .nav {
+        display: none; /* Cache la navigation par défaut */
     }
-    header nav ul {
-        gap: 20px; /* Réduction des espaces */
+    .menu-toggle {
+        display: block; /* Affiche le bouton hamburger */
+        margin-left: 50px; /* Espacement entre le logo et le bouton */
     }
-    .cart-count {
-        top: 8px;
-        right: 8px;
+
+    .logo img {
+        width: 100px; /* Réduit la taille du logo */
     }
-    .user-icon {
-        font-size: 18px;
-    }
-    .dropdown-menu {
-        width: 100%; /* S'adapte à la largeur de l'écran */
-        left: 0;
+
+    .cart-link {
+        font-size: 1rem;
+        margin-right: 20px;
     }
 }
 
-/* Spécifique à 1024px */
-@media (max-width: 1024px) {
-    header {
-        flex-direction: column;
-        align-items: center;
+/* Petites tablettes et téléphones (6,8", 6,1", 5,7", 5,1") */
+@media screen and (max-width: 768px) {
+    .header {
+        flex-wrap: wrap; /* Permet au contenu de s'adapter */
+        justify-content: center; /* Centrer les éléments */
+        padding: 10px;
     }
-    header .logo img {
-        width: 100px; /* Réduction de la taille du logo */
+
+    .logo img {
+        width: 80px; /* Réduit encore le logo */
+        margin-left: 10px; /* Espacement entre les éléments */
     }
-    header nav ul {
-        flex-direction: column; /* Les éléments du menu s'alignent en colonne */
+
+    .cart-link {
+        font-size: 0.9rem;
+        margin-left: 5px;
+        gap: 3px;
+    }
+
+    .user-menu-container {
+        margin-right: 10px;
+    }
+
+    .nav-list {
+        flex-direction: column; /* Affiche les liens en colonne */
         gap: 15px;
     }
-    .cart-count {
-        font-size: 0.9rem;
-        padding: 3px 5px;
+
+    .sidebar {
+        width: 200px; /* Réduit la largeur de la sidebar */
     }
 }
 
-/* iPhone SE et petits smartphones */
-@media (max-width: 375px) {
-    header {
-        padding: 5px 10px;
-    }
-    header nav ul {
+/* Très petits écrans (≤5") */
+@media screen and (max-width: 480px) {
+    .header {
+        padding: 5px;
+        flex-wrap: wrap;
         gap: 10px;
     }
-    header div {
-        gap: 15px;
+
+    .logo img {
+        width: 60px;
+        margin-left: 30px;
     }
-    .cart-count {
+
+    .cart-link {
         font-size: 0.8rem;
-        top: 5px;
-        right: 5px;
+        margin-right: 30px;
+        gap: 2px;
     }
-}
 
-/* iPad Mini (768px) */
-@media (max-width: 768px) {
-    header {
-        padding: 10px 15px;
+    .sidebar {
+        width: 180px; /* Sidebar encore plus étroite */
+    }
+
+    .nav-list {
         flex-direction: column;
-        align-items: center;
-    }
-    .user-menu {
-        width: 100%; /* Menu utilisateur sur toute la largeur */
-    }
-    .cart-count {
-        font-size: 0.85rem;
-        padding: 4px 6px;
-    }
-}
-
-/* Samsung Galaxy Fold (280px largeur d'écran) */
-@media (max-width: 280px) {
-    header {
-        padding: 5px 8px;
-    }
-    .cart-count {
-        font-size: 0.75rem;
-        top: 2px;
-        right: 2px;
-    }
-    header nav ul {
-        gap: 8px;
+        gap: 10px; /* Espacement réduit */
     }
 }
 
 
-/* Section Hero */
+/* Section Hero Index*/
 .hero {
     text-align: center;
     padding: 50px 20px;
@@ -1308,6 +1211,107 @@ header a:hover {
     text-decoration: underline;
 }
 
+
+/* Responsive Styles */
+
+/* Pour les écrans laptops (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .contact-header h1 {
+        font-size: 2rem; /* Taille réduite pour les écrans plus petits */
+    }
+
+    .contact-form {
+        max-width: 500px; /* Réduit la largeur du formulaire */
+    }
+
+    .contact-info h2 {
+        font-size: 1.8rem; /* Taille réduite pour les titres */
+    }
+
+    .contact-info li {
+        font-size: 1rem; /* Réduit la taille du texte des infos de contact */
+    }
+}
+
+/* Pour les tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .contact-header {
+        padding: 40px 15px; /* Réduit le padding */
+    }
+
+    .contact-header h1 {
+        font-size: 1.8rem; /* Taille du titre réduite */
+    }
+
+    .contact-header p {
+        font-size: 1rem; /* Réduit la taille du texte */
+    }
+
+    .contact-form {
+        max-width: 100%; /* Le formulaire prend toute la largeur */
+        padding: 20px; /* Ajoute du padding */
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.9rem; /* Réduit la taille des champs de saisie */
+    }
+
+    .contact-info {
+        padding: 30px 15px; /* Réduit le padding */
+    }
+
+    .contact-info h2 {
+        font-size: 1.5rem; /* Taille réduite pour le titre */
+    }
+
+    .contact-info li {
+        font-size: 1rem; /* Taille réduite pour les éléments de la liste */
+    }
+}
+
+/* Pour les téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .contact-header {
+        padding: 30px 10px; /* Réduit encore plus le padding */
+    }
+
+    .contact-header h1 {
+        font-size: 1.5rem; /* Réduit la taille du titre */
+    }
+
+    .contact-header p {
+        font-size: 0.9rem; /* Réduit la taille du texte */
+    }
+
+    .contact-form {
+        max-width: 100%;
+        padding: 15px; /* Réduit le padding du formulaire */
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.85rem; /* Réduit la taille des champs de saisie */
+    }
+
+    .contact-info {
+        padding: 20px 10px; /* Réduit le padding de la section contact info */
+    }
+
+    .contact-info h2 {
+        font-size: 1.2rem; /* Réduit la taille du titre des informations */
+    }
+
+    .contact-info li {
+        font-size: 0.9rem; /* Réduit la taille de la liste des informations */
+    }
+
+    .contact-info a {
+        font-size: 0.9rem; /* Réduit la taille des liens */
+    }
+}
+
+
 /* Section en-tête Panier */
 .cart-header {
     text-align: center;
@@ -1886,85 +1890,167 @@ header a:hover {
     background-color: #e8f5e9;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .container {
-        max-width: 90%; /* Limite plus étroite pour tablettes */
+/* Responsive Styles */
+
+/* Pour les laptops (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .payment-container,
+    .checkout-container {
+        width: 90%; /* Réduit la largeur pour s'adapter à l'écran */
     }
 
-    .section h1 {
-        font-size: 1.6rem;
+    .payment-options {
+        flex-direction: column; /* Options de paiement en colonne */
+        gap: 15px;
     }
 
-    .confirmation {
-        flex-direction: column; /* Empilement des boutons */
-    }
-
-    .confirm-button, .cancel-button {
-        width: 100%; /* Boutons pleine largeur */
-        margin: 10px 0;
+    .payment-button {
+        width: 100%; /* Les boutons prennent toute la largeur */
     }
 }
 
-@media (max-width: 768px) {
-    .section h1 {
-        font-size: 1.4rem;
+/* Pour les tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .payment-container,
+    .checkout-container {
+        padding: 15px;
+        width: 100%;
     }
 
-    .form-container input[type="text"],
-    .form-container input[type="submit"],
-    .form-container button {
-        font-size: 0.9rem;
-        padding: 8px; /* Réduction du padding */
+    .payment-options {
+        flex-direction: column; /* Options de paiement en colonne */
+        gap: 10px;
     }
 
-    .summary-item {
-        flex-direction: column; /* Affichage en colonne */
+    .payment-button {
+        font-size: 14px; /* Réduit la taille des boutons */
+        padding: 8px;
+    }
+
+    .form-group input {
+        font-size: 14px; /* Réduit la taille des champs de saisie */
+    }
+
+    .checkout-title {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 13px;
+    }
+
+    .section-content {
+        font-size: 13px;
+    }
+}
+
+/* Pour les téléphones (max-width: 480px) */
+/* Pour les téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .payment-container,
+    .checkout-container {
+        padding: 10px;
+        width: 95%; /* Le conteneur prend presque toute la largeur */
+        margin: 0 auto; /* Centre les conteneurs */
+    }
+
+    .payment-button {
+        font-size: 12px;
+        padding: 8px; /* Boutons plus compacts */
+        width: 100%; /* Les boutons prennent toute la largeur */
+        text-align: center;
+    }
+
+    .form-group input {
+        font-size: 12px; /* Réduit la taille des champs de saisie */
+        padding: 8px;
+        width: 100%; /* Champs prennent toute la largeur */
+        box-sizing: border-box; /* Évite les débordements */
+    }
+
+    .checkout-title {
+        font-size: 16px; /* Augmente légèrement la taille pour plus de lisibilité */
+        text-align: center; /* Centrer le titre */
+    }
+
+    .section-title {
+        font-size: 14px; /* Taille légèrement plus grande pour les titres */
+        text-align: left; /* Alignement à gauche */
+        margin-bottom: 10px; /* Ajoute de l'espacement en dessous */
+    }
+
+    .section-content {
+        font-size: 12px;
         text-align: left;
     }
 
-    .summary-total {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .section h1 {
-        font-size: 1.2rem;
+    .promo-input-container {
+        flex-direction: column; /* Empile les champs et les boutons */
+        gap: 8px; /* Ajoute plus d'espace entre les éléments */
     }
 
-    .form-container input[type="text"],
-    .form-container input[type="submit"],
-    .form-container button {
-        font-size: 0.8rem;
-        padding: 6px;
+    .promo-input {
+        font-size: 12px;
+        padding: 8px;
+        width: 100%; /* Champs prennent toute la largeur */
+        box-sizing: border-box;
     }
 
-    .confirm-button, .cancel-button {
-        font-size: 0.9rem;
+    .apply-button {
+        font-size: 12px;
         padding: 10px;
+        width: 100%; /* Bouton prend toute la largeur */
+        text-align: center;
+    }
+
+    .checkout-total {
+        flex-direction: column; /* Empile les éléments sous-total et bouton */
+        align-items: flex-start; /* Aligne à gauche */
+        gap: 10px; /* Ajoute de l'espacement */
+    }
+
+    .total-amount {
+        font-size: 18px;
+        margin-left: 0; /* Supprime la marge gauche */
+        font-weight: bold;
+        color: #00473e;
+        text-align: left; /* Alignement à gauche */
+    }
+
+    .edit-button,
+    .cancel-button,
+    .checkout-button {
+        font-size: 14px; /* Taille ajustée pour les boutons */
+        padding: 8px 10px;
+        width: 100%; /* Les boutons prennent toute la largeur */
+    }
+
+    .card-item {
+        padding: 8px;
+        margin-bottom: 10px;
+        font-size: 12px;
     }
 }
 
 
 
-/* Styles pour remerciement */
+/* Styles de base */
 .thank-you {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
     padding: 40px;
-    width: 600px;
-    height: 50vh;
-    width: 100%;
+    margin: 20px auto;
+    max-width: 600px; /* Limite la largeur maximale */
+    width: 90%; /* Occupe 90% de l'écran sur les petits appareils */
 }
 
 .thank-you h1 {
     color: #2e7d32;
     font-size: 2rem;
     margin-bottom: 20px;
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 .thank-you p {
@@ -1997,32 +2083,89 @@ header a:hover {
     border-radius: 5px;
     margin: 0 10px;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .actions .btn:hover {
     background-color: #388e3c;
+    transform: scale(1.05); /* Légère mise en relief au survol */
 }
 
 .actions .btn:active {
     background-color: #2e7d32;
     box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    transform: scale(1); /* Revenir à la taille d'origine */
 }
 
 /* Responsiveness */
-@media (max-width: 768px) {
+
+/* Laptops et tablettes (max-width: 1024px) */
+@media (max-width: 1024px) {
     .thank-you {
-        padding: 20px;
+        padding: 30px;
+        max-width: 80%; /* Réduction de la largeur maximale */
+    }
+
+    .thank-you h1 {
+        font-size: 1.8rem;
+    }
+
+    .thank-you p {
+        font-size: 0.95rem;
     }
 
     .actions .btn {
-        margin: 10px 0;
-        display: block;
-        width: 100%;
-        text-align: center;
+        padding: 10px 18px;
+        font-size: 0.95rem;
     }
 }
+
+/* Tablettes (max-width: 768px) */
+@media (max-width: 768px) {
+    .thank-you {
+        padding: 20px;
+        max-width: 90%; /* Prend presque toute la largeur */
+    }
+
+    .thank-you h1 {
+        font-size: 1.5rem;
+    }
+
+    .thank-you p {
+        font-size: 0.9rem;
+    }
+
+    .actions .btn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Smartphones (max-width: 480px) */
+@media (max-width: 480px) {
+    .thank-you {
+        padding: 15px;
+        max-width: 100%; /* Prend toute la largeur */
+    }
+
+    .thank-you h1 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .thank-you p {
+        font-size: 0.85rem;
+    }
+
+    .actions .btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        margin: 5px 5px; /* Réduction de l'espacement entre les boutons */
+    }
+}
+
+
 
 
 /* Styles pour la section profil */
@@ -2275,6 +2418,119 @@ form input:focus {
     margin-top: 30px;
 }
 
+/* Responsive Styles */
+
+/* Pour les laptops (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
+    .profile-section h1,
+    .credit-cards-section h2 {
+        font-size: 1.8rem; /* Réduit la taille des titres */
+    }
+
+    .profile-table,
+    .orders-table {
+        width: 90%; /* Augmente la largeur du tableau */
+    }
+
+    .profile-table th,
+    .profile-table td,
+    .orders-table th,
+    .orders-table td {
+        font-size: 0.95rem; /* Réduit la taille du texte */
+    }
+
+    .credit-cards-section {
+        max-width: 700px; /* Réduit la largeur de la section des cartes */
+    }
+}
+
+/* Pour les tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .profile-section h1,
+    .credit-cards-section h2 {
+        font-size: 1.5rem; /* Taille du titre encore réduite */
+    }
+
+    .profile-table,
+    .orders-table {
+        width: 100%; /* Tableaux prennent toute la largeur */
+        max-width: none;
+    }
+
+    .profile-table th,
+    .profile-table td,
+    .orders-table th,
+    .orders-table td {
+        font-size: 0.9rem; /* Taille réduite pour les tablettes */
+        padding: 10px; /* Espacement réduit */
+    }
+
+    .credit-cards-section {
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 14px; /* Boutons légèrement plus petits */
+        padding: 8px 15px;
+    }
+}
+
+/* Pour les téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
+    .profile-section,
+    .orders-section,
+    .settings-section {
+        margin-bottom: 15px;
+    }
+
+    .profile-section h1,
+    .credit-cards-section h2 {
+        font-size: 1.2rem; /* Réduit la taille des titres pour les téléphones */
+    }
+
+    .profile-table,
+    .orders-table {
+        width: 100%; /* Utilise toute la largeur disponible */
+        max-width: none;
+        font-size: 0.85rem; /* Réduit encore plus la taille du texte */
+    }
+
+    .profile-table th,
+    .profile-table td,
+    .orders-table th,
+    .orders-table td {
+        padding: 8px; /* Moins d'espacement */
+    }
+
+    .credit-cards-section {
+        padding: 10px; /* Réduit le padding */
+        margin: 1rem auto;
+    }
+
+    .btn {
+        font-size: 12px; /* Taille réduite pour les boutons */
+        padding: 6px 10px; /* Réduit le padding des boutons */
+    }
+
+    .form input {
+        font-size: 12px; /* Taille du texte réduite dans les champs */
+        padding: 8px;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .btn-danger {
+        width: 75%; /* Les boutons prennent toute la largeur */
+        padding: 10px; /* Espacement uniforme */
+        font-size: 14px; /* Taille légèrement augmentée pour plus de lisibilité */
+        text-align: center; /* Alignement centré */
+    }
+
+    .profile-actions {
+        margin-top: 20px; /* Réduction de l'espacement */
+    }
+}
+
 
 
 /* Conteneur de la page de connexion */
@@ -2399,259 +2655,98 @@ form button:hover {
     color: #0056b3;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
+/* Pour les laptops (max-width: 1024px) */
+@media screen and (max-width: 1024px) {
     .login-wrapper {
-        flex-direction: column; /* Stacking image and form vertically */
-        width: 80%;
+        width: 90%; /* Réduit la largeur */
+        flex-direction: row;
     }
 
-    .image-container {
-        height: 200px; /* Limite la hauteur de l'image */
+    .form-container {
+        padding: 30px;
+    }
+
+    form label {
+        font-size: 0.95rem;
+    }
+
+    form input {
+        padding: 12px;
+        font-size: 0.95rem;
     }
 
     form button {
-        width: 200px; /* Réduction de la largeur */
+        width: 220px;
+        font-size: 0.95rem;
+        padding: 10px;
     }
 }
 
-@media (max-width: 768px) {
-    .login-h1 {
-        font-size: 1.8rem; /* Taille du titre réduite */
+/* Pour les tablettes (max-width: 768px) */
+@media screen and (max-width: 768px) {
+    .login-wrapper {
+        width: 95%; /* Conteneur presque plein écran */
+        flex-direction: column; /* Empile l'image et le formulaire */
+    }
+
+    .image-container {
+        height: 200px; /* Réduit la hauteur pour les tablettes */
     }
 
     .form-container {
         padding: 20px;
     }
 
+    form label {
+        font-size: 0.9rem;
+    }
+
     form input {
-        padding: 12px;
+        padding: 10px;
         font-size: 0.9rem;
     }
 
     form button {
-        width: 200px; /* Taille plus compacte pour mobiles */
+        width: 200px;
         font-size: 0.9rem;
-    }
-
-    .image-container {
-        height: 150px; /* Taille minimale pour l'image */
+        padding: 8px;
     }
 }
 
-@media (max-width: 480px) {
+/* Pour les téléphones (max-width: 480px) */
+@media screen and (max-width: 480px) {
     .login-wrapper {
-        width: 100%; /* Utilisation complète de l'espace pour mobiles */
+        width: 100%; /* Utilise toute la largeur disponible */
+        flex-direction: column;
     }
 
     .form-container {
         padding: 15px;
     }
 
-    .login-h1 {
-        font-size: 1.5rem; /* Taille minimale pour petits écrans */
+    form label {
+        font-size: 0.85rem;
     }
 
     form input {
-        padding: 10px;
+        padding: 8px;
         font-size: 0.85rem;
+        width: 80%;
     }
 
     form button {
-        width: 180px; /* Boutons étroits pour très petits écrans */
-        padding: 8px 10px;
+        width: 80%; /* Boutons étroits pour très petits écrans */
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .form-container p {
         font-size: 0.85rem;
     }
-}
 
-
-/* CRM CSS */
-.sidebar {
-    width: 270px;
-    background-color: #2c3e50;
-    color: white;
-    height: 100vh;
-    position: fixed;
-    top: 20px;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    padding-top: 20px;
-}
-
-.sidebar h2 {
-    text-align: center;
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: bold;
-    padding: 10px 15px;
-    display: block;
-    transition: background 0.3s ease;
-}
-
-.sidebar ul li a:hover {
-    color: #3498db;
-    background-color: #34495e;
-}
-
-.main-content {
-    margin-left: 250px;
-    padding: 20px;
-    flex: 1;
-}
-
-.crm-header {
-    background-color: #3498db;
-    color: white;
-    padding: 15px;
-    text-align: center;
-}
-
-.overview {
-    padding: 20px;
-    background-color: #ecf0f1;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.overview h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.logout-button {
-    background-color: indigo;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.logout-button:hover {
-    background-color: #d32f2f;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin: 20px 0;
-}
-
-.dashboard-card {
-    background: linear-gradient(135deg, #f5f5f5, #e3e3e3);
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    padding: 20px;
-    position: relative;
-}
-
-.dashboard-card h3 {
-    margin-bottom: 10px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.dashboard-card p {
-    font-size: 16px;
-    font-weight: 500;
-    color: #333;
-}
-
-/* Icônes pour les cartes */
-.dashboard-card::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: url('/Images/icons.svg'); /* Chemin vers votre sprite d'icônes ou des images individuelles */
-    background-size: cover;
-    width: 40px;
-    height: 40px;
-}
-
-#categories-card::before { background-position: 0 0; }
-#produits-card::before { background-position: -40px 0; }
-#clients-card::before { background-position: -80px 0; }
-#commandes-card::before { background-position: -120px 0; }
-#avis-card::before { background-position: -160px 0; }
-
-/* Catégories et Produits populaires */
-#popular-categories, #popular-products {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.popular-item {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    width: 150px;
-    text-align: center;
-    transition: transform 0.3s ease;
-}
-
-.popular-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.popular-item img {
-    width: 50px;
-    height: 50px;
-    margin-bottom: 10px;
-}
-
-.popular-item h4 {
-    font-size: 16px;
-    margin-bottom: 5px;
-    color: #333;
-}
-
-.popular-item p {
-    font-size: 14px;
-    color: #555;
-}
-
-/* Diagramme circulaire */
-#sales-chart {
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-/* Styles pour les sections */
-section {
-    margin-bottom: 40px;
-}
-
-section h2, section h3 {
-    font-size: 22px;
-    color: #222;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #f1f1f1;
-    padding-bottom: 5px;
+    .login-h1 {
+        font-size: 1.5rem; /* Réduit la taille du titre principal */
+    }
 }
 
 
@@ -2741,10 +2836,9 @@ footer {
 
 
 /* Points de rupture pour les appareils */
-/* Responsiveness for Navigation */
-@media (max-width: 1024px) {
-    
 
+/* Laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
     .featured-products {
         padding: 40px 15px;
     }
@@ -2754,11 +2848,11 @@ footer {
     }
 
     .product-item img {
-        width: 100px; /* Taille réduite pour les tablettes */
+        width: 100px; /* Taille réduite pour tablettes */
     }
 
     .product-item h3 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 
     .product-item p {
@@ -2766,24 +2860,32 @@ footer {
     }
 
     .product-item .btn {
-        padding: 8px 10px;
+        padding: 8px 12px;
         font-size: 0.9rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Taille ajustée pour laptops */
+    }
+
+    .hero p {
+        font-size: 1rem;
     }
 }
 
+/* Tablettes (max-width: 768px) */
 @media (max-width: 768px) {
-    
-  .featured-products {
+    .featured-products {
         padding: 30px 10px;
     }
 
     .product-grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Réduction du min-width */
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Réduction du min-width */
         gap: 15px;
     }
 
     .product-item img {
-        width: 90px; /* Plus petit pour mobile */
+        width: 90px; /* Plus petit pour tablettes */
     }
 
     .product-item h3 {
@@ -2798,102 +2900,13 @@ footer {
         padding: 6px 8px;
         font-size: 0.8rem;
     }
-}
-
-
-/* Responsive Sections */
-.hero {
-    padding: 20px 10px;
-    text-align: center;
-}
-
-.hero h1 {
-    font-size: 2rem;
-}
-
-.hero p {
-    font-size: 1rem;
-}
-
-/* Responsive Grids */
-
-.category-grid,
-.product-grid,
-.info-grid,
-.about-details {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin: 0 auto;
-    padding: 10px;
-}
-
-.category-item,
-.product-item,
-.info-item {
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-/* Mobile-friendly buttons and forms */
-form {
-    padding: 10px;
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto;
-}
-
-form input, form button {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-/* Footer */
-footer {
-    font-size: 1rem;
-    padding: 20px;
-}
-
-#social ul {
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-
-/* Laptops and Tablets */
-@media (max-width: 1024px) {
-    .category-grid, .product-grid, .info-grid {
-        gap: 15px;
-    }
-
-    .category-item, .product-item, .info-item {
-        padding: 8px;
-    }
 
     .hero h1 {
-        font-size: 1.8rem;
+        font-size: 1.8rem; /* Réduction de la taille du titre */
     }
 
     .hero p {
         font-size: 0.9rem;
-    }
-}
-
-/* Tablets */
-@media (max-width: 768px) {
-    .hero {
-        padding: 15px;
-    }
-
-    .hero h1 {
-        font-size: 1.5rem;
-    }
-
-    .hero p {
-        font-size: 0.8rem;
     }
 
     footer {
@@ -2905,17 +2918,8 @@ footer {
     }
 }
 
-/* Smartphones */
+/* Smartphones (max-width: 480px) */
 @media (max-width: 480px) {
-
-    .hero h1 {
-        font-size: 1.2rem;
-    }
-
-    .hero p {
-        font-size: 0.8rem;
-    }
-  
     .featured-products {
         padding: 20px 5px;
     }
@@ -2926,11 +2930,11 @@ footer {
     }
 
     .product-item {
-        padding: 15px;
+        padding: 10px;
     }
 
     .product-item img {
-        width: 70px; /* Taille ajustée pour très petits écrans */
+        width: 70px; /* Taille ajustée pour petits écrans */
     }
 
     .product-item h3 {
@@ -2942,11 +2946,24 @@ footer {
     }
 
     .product-item .btn {
-        padding: 5px 10px;
+        padding: 5px 8px;
         font-size: 0.7rem;
+    }
+
+    .hero h1 {
+        font-size: 1.2rem;
+    }
+
+    .hero p {
+        font-size: 0.8rem;
     }
 
     footer {
         font-size: 0.8rem;
+    }
+
+    #social ul {
+        flex-wrap: wrap;
+        gap: 8px;
     }
 }
