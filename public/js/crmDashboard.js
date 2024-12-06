@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    // Applique le mode sombre si activé
+    applyDarkMode();
+    
     try {
         // Vérifiez si une session utilisateur existe côté serveur
         const response = await fetch("/api/session-check", { method: "GET" });
@@ -146,5 +149,16 @@ async function fetchData(url) {
     } catch (error) {
         console.error("Erreur avec fetchData :", error.message);
         throw error;
+    }
+}
+
+// Fonction pour appliquer le mode sombre
+function applyDarkMode() {
+    const isDarkModeEnabled = localStorage.getItem("darkMode") === "enabled";
+
+    if (isDarkModeEnabled) {
+        document.body.classList.add("dark-mode");
+    } else {
+        document.body.classList.remove("dark-mode");
     }
 }
