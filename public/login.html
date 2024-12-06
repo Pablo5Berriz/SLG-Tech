@@ -15,19 +15,45 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+            <li>
+                <a href="panier.html">
+                    Panier <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+            <li>
+                <div id="user-menu-container" style="margin-right: -300px;">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
     
     <main>
         <section class="login-h1">
@@ -57,12 +83,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const loginForm = document.getElementById('login-form');
-        
-            if (!loginForm) {
-                console.error("Formulaire de connexion non trouvé !");
-                return;
+            function toggleSidebar() {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.classList.toggle('active');
             }
+            
+            // Gestion du formulaire de connexion
+            const loginForm = document.getElementById('login-form');
         
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
@@ -76,7 +103,7 @@
                 }
         
                 try {
-                    const response = await fetch('/api/login', {
+                    const response = await fetch('/api/client/login', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ email, password }),
@@ -87,22 +114,21 @@
                     }
         
                     const user = await response.json();
+                    console.log('Réponse de l\'API :', user); // Vérifie la réponse reçue
         
-                    // Stocker userId dans localStorage
+                    if (!user.id) {
+                        throw new Error('Erreur : ID utilisateur introuvable.');
+                    }
+        
+                    // Stocke les informations utilisateur
                     localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('userId', user.id); // Utilisation de userId
+                    localStorage.setItem('userId', user.id);
                     localStorage.setItem('username', user.name);
         
-                    // Redirection après connexion
-                    const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
-                    if (redirectAfterLogin) {
-                        localStorage.removeItem('redirectAfterLogin');
-                        window.location.href = redirectAfterLogin;
-                    } else {
-                        window.location.href = 'index.html';
-                    }
+                    alert('Connexion réussie.');
+                    window.location.href = 'index.html';
                 } catch (error) {
-                    console.error('Erreur lors de la connexion :', error.message);
+                    console.error('Erreur lors de la connexion :', error.message);
                     alert(error.message || 'Connexion échouée.');
                 }
             });
@@ -130,4 +156,3 @@
 
 </body>
 </html>
-
