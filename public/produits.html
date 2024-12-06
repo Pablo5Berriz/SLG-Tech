@@ -15,19 +15,45 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+            <li>
+                <a href="panier.html">
+                    Panier <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+            <li>
+                <div id="user-menu-container" style="margin-right: -300px;">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <main>
         <!-- Titre de la page -->
@@ -51,33 +77,38 @@
         </section>
     </main>
 
-    <script>
+    <script>        
         async function displayAllProducts() {
-            const produits = await fetchData('produits');
+            try {
+                const produits = await fetchData('produits');
+                const productList = document.getElementById('product-list');
         
-            if (!produits || produits.length === 0) {
-                console.error("Aucun produit disponible.");
-                document.getElementById('product-list').innerHTML = '<p>Aucun produit disponible pour le moment.</p>';
-                return;
+                if (!produits || produits.length === 0) {
+                    console.error("Aucun produit disponible.");
+                    productList.innerHTML = '<p>Aucun produit disponible pour le moment.</p>';
+                    return;
+                }
+        
+                produits.forEach(produit => {
+                    const div = document.createElement('div');
+                    div.classList.add('product-item');
+                    div.innerHTML = `
+                        <img src="/Images/Produits/${encodeURIComponent(produit.nom)}.jpg" 
+                            alt="${produit.nom}" 
+                            onerror="this.src='/Images/default-product.jpg'">
+                        <h3>${produit.nom}</h3>
+                        <p><strong>Catégorie :</strong> ${produit.categorie}</p>
+                        <p><strong>Description :</strong> ${produit.description}</p>
+                        <p><strong>Prix : ${produit.prix} CAD </strong></p>
+                        <p><strong>Stock : ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</strong></p>
+                        <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
+                    `;
+                    productList.appendChild(div);
+                });
+            } catch (error) {
+                console.error("Erreur lors de l'affichage des produits :", error);
+                document.getElementById('product-list').innerHTML = '<p>Une erreur est survenue lors du chargement des produits.</p>';
             }
-        
-            const productList = document.getElementById('product-list');
-            produits.forEach(produit => {
-                const div = document.createElement('div');
-                div.classList.add('product-item');
-                div.innerHTML = `
-                    <img src="/Images/Produits/${encodeURIComponent(produit.nom)}.jpg" 
-                        alt="${produit.nom}" 
-                        onerror="this.src='/Images/default-product.jpg'">
-                    <h3>${produit.nom}</h3>
-                    <p><strong>Catégorie :</strong> ${produit.categorie}</p>
-                    <p><strong>Description :</strong> ${produit.description}</p>
-                    <p><strong>Prix : ${produit.prix} CAD </strong></p>
-                    <p><strong>Stock : ${produit.stock > 0 ? produit.stock + " disponible(s)" : "En rupture de stock"}</strong></p>
-                    <a href="produit.html?id=${produit.id}" class="btn">Voir le produit</a>
-                `;
-                productList.appendChild(div);
-            });
         }
         
         // Initialiser la page Produits
@@ -92,20 +123,20 @@
         // Charger et afficher les produits en fonction de la page
         async function displayPaginatedProducts(page = 1) {
             try {
-                const produits = await fetchData('produits'); // Assurez-vous que cette fonction existe
+                const produits = await fetchData('produits');
                 if (!produits || produits.length === 0) {
                     console.error("Aucun produit disponible.");
                     document.getElementById('product-list').innerHTML = '<p>Aucun produit disponible pour le moment.</p>';
                     return;
                 }
-
+        
                 const startIndex = (page - 1) * itemsPerPage;
                 const endIndex = startIndex + itemsPerPage;
                 const paginatedProducts = produits.slice(startIndex, endIndex);
-
+        
                 const productList = document.getElementById('product-list');
                 productList.innerHTML = ''; // Réinitialiser l'affichage
-
+        
                 paginatedProducts.forEach(produit => {
                     const div = document.createElement('div');
                     div.classList.add('product-item');
@@ -121,7 +152,7 @@
                     `;
                     productList.appendChild(div);
                 });
-
+        
                 displayPaginationControls(produits.length, page);
             } catch (error) {
                 console.error('Erreur lors du chargement des produits :', error);
