@@ -6,7 +6,7 @@
     <title>Panier - SLG Tech</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js"></script>
+    <script src="scripts.js" defer></script>
 </head>
 <body>
     <header class="header">
@@ -15,19 +15,45 @@
                 <img src="Images/logo.jpg" alt="Logo SLG Tech" class="logo-img">
             </a>
         </div>
+        <button class="menu-toggle">☰</button>
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="about.html">À propos</a></li>
                 <li><a href="produits.html">Produits</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
             </ul>
         </nav>
         <div>
-            <a href="panier.html" class="cart-link">Panier <i class="fa fa-shopping-cart"></i><span id="cart-count" class="cart-count">0</span></a>
-            <div id="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
+            <a href="panier.html" class="cart-link">
+                Panier <i class="fa fa-shopping-cart"></i>
+                <span id="cart-count" class="cart-count">0</span>
+            </a>
         </div>
+        <div id="user-icon-container" class="user-icon-container"></div> <!-- Conteneur de l'icône utilisateur -->
     </header>
+    
+    <div class="sidebar">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="about.html">À propos</a></li>
+            <li><a href="produits.html">Produits</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="crmLogin.html" target="_blank" style="color: #3498db; font-weight: bold;">Accès CRM</a></li>
+            <li>
+                <a href="panier.html">
+                    Panier <i class="fa fa-shopping-cart"></i>
+                    <span id="cart-count" class="cart-count">0</span>
+                </a>
+            </li>
+            <li>
+                <div id="user-menu-container" style="margin-right: -300px;">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
 
     <main>
         <section class="cart-header">
@@ -60,37 +86,40 @@
     </main>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const cartCountElement = document.getElementById('cart-count');
-            const cartItemsContainer = document.getElementById('cart-items');
-            const cartTotalElement = document.getElementById('cart-total');
-            const finalizePurchaseButton = document.getElementById('finalize-purchase');
-
+        document.addEventListener("DOMContentLoaded", () => {
+            const cartItemsContainer = document.getElementById("cart-items");
+            const cartTotalElement = document.getElementById("cart-total");
+            const finalizePurchaseButton = document.getElementById("finalize-purchase");
+        
             // Mettre à jour le compteur du panier
             function updateCartCount() {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
                 const totalItems = cart.reduce((sum, product) => sum + product.quantite, 0);
-                cartCountElement.textContent = totalItems > 0 ? totalItems : '';
-                cartCountElement.style.display = totalItems > 0 ? 'inline' : 'none';
+        
+                const cartCountElement = document.getElementById("cart-count");
+                if (cartCountElement) {
+                    cartCountElement.textContent = totalItems > 0 ? totalItems : "0";
+                }
             }
-
+        
             // Charger les articles du panier
             function loadCart() {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                cartItemsContainer.innerHTML = '';
-
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                console.log("Panier actuel (au chargement) :", cart); // Debug du panier actuel
+                cartItemsContainer.innerHTML = "";
+            
                 if (cart.length === 0) {
+                    console.log("Le panier est vide au moment du chargement.");
                     cartItemsContainer.innerHTML = '<tr><td colspan="5">Votre panier est vide.</td></tr>';
-                    cartTotalElement.textContent = '0.00 CAD';
+                    cartTotalElement.textContent = "0.00 CAD";
                     return;
                 }
-
+            
                 let total = 0;
-
                 cart.forEach((item, index) => {
                     const subtotal = item.prix * item.quantite;
                     total += subtotal;
-
+            
                     const row = `
                         <tr>
                             <td>${item.nom}</td>
@@ -106,19 +135,22 @@
                     `;
                     cartItemsContainer.insertAdjacentHTML("beforeend", row);
                 });
-
+            
+                console.log("Total calculé :", total);
                 cartTotalElement.textContent = `${total.toFixed(2)} CAD`;
-
-                // Attacher les événements "Supprimer"
-                document.querySelectorAll('.btn-remove').forEach(button => {
-                    button.addEventListener('click', (e) => {
+                attachCartEventListeners();
+            }
+        
+            // Attacher les événements "Supprimer" et "Quantité"
+            function attachCartEventListeners() {
+                document.querySelectorAll(".btn-remove").forEach(button => {
+                    button.addEventListener("click", (e) => {
                         const index = parseInt(e.target.dataset.index, 10);
                         removeProduct(index);
                     });
                 });
-
-                // Gestion des quantités
-                document.querySelectorAll(".quantity-input").forEach((input) => {
+        
+                document.querySelectorAll(".quantity-input").forEach(input => {
                     input.addEventListener("input", (e) => {
                         const index = parseInt(e.target.dataset.index, 10);
                         const newQuantity = parseInt(e.target.value, 10) || 1;
@@ -126,53 +158,58 @@
                     });
                 });
             }
-
+        
             // Supprimer un produit du panier
             function removeProduct(index) {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
                 cart.splice(index, 1);
-                localStorage.setItem('cart', JSON.stringify(cart));
+                localStorage.setItem("cart", JSON.stringify(cart));
                 loadCart();
                 updateCartCount();
             }
-
+        
             // Mettre à jour la quantité d'un produit
             function updateQuantity(index, quantity) {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
                 if (quantity > 0) {
                     cart[index].quantite = quantity;
-                    localStorage.setItem('cart', JSON.stringify(cart));
+                    localStorage.setItem("cart", JSON.stringify(cart));
                     loadCart();
                     updateCartCount();
                 }
             }
-
+        
             // Vérifier si l'utilisateur est connecté
-            async function isUserLoggedIn() {
-                return localStorage.getItem('isLoggedIn') === 'true';
+            function isUserLoggedIn() {
+                return localStorage.getItem("isLoggedIn") === "true";
             }
-
+        
             // Finaliser l'achat
-            async function finalizePurchase() {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            function finalizePurchase() {
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                console.log("Panier avant finalisation :", cart);
+            
                 if (cart.length === 0) {
-                    alert('Votre panier est vide.');
+                    alert("Votre panier est vide.");
                     return;
                 }
-        
-                if (!(await isUserLoggedIn())) {
-                    localStorage.setItem('redirectAfterLogin', 'confirmation.html');
-                    window.location.href = 'login.html';
+            
+                if (!isUserLoggedIn()) {
+                    localStorage.setItem("redirectAfterLogin", "confirmation.html");
+                    window.location.href = "login.html";
                     return;
                 }
-        
-                window.location.href = 'confirmation.html';
+            
+                window.location.href = "confirmation.html";
             }
-
+        
             // Initialisation
             updateCartCount();
             loadCart();
-            finalizePurchaseButton.addEventListener('click', finalizePurchase);
+        
+            if (finalizePurchaseButton) {
+                finalizePurchaseButton.addEventListener("click", finalizePurchase);
+            }
         });
     </script>
 
