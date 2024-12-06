@@ -1,9 +1,65 @@
+require('dotenv').config(); // Charge les variables d'environnement
+
 const express = require('express');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const nodemailer = require("nodemailer");
+const crypto = require('crypto');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Validation des variables d'environnement
+if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error("Les variables d'environnement EMAIL_USER et EMAIL_PASS sont requises.");
+    process.exit(1);
+}
+
+// Configuration de Nodemailer
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+    },
+});
+
+transporter.verify((error, success) => {
+    if (error) {
+        console.error("Erreur de configuration de Nodemailer :", error);
+    } else {
+        console.log("Transporteur prêt à envoyer des emails.");
+    }
+});
+
+// Importation des middlewares
+const verifySession = require('./middleware/verifySession');
+
+// Stockage des paniers en mémoire
+let carts = {};
+
+// Middleware
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/data', express.static(path.join(__dirname, 'data')));
+app.use('/Images', express.static(path.join(__dirname, 'Images')));
+app.use(
+    session({
+        secret: 'votre_clé_secrète', // Clé secrète pour signer la session
+        resave: false, // Évite de sauvegarder la session si elle n'a pas changé
+        saveUninitialized: false, // N'enregistre pas une session vide
+        cookie: {
+            httpOnly: true, // Rend les cookies accessibles uniquement via HTTP (et non via JavaScript)
+            secure: false, // Passez à true si vous utilisez HTTPS
+            maxAge: 3600000, // 1 heure
+        },
+    })
+);
 
 // Importation des routes
 const categoriesRoutes = require('./routes/categoriesRoutes');
@@ -13,26 +69,32 @@ const ordersRoutes = require('./routes/ordersRoutes');
 const reviewsRoutes = require('./routes/reviewsRoutes');
 const statisticsRoutes = require('./routes/statisticsRoutes');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
 
-const verifySession = require("./middleware/verifySession");
+// Utilisation des routes
+app.use('/api/categories', categoriesRoutes);
+app.use('/api/produits', productsRoutes);
+app.use('/api/clients', clientsRoutes);
+app.use('/api/commandes', ordersRoutes);
+app.use('/api/avis', reviewsRoutes);
 
-// Middleware
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use('/data', express.static(path.join(__dirname, 'data')));
-app.use('/Images', express.static(path.join(__dirname, 'Images')));
-app.use(
-    session({
-        secret: 'votre_clé_secrète', // Remplacez par une clé sécurisée
-        resave: false,
-        saveUninitialized: false,
-        cookie: { maxAge: 3600000 }, // 1 heure
-    })
-);
+
+// Middleware pour vérifier les administrateurs
+function requireAdmin(req, res, next) {
+    if (!req.session.user || req.session.user.role !== "admin") {
+        return res.status(401).json({ message: "Accès non autorisé. Administrateurs uniquement." });
+    }
+    next();
+}
+
+// Utilisation des routes du CRM
+app.use('/crm/categories', requireAuth, categoriesRoutes);
+app.use('/crm/produits', productsRoutes);
+app.use('/crm/clients', requireAuth, clientsRoutes);
+app.use('/crm/commandes', requireAuth, ordersRoutes);
+app.use('/crm/avis', requireAuth, reviewsRoutes);
+app.use('/crm/statistics', requireAuth, statisticsRoutes);
+app.use("/crm", verifySession);
+
 
 // Authentification pour les routes protégées
 function requireAuth(req, res, next) {
@@ -42,38 +104,18 @@ function requireAuth(req, res, next) {
     next();
 }
 
-// Utilisation des routes
-app.use('/crm/categories', requireAuth, categoriesRoutes);
-app.use('/crm/produits', productsRoutes);
-app.use('/crm/clients', requireAuth, clientsRoutes);
-app.use('/crm/commandes', requireAuth, ordersRoutes);
-app.use('/crm/avis', requireAuth, reviewsRoutes);
-app.use('/crm/statistics', requireAuth, statisticsRoutes);
-app.use("/crm", verifySession);
 
-// Endpoint de connexion
-app.post("/api/login", (req, res) => {
-    const { email, password } = req.body;
-
-    // Charger les clients
-    const clients = loadClients(); // Charger les données depuis le fichier clients.json
-    const client = clients.find((c) => c.email === email);
-
-    if (!client) {
-        return res.status(401).json({ message: "Email ou mot de passe incorrect." });
-    }
-
-    // Vérification du mot de passe
-    bcrypt.compare(password, client.password, (err, isMatch) => {
-        if (err || !isMatch) {
-            return res.status(401).json({ message: "Email ou mot de passe incorrect." });
-        }
-
-        // Enregistrer les informations utilisateur dans la session
-        req.session.user = { id: client.id, email: client.email, name: client.name };
-        res.status(200).json({ message: "Connexion réussie." });
-    });
+// Route pour le tableau de bord CRM
+app.get("/crm/dashboard", requireAdmin, (req, res) => {
+    res.status(200).json({ message: "Bienvenue sur le tableau de bord CRM." });
 });
+
+
+
+app.post("/crm/admin-only-action", requireAdmin, (req, res) => {
+    res.status(200).json({ message: "Action réservée aux administrateurs effectuée." });
+});
+
 
 // Route pour la page d'accueil
 app.get('/', (req, res) => {
@@ -88,15 +130,6 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
-// Route de déconnexion
-app.post("/api/logout", (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            return res.status(500).json({ message: "Erreur lors de la déconnexion." });
-        }
-        res.status(200).json({ message: "Déconnexion réussie." });
-    });
-});
 
 // Exemple de route protégée
 app.get('/crm/dashboard', requireAuth, (req, res) => {
@@ -117,12 +150,16 @@ function loadClients() {
 }
 
 // Vérification de la session utilisateur
-app.get('/api/session-check', (req, res) => {
+app.get("/api/session-check", (req, res) => {
     if (req.session && req.session.user) {
-        return res.status(200).json({ message: 'Session valide.', user: req.session.user });
+        return res.status(200).json({
+            message: "Session valide.",
+            user: req.session.user, // Retourne l'utilisateur connecté
+        });
     }
-    return res.status(401).json({ message: 'Session expirée.' });
+    return res.status(401).json({ message: "Session expirée." });
 });
+
 
 // Chemins vers les fichiers JSON
 const clientsFilePath = path.join(__dirname, 'data/clients.json');
@@ -172,6 +209,88 @@ app.post("/api/create-admin", async (req, res) => {
 });
 
 
+// Route pour la connexion pour l'administrateur
+app.post("/api/admin/login", (req, res) => {
+    const { email, password } = req.body;
+
+    const clients = loadClients();
+    const admin = clients.find((c) => c.email === email && c.role === "admin");
+
+    if (!admin) {
+        return res.status(401).json({ message: "Email ou mot de passe incorrect." });
+    }
+
+    bcrypt.compare(password, admin.password, (err, isMatch) => {
+        if (err || !isMatch) {
+            return res.status(401).json({ message: "Email ou mot de passe incorrect." });
+        }
+
+        req.session.user = { id: admin.id, email: admin.email, role: admin.role };
+        console.log("Session après connexion (admin) :", req.session);
+
+        res.status(200).json({ message: "Connexion réussie.", role: "admin" });
+    });
+});
+
+
+// Endpoint pour traiter le formulaire de contact
+app.post('/api/contact', async (req, res) => {
+    const { name, email, subject, message } = req.body;
+
+    if (!name || !email || !subject || !message) {
+        return res.status(400).json({ message: 'Tous les champs sont obligatoires.' });
+    }
+
+    try {
+        const mailOptions = {
+            from: `"SLG Tech Contact" <${process.env.EMAIL_USER}>`,
+            to: process.env.EMAIL_USER,
+            subject: `[Contact] ${subject}`,
+            text: `De: ${name} (${email})\n\n${message}`,
+        };
+
+        await transporter.sendMail(mailOptions);
+
+        res.status(200).json({ message: 'Message envoyé avec succès.' });
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi de l\'email :', error.message);
+        res.status(500).json({ message: 'Erreur lors de l\'envoi du message.' });
+    }
+});
+
+
+// Endpoint pour envoyer un email de remerciement
+app.post('/api/send-thank-you-email', async (req, res) => {
+    const { email, orderNumber, cart, total } = req.body;
+
+    if (!email || !orderNumber || !cart || !total) {
+        return res.status(400).json({ message: 'Données manquantes.' });
+    }
+
+    try {
+        const mailOptions = {
+            from: `"SLG Tech" <${process.env.EMAIL_USER}>`,
+            to: clients.email,
+            subject: 'Merci pour votre commande !',
+            html: `
+                <h1>Merci pour votre commande !</h1>
+                <p>Votre numéro de commande est : <strong>${orderNumber}</strong></p>
+                <p>Voici un résumé de vos articles :</p>
+                <ul>
+                    ${cart.map(item => `<li>${item.nom} - Quantité : ${item.quantite} - Prix : ${item.prix.toFixed(2)} CAD</li>`).join('')}
+                </ul>
+                <p>Total : <strong>${total.toFixed(2)} CAD</strong></p>
+            `,
+        };
+
+        await transporter.sendMail(mailOptions);
+        res.status(200).json({ message: 'Email envoyé avec succès.' });
+    } catch (error) {
+        console.error('Erreur lors de l\'envoi de l\'email :', error.message);
+        res.status(500).json({ message: 'Erreur lors de l\'envoi de l\'email.' });
+    }
+});
+
 
 // Charger les catégories
 app.get('/api/categories', (req, res) => {
@@ -209,7 +328,7 @@ app.get('/api/produits', (req, res) => {
 
 
 // Endpoint pour mettre à jour le stock des produits
-app.put('/api/produits/:id/stock', (req, res) => {
+app.put('/api/produits/:id/stock', verifySession, (req, res) => {
     const produitId = parseInt(req.params.id, 10);
     const { quantiteAchetee } = req.body;
 
@@ -218,7 +337,9 @@ app.put('/api/produits/:id/stock', (req, res) => {
     }
 
     fs.readFile('./data/produits.json', 'utf8', (err, data) => {
-        if (err) return res.status(500).json({ message: "Erreur lors de la lecture des produits." });
+        if (err) {
+            return res.status(500).json({ message: "Erreur lors de la lecture des produits." });
+        }
 
         const produits = JSON.parse(data);
         const produit = produits.find(p => p.id === produitId);
@@ -234,7 +355,9 @@ app.put('/api/produits/:id/stock', (req, res) => {
         produit.stock -= quantiteAchetee;
 
         fs.writeFile('./data/produits.json', JSON.stringify(produits, null, 2), 'utf8', (err) => {
-            if (err) return res.status(500).json({ message: "Erreur lors de la sauvegarde des produits." });
+            if (err) {
+                return res.status(500).json({ message: "Erreur lors de la sauvegarde des produits." });
+            }
 
             res.status(200).json({ message: "Stock mis à jour avec succès.", produit });
         });
@@ -268,11 +391,14 @@ app.get('/api/partenaires', (req, res) => {
 // API pour le panier
 
 // Récupérer les produits du panier
-app.get('/cart', (req, res) => {
-    res.status(200).json(cart);
+app.get("/api/cart/:userId", (req, res) => {
+    const userId = parseInt(req.params.userId, 10);
+    // Exemple : récupération du panier dans une base de données ou fichier JSON
+    const cartData = carts[userId] || [];
+    res.status(200).json(cartData);
 });
 
-// Ajouter un produit au panier
+// Route pour ajouter un produit au panier
 app.post('/cart', (req, res) => {
     const produit = req.body;
 
@@ -283,19 +409,19 @@ app.post('/cart', (req, res) => {
 
     produit.quantite = parseInt(produit.quantite, 10); // Convertir en entier
 
-    const existingProduit = cart.find(item => item.id === produit.id);
+    const existingProduit = carts.find(item => item.id === produit.id);
 
     if (existingProduit) {
         existingProduit.quantite += produit.quantite;
     } else {
-        cart.push({ ...produit, quantite: produit.quantite });
+        carts.push({ ...produit, quantite: produit.quantite });
     }
 
-    res.status(200).json({ message: 'Produit ajouté au panier', cart });
+    res.status(200).json({ message: 'Produit ajouté au panier', carts });
 });
 
 
-// Supprimer un produit du panier
+// Route pour supprimer un produit spécifique du panier
 app.delete('/cart/:id', (req, res) => {
     const produitId = parseInt(req.params.id, 10);
 
@@ -303,15 +429,14 @@ app.delete('/cart/:id', (req, res) => {
         return res.status(400).json({ message: 'ID de produit invalide.' });
     }
 
-    cart = cart.filter(item => item.id !== produitId);
-    res.status(200).json({ message: 'Produit supprimé', cart });
+    carts = carts.filter(item => item.id !== produitId);
+    res.status(200).json({ message: 'Produit supprimé', carts });
 });
 
-
-// Vider le panier
+// Route pour vider complètement le panier
 app.delete('/cart', (req, res) => {
-    cart = [];
-    res.status(200).json({ message: 'Panier vidé', cart });
+    carts = [];
+    res.status(200).json({ message: 'Panier vidé', carts });
 });
 
 
@@ -385,47 +510,51 @@ app.post('/api/signup', async (req, res) => {
 });
 
 
-// Endpoint pour la connexion
-app.post('/api/login', async (req, res) => {
+// Endpoint pour la connexion du client
+app.post("/api/client/login", (req, res) => {
     const { email, password } = req.body;
 
-    if (!email || !password) {
-        return res.status(400).json({ message: 'Email et mot de passe sont obligatoires.' });
+    // Charger les clients
+    const clients = loadClients(); // Charger les données depuis clients.json
+    const client = clients.find((c) => c.email === email && (!c.role || c.role !== "admin"));
+
+    if (!client) {
+        console.log(`Utilisateur non trouvé pour l'email : ${email}`);
+        return res.status(401).json({ message: "Email ou mot de passe incorrect." });
     }
 
-    // Valider le format de l'email
-    if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        return res.status(400).json({ message: 'Adresse email invalide.' });
-    }
+    console.log("Utilisateur trouvé :", client);
 
-    if (password.length < 6) {
-        return res.status(400).json({ message: 'Le mot de passe doit comporter au moins 6 caractères.' });
-    }
-
-    try {
-        const clients = loadClients();
-        const client = clients.find(client => client.email === email);
-
-        if (!client) {
-            return res.status(401).json({ message: 'Identifiants invalides.' });
+    // Vérification du mot de passe
+    bcrypt.compare(password, client.password, (err, isMatch) => {
+        if (err) {
+            console.error("Erreur bcrypt :", err);
+            return res.status(500).json({ message: "Erreur interne du serveur." });
+        }
+        if (!isMatch) {
+            console.log(`Mot de passe incorrect pour : ${email}`);
+            return res.status(401).json({ message: "Email ou mot de passe incorrect." });
         }
 
-        const isPasswordValid = await bcrypt.compare(password, client.password);
-
-        if (!isPasswordValid) {
-            return res.status(401).json({ message: 'Identifiants invalides.' });
-        }
-
-        // Retourner userId et les autres informations nécessaires
+        console.log("Connexion réussie pour :", client.email);
         res.status(200).json({
-            id: client.id, // Ajout du userId
+            id: client.id,
             name: client.name,
             email: client.email,
+            message: "Connexion réussie.",
         });
-    } catch (error) {
-        console.error('Erreur serveur lors de la connexion :', error);
-        res.status(500).json({ message: 'Erreur interne du serveur.' });
-    }
+    });
+});
+
+
+// Route de déconnexion
+app.post("/api/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({ message: "Erreur lors de la déconnexion." });
+        }
+        res.status(200).json({ message: "Déconnexion réussie." });
+    });
 });
 
 
@@ -549,15 +678,18 @@ app.get('/api/clients/:userId', (req, res) => {
     const userId = parseInt(req.params.userId, 10); // Convertir en entier
     console.log('Requête pour userId:', userId);
 
-    const clients = loadClients(); // Charger les clients
-    const client = clients.find(client => client.id === userId); // Trouver le client par userId
-
-    if (!client) {
-        console.log('Client non trouvé pour cet userId:', userId);
-        return res.status(404).json({ message: 'Client non trouvé.' });
+    if (isNaN(userId)) {
+        console.error("ID utilisateur invalide :", req.params.userId);
+        return res.status(400).json({ message: "ID utilisateur invalide." });
     }
 
-    res.status(200).json(client); // Retourner les informations du client
+    const client = loadClients().find((c) => c.id === userId);
+    if (!client) {
+        console.error("Client non trouvé pour cet ID :", userId);
+        return res.status(404).json({ message: "Client non trouvé." });
+    }
+
+    res.status(200).json(client);
 });
 
 
@@ -648,18 +780,13 @@ app.get('/api/commandes/:userId', (req, res) => {
         return res.status(400).json({ message: 'ID utilisateur invalide.' });
     }
 
-    const commandes = loadCommandes();
-    console.log('Commandes chargées :', commandes); // Log des données chargées
-
-    const userCommandes = commandes.filter(commande => commande.user_id === userId);
-    console.log('Commandes pour userId :', userId, userCommandes); // Log des commandes trouvées
-
-    if (userCommandes.length === 0) {
-        console.error('Aucune commande trouvée pour userId :', userId);
-        return res.status(404).json({ message: 'Aucune commande trouvée pour cet utilisateur.' });
+    const commandes = loadCommandes().filter((c) => c.user_id === userId);
+    if (!commandes.length) {
+        console.error("Aucune commande trouvée pour cet utilisateur :", userId);
+        return res.status(404).json({ message: "Aucune commande trouvée." });
     }
 
-    res.status(200).json(userCommandes);
+    res.status(200).json(commandes);
 });
 
 
@@ -725,13 +852,13 @@ app.get('/api/cartes/:userId', (req, res) => {
         return res.status(400).json({ message: 'ID utilisateur invalide.' });
     }
 
-    const cartes = loadCartes().filter(carte => carte.user_id === userId); // Filtrer les cartes par userId
+    const userCards = loadCartes().filter(carte => carte.user_id === userId); // Filtrer les cartes par userId
 
-    if (cartes.length === 0) {
+    if (userCards.length === 0) {
         return res.status(404).json({ message: 'Aucune carte trouvée pour cet utilisateur.' });
     }
 
-    res.status(200).json(cartes); // Retourner les cartes
+    res.status(200).json(userCards); // Retourner les cartes
 });
 
 
